@@ -154,12 +154,6 @@ chore: update Tailwind to v3.4
 
 ### 🌴 **Creating new branch**
 
-1. check if you've pushed your last changes on your current branch to remote repository, if not push using the command:
-
-```bash
-git push origin <your-current-branch>
-```
-
 1.before creating a new branch, make sure you checkout to main branch and then pull the latest change to bring your local project update to date
 
 ```bash
