@@ -189,10 +189,13 @@ git push origin <your-local-branch>
 ```
 
 ### 🤝 **Merging**
-
-1. Add a fellow engineer / repository administrator as a reviewer to review your work before merging
+1. Create a pull request and add a fellow engineer / repository administrator as a reviewer to review your work before merging
 
 2. Any change requested by the reviewer should be addressed before merging.
+
+3. if Approved proceed with merging
+
+4. if not approved, then fix the error , commit and push , then repeat step 1 and 2
 
 ## 🔗 **Useful Links**
 
