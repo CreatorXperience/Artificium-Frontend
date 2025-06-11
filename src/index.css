@@ -1,4 +1,79 @@
 @import "tailwindcss";
+
+@theme{
+  --color-noble-black-100: #242424;
+  --color-noble-black-200: #242424;
+  --color-noble-black-300: #242424;
+  --color-noble-black-400: #242424;
+  --color-noble-black-500: #242424;
+  --color-noble-black-600: #242424;
+  --color-noble-black-700: #242424;
+  --color-noble-black-800: #242424;
+  --color-noble-black-900: #242424;
+
+  --color-day-blue-100: #242424;
+  --color-day-blue-200: #242424;
+  --color-day-blue-300: #242424;
+  --color-day-blue-400: #242424;
+  --color-day-blue-500: #242424;
+  --color-day-blue-600: #242424;
+  --color-day-blue-700: #242424;
+  --color-day-blue-800: #242424;
+  --color-day-blue-900: #242424;
+
+  --color-purple-blue-100: #242424;
+  --color-purple-blue-200: #242424;
+  --color-purple-blue-300: #242424;
+  --color-purple-blue-400: #242424;
+  --color-purple-blue-500: #242424;
+  --color-purple-blue-600: #242424;
+  --color-purple-blue-700: #242424;
+  --color-purple-blue-800: #242424;
+  --color-purple-blue-900: #242424;
+
+  --color-sunglow-100: #242424;
+  --color-sunglow-200: #242424;
+  --color-sunglow-300: #242424;
+  --color-sunglow-400: #242424;
+  --color-sunglow-500: #242424;
+  --color-sunglow-600: #242424;
+  --color-sunglow-700: #242424;
+  --color-sunglow-800: #242424;
+  --color-sunglow-900: #242424;
+
+  --color-stem-green-100: #242424;
+  --color-stem-green-200: #242424;
+  --color-stem-green-300: #242424;
+  --color-stem-green-400: #242424;
+  --color-stem-green-500: #242424;
+  --color-stem-green-600: #242424;
+  --color-stem-green-700: #242424;
+  --color-stem-green-800: #242424;
+  --color-stem-green-900: #242424;
+
+  --color-heisenberg-blue-100: #242424;
+  --color-heisenberg-blue-200: #242424;
+  --color-heisenberg-blue-300: #242424;
+  --color-heisenberg-blue-400: #242424;
+  --color-heisenberg-blue-500: #242424;
+  --color-heisenberg-blue-600: #242424;
+  --color-heisenberg-blue-700: #242424;
+  --color-heisenberg-blue-800: #242424;
+  --color-heisenberg-blue-900: #242424;
+
+  --color-happy-orange-100: #242424;
+  --color-happy-orange-600: #242424;
+  --color-happy-orange-900: #242424;
+
+  --color-electric-green-100: #242424;
+  --color-electric-green-600: #242424;
+  --color-electric-green-900: #242424;
+
+  --color-red-power-100: #242424;
+  --color-red-power-600: #242424;
+  --color-red-power-900: #242424;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
