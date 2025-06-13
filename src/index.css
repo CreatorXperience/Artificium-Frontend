@@ -1,78 +1,130 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+
 @theme{
-  --color-noble-black-100: #242424;
-  --color-noble-black-200: #242424;
-  --color-noble-black-300: #242424;
-  --color-noble-black-400: #242424;
-  --color-noble-black-500: #242424;
-  --color-noble-black-600: #242424;
-  --color-noble-black-700: #242424;
-  --color-noble-black-800: #242424;
-  --color-noble-black-900: #242424;
+  --color-noble-black-100: rgba(232, 233, 233, 1);
+  --color-noble-black-200: rgba(205, 206, 207, 1);
+  --color-noble-black-300: rgba(155, 156, 158, 1);
+  --color-noble-black-400: rgba(104, 107, 110, 1);
+  --color-noble-black-500: rgba(54, 58, 61, 1);
+  --color-noble-black-600: rgba(26, 29, 33, 1);
+  --color-noble-black-700: rgba(19, 22, 25, 1);
+  --color-noble-black-800: rgba(13, 15, 16, 1);
+  --color-noble-black-900: rgba(6, 7, 8, 1);
 
-  --color-day-blue-100: #242424;
-  --color-day-blue-200: #242424;
-  --color-day-blue-300: #242424;
-  --color-day-blue-400: #242424;
-  --color-day-blue-500: #242424;
-  --color-day-blue-600: #242424;
-  --color-day-blue-700: #242424;
-  --color-day-blue-800: #242424;
-  --color-day-blue-900: #242424;
+  --color-day-blue-100: rgba(235, 237, 252, 1);
+  --color-day-blue-200: rgba(210, 216, 249, 1);
+  --color-day-blue-300: rgba(166, 176, 242, 1);
+  --color-day-blue-400: rgba(121, 137, 236, 1);
+  --color-day-blue-500: rgba(77, 98, 229, 1);
+  --color-day-blue-600: rgba(48, 69, 201, 1);
+  --color-day-blue-700: rgba(36, 52, 151, 1);
+  --color-day-blue-800: rgba(24, 35, 100, 1);
+  --color-day-blue-900: rgba(12, 17, 50, 1);
 
-  --color-purple-blue-100: #242424;
-  --color-purple-blue-200: #242424;
-  --color-purple-blue-300: #242424;
-  --color-purple-blue-400: #242424;
-  --color-purple-blue-500: #242424;
-  --color-purple-blue-600: #242424;
-  --color-purple-blue-700: #242424;
-  --color-purple-blue-800: #242424;
-  --color-purple-blue-900: #242424;
+  --color-purple-blue-100: rgba(240, 232, 253, 1);
+  --color-purple-blue-200: rgba(222, 204, 251, 1);
+  --color-purple-blue-300: rgba(189, 154, 248, 1);
+  --color-purple-blue-400: rgba(156, 103, 244, 1);
+  --color-purple-blue-500: rgba(124, 53, 241, 1);
+  --color-purple-blue-600: rgba(95, 24, 212, 1);
+  --color-purple-blue-700: rgba(71, 18, 159, 1);
+  --color-purple-blue-800: rgba(48, 12, 106, 1);
+  --color-purple-blue-900: rgba(24, 6, 53, 1);
 
-  --color-sunglow-100: #242424;
-  --color-sunglow-200: #242424;
-  --color-sunglow-300: #242424;
-  --color-sunglow-400: #242424;
-  --color-sunglow-500: #242424;
-  --color-sunglow-600: #242424;
-  --color-sunglow-700: #242424;
-  --color-sunglow-800: #242424;
-  --color-sunglow-900: #242424;
+  --color-sunglow-100: rgba(255, 250, 234, 1);
+  --color-sunglow-200: rgba(255, 243, 209, 1);
+  --color-sunglow-300: rgba(255, 232, 163, 1);
+  --color-sunglow-400: rgba(255, 220, 117, 1);
+  --color-sunglow-500: rgba(255, 209, 71, 1);
+  --color-sunglow-600: rgba(226, 180, 43, 1);
+  --color-sunglow-700: rgba(170, 135, 32, 1);
+  --color-sunglow-800: rgba(113, 90, 21, 1);
+  --color-sunglow-900: rgba(57, 45, 11, 1);
 
-  --color-stem-green-100: #242424;
-  --color-stem-green-200: #242424;
-  --color-stem-green-300: #242424;
-  --color-stem-green-400: #242424;
-  --color-stem-green-500: #242424;
-  --color-stem-green-600: #242424;
-  --color-stem-green-700: #242424;
-  --color-stem-green-800: #242424;
-  --color-stem-green-900: #242424;
+  --color-stem-green-100: rgba(247, 253, 244, 1);
+  --color-stem-green-200: rgba(237, 251, 230, 1);
+  --color-stem-green-300: rgba(219, 247, 205, 1);
+  --color-stem-green-400: rgba(200, 244, 180, 1);
+  --color-stem-green-500: rgba(182, 240, 156, 1);
+  --color-stem-green-600: rgba(154, 211, 127, 1);
+  --color-stem-green-700: rgba(115, 159, 95, 1);
+  --color-stem-green-800: rgba(77, 106, 63, 1);
+  --color-stem-green-900: rgba(38, 53, 32, 1);
 
-  --color-heisenberg-blue-100: #242424;
-  --color-heisenberg-blue-200: #242424;
-  --color-heisenberg-blue-300: #242424;
-  --color-heisenberg-blue-400: #242424;
-  --color-heisenberg-blue-500: #242424;
-  --color-heisenberg-blue-600: #242424;
-  --color-heisenberg-blue-700: #242424;
-  --color-heisenberg-blue-800: #242424;
-  --color-heisenberg-blue-900: #242424;
+  --color-heisenberg-blue-100: rgba(241, 251, 254, 1);
+  --color-heisenberg-blue-200: rgba(224, 246, 253, 1);
+  --color-heisenberg-blue-300: rgba(192, 237, 251, 1);
+  --color-heisenberg-blue-400: rgba(161, 228, 249, 1);
+  --color-heisenberg-blue-500: rgba(130, 219, 247, 1);
+  --color-heisenberg-blue-600: rgba(101, 190, 218, 1);
+  --color-heisenberg-blue-700: rgba(76, 143, 164, 1);
+  --color-heisenberg-blue-800: rgba(51, 95, 109, 1);
+  --color-heisenberg-blue-900: rgba(25, 48, 55, 1);
 
-  --color-happy-orange-100: #242424;
-  --color-happy-orange-600: #242424;
-  --color-happy-orange-900: #242424;
+  --color-happy-orange-100: rgba(255, 242, 233, 1);
+  --color-happy-orange-600: rgba(226, 111, 32, 1);
+  --color-happy-orange-900: rgba(57, 28, 8, 1);
 
-  --color-electric-green-100: #242424;
-  --color-electric-green-600: #242424;
-  --color-electric-green-900: #242424;
+  --color-electric-green-100: rgba(243, 251, 247, 1);
+  --color-electric-green-600: rgba(74, 201, 126, 1);
+  --color-electric-green-900: rgba(18, 43, 29, 1);
 
-  --color-red-power-100: #242424;
-  --color-red-power-600: #242424;
-  --color-red-power-900: #242424;
+  --color-red-power-100: rgba(251, 236, 236, 1);
+  --color-red-power-600: rgba(208, 48, 47, 1);
+  --color-red-power-900: rgba(47, 15, 14, 1);
 }
+
+
+@utility text-gradient-green-blue-500{
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(225deg, #82DBF7 0%, #B6F09C 100%);
+}
+@utility text-gradient-blue-green-500{
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(45deg, #82DBF7 0%, #B6F09C 100%);
+}
+@utility text-gradient-green-blue-dayblue-500{
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(225deg, #4D62E5 0%, #87DDEE 45.31%, #B6F09C 100%);
+}
+@utility text-gradient-dayblue-blue-green-500{
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(45deg, #4D62E5 0%, #87DDEE 45.31%, #B6F09C 100%);
+}
+@utility text-gradient-green-blue-dayblue-600{
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(225deg, #3045C9 0%, #65BEDA 45.31%, #9AD37F 100%);
+}
+@utility text-gradient-dayblue-blue-green-600{
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(45deg, #3045C9 0%, #65BEDA 45.31%, #9AD37F 100%);
+}
+
+
+@utility bg-gradient-green-blue-500{
+  background-image: linear-gradient(225deg, #82DBF7 0%, #B6F09C 100%);
+}
+@utility bg-gradient-blue-green-500{
+  background-image: linear-gradient(45deg, #82DBF7 0%, #B6F09C 100%);
+}
+@utility bg-gradient-green-blue-dayblue-500{
+  background-image: linear-gradient(225deg, #4D62E5 0%, #87DDEE 45.31%, #B6F09C 100%);
+}
+@utility bg-gradient-dayblue-blue-green-500{
+  background-image: linear-gradient(45deg, #4D62E5 0%, #87DDEE 45.31%, #B6F09C 100%);
+}
+@utility bg-gradient-green-blue-dayblue-600{
+  background-image: linear-gradient(225deg, #3045C9 0%, #65BEDA 45.31%, #9AD37F 100%);
+}
+@utility bg-gradient-dayblue-blue-green-600{
+  background-image:linear-gradient(45deg, #3045C9 0%, #65BEDA 45.31%, #9AD37F 100%);
+}
+
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
