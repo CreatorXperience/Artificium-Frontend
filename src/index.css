@@ -1,10 +1,10 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+@import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-
-
-@theme{
+@theme {
   --color-noble-black-100: rgba(232, 233, 233, 1);
   --color-noble-black-200: rgba(205, 206, 207, 1);
   --color-noble-black-300: rgba(155, 156, 158, 1);
@@ -76,55 +76,93 @@
   --color-red-power-100: rgba(251, 236, 236, 1);
   --color-red-power-600: rgba(208, 48, 47, 1);
   --color-red-power-900: rgba(47, 15, 14, 1);
+
+  --font-plus:"Plus Jakarta Sans", sans-serif;
 }
 
+@utility text-gradient-green-blue-500 {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(225deg, #82dbf7 0%, #b6f09c 100%);
+}
+@utility text-gradient-blue-green-500 {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(45deg, #82dbf7 0%, #b6f09c 100%);
+}
+@utility text-gradient-green-blue-dayblue-500 {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(
+    225deg,
+    #4d62e5 0%,
+    #87ddee 45.31%,
+    #b6f09c 100%
+  );
+}
+@utility text-gradient-dayblue-blue-green-500 {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(
+    45deg,
+    #4d62e5 0%,
+    #87ddee 45.31%,
+    #b6f09c 100%
+  );
+}
+@utility text-gradient-green-blue-dayblue-600 {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(
+    225deg,
+    #3045c9 0%,
+    #65beda 45.31%,
+    #9ad37f 100%
+  );
+}
+@utility text-gradient-dayblue-blue-green-600 {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(
+    45deg,
+    #3045c9 0%,
+    #65beda 45.31%,
+    #9ad37f 100%
+  );
+}
 
-@utility text-gradient-green-blue-500{
-  @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(225deg, #82DBF7 0%, #B6F09C 100%);
+@utility bg-gradient-green-blue-500 {
+  background-image: linear-gradient(225deg, #82dbf7 0%, #b6f09c 100%);
 }
-@utility text-gradient-blue-green-500{
-  @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(45deg, #82DBF7 0%, #B6F09C 100%);
+@utility bg-gradient-blue-green-500 {
+  background-image: linear-gradient(45deg, #82dbf7 0%, #b6f09c 100%);
 }
-@utility text-gradient-green-blue-dayblue-500{
-  @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(225deg, #4D62E5 0%, #87DDEE 45.31%, #B6F09C 100%);
+@utility bg-gradient-green-blue-dayblue-500 {
+  background-image: linear-gradient(
+    225deg,
+    #4d62e5 0%,
+    #87ddee 45.31%,
+    #b6f09c 100%
+  );
 }
-@utility text-gradient-dayblue-blue-green-500{
-  @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(45deg, #4D62E5 0%, #87DDEE 45.31%, #B6F09C 100%);
+@utility bg-gradient-dayblue-blue-green-500 {
+  background-image: linear-gradient(
+    45deg,
+    #4d62e5 0%,
+    #87ddee 45.31%,
+    #b6f09c 100%
+  );
 }
-@utility text-gradient-green-blue-dayblue-600{
-  @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(225deg, #3045C9 0%, #65BEDA 45.31%, #9AD37F 100%);
+@utility bg-gradient-green-blue-dayblue-600 {
+  background-image: linear-gradient(
+    225deg,
+    #3045c9 0%,
+    #65beda 45.31%,
+    #9ad37f 100%
+  );
 }
-@utility text-gradient-dayblue-blue-green-600{
-  @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(45deg, #3045C9 0%, #65BEDA 45.31%, #9AD37F 100%);
+@utility bg-gradient-dayblue-blue-green-600 {
+  background-image: linear-gradient(
+    45deg,
+    #3045c9 0%,
+    #65beda 45.31%,
+    #9ad37f 100%
+  );
 }
-
-
-@utility bg-gradient-green-blue-500{
-  background-image: linear-gradient(225deg, #82DBF7 0%, #B6F09C 100%);
-}
-@utility bg-gradient-blue-green-500{
-  background-image: linear-gradient(45deg, #82DBF7 0%, #B6F09C 100%);
-}
-@utility bg-gradient-green-blue-dayblue-500{
-  background-image: linear-gradient(225deg, #4D62E5 0%, #87DDEE 45.31%, #B6F09C 100%);
-}
-@utility bg-gradient-dayblue-blue-green-500{
-  background-image: linear-gradient(45deg, #4D62E5 0%, #87DDEE 45.31%, #B6F09C 100%);
-}
-@utility bg-gradient-green-blue-dayblue-600{
-  background-image: linear-gradient(225deg, #3045C9 0%, #65BEDA 45.31%, #9AD37F 100%);
-}
-@utility bg-gradient-dayblue-blue-green-600{
-  background-image:linear-gradient(45deg, #3045C9 0%, #65BEDA 45.31%, #9AD37F 100%);
-}
-
-
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

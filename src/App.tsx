@@ -16,6 +16,7 @@ function App() {
           <img src={reactLogo} className='logo react' alt='React logo' />
         </a>
       </div>
+      <h1 className='bg-gradient-green-blue-500 font-plus'>Vite + React</h1>
       <h1 className='bg-gradient-green-blue-500'>Vite + React</h1>
       <h1 className='bg-gradient-blue-green-500'>Vite + React</h1>
       <h1 className='bg-gradient-green-blue-dayblue-500'>Vite + React</h1>
