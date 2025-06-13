@@ -95,7 +95,6 @@ A standardized commit message format that improves clarity and consistency in pr
 | `test`     | Add or update tests                                   | None          |
 | `chore`    | Maintenance tasks (e.g., dep updates)                 | None          |
 | `build`    | Changes to build system (e.g., Webpack, Vite)         | None          |
-| `ci`       | Continuous Integration changes                        | None          |
 
 ---
 
@@ -164,6 +163,12 @@ git pull origin main
 2. before creating new branch, check your trello ticket ID along with the type of ticket e.g refactor,feature.
 
 3. create a new branch using the git checkout command e.g ` git checkout -b ft-#17-create-nav-component` or `git checkout -b ch-#20-sort-user-messages`
+
+### 🌴 **Checking your current branch**
+
+```bash
+git branch
+```
 
 ### 🌴 **Checking out to existing branch**
 
