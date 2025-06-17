@@ -6,8 +6,10 @@ import FormInput from "../Ui/FormInput";
 import ChatInputBox from "../Ui/ChatInputBox";
 import ActionButton from "../Ui/ActionButton";
 import SocialButton from "../Ui/SocialButton";
-import { FaApple } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
+import { FaApple,FaGoogle } from "react-icons/fa";
+
+
+
 
 const ExampleComponent = () => {
   const [count, setCount] = useState<number>(0);
@@ -57,15 +59,24 @@ const ExampleComponent = () => {
       <p className="text-gradient-dayblue-blue-green-600">
         Click on the Vite and React logos to learn more
       </p>
-      <p className="text-gradient-dayblue-blue-green-600">
+      <p className="text-gradient-dayblue-blue-green-600 mb-7">
         Click on the Vite and React logos to learn more
       </p>
+
       <FormInput placeholder="Email" icon={<FiMail />} />
       <ChatInputBox />
       <ActionButton text="Login" onClick={handleLogin} active={true} />
       <ActionButton text="Login" onClick={handleLogin} active={false} />
       <SocialButton icon={<FaGoogle />} text="Login" onClick={handleLogin} active={false} />
       <SocialButton icon={<FaApple />} text="Login" onClick={handleLogin} active={false} />
+
+      <FormInput
+        placeholder="Email"
+        icon={<FiMail />}
+        placeholderPosition="left"
+      />
+
+     
     </>
   );
 };
