@@ -4,9 +4,19 @@ import reactLogo from "../../assets/react.svg";
 import { FiMail } from "react-icons/fi";
 import FormInput from "../Ui/FormInput";
 import ChatInputBox from "../Ui/ChatInputBox";
+import ActionButton from "../Ui/ActionButton";
+import SocialButton from "../Ui/SocialButton";
+import { FaApple } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 
 const ExampleComponent = () => {
   const [count, setCount] = useState<number>(0);
+  const handleLogin = () => {
+    alert("login successful")
+    console.log('====================================');
+    console.log("working");
+    console.log('====================================');
+  }
   return (
     <>
       <div>
@@ -26,7 +36,7 @@ const ExampleComponent = () => {
       <h1 className="bg-gradient-dayblue-blue-green-600">Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          {/* count is {count} */}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
@@ -52,6 +62,10 @@ const ExampleComponent = () => {
       </p>
       <FormInput placeholder="Email" icon={<FiMail />} />
       <ChatInputBox />
+      <ActionButton text="Login" onClick={handleLogin} active={true} />
+      <ActionButton text="Login" onClick={handleLogin} active={false} />
+      <SocialButton icon={<FaGoogle />} text="Login" onClick={handleLogin} active={false} />
+      <SocialButton icon={<FaApple />} text="Login" onClick={handleLogin} active={false} />
     </>
   );
 };
