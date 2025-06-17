@@ -2,7 +2,7 @@ import { FiMic, FiPaperclip, FiSend } from "react-icons/fi";
 
 function ChatInput() {
   return (
-    <div className="w-full px-4 py-3 rounded-xl bg-[rgba(6,7,8,1)] flex items-center gap-3 font-plus">
+    <div className="w-full px-4 py-3 pt-5 rounded-xl bg-[rgba(6,7,8,1)] flex items-center gap-3 font-plus">
       {/* Microphone Icon */}
       <button className="cursor-pointer text-[rgba(155, 156, 158, 1)]">
         <FiMic className="w-5 h-5" />
