@@ -3,7 +3,7 @@ import viteLogo from "../../../public/vite.svg";
 import reactLogo from "../../assets/react.svg";
 import { FiMail } from "react-icons/fi";
 import FormInput from "../Ui/FormInput";
-import ChatInputBox from "../Ui/ChatInputBox";
+// import ChatInputBox from "../Ui/ChatInputBox";
 
 const ExampleComponent = () => {
   const [count, setCount] = useState<number>(0);
@@ -47,11 +47,16 @@ const ExampleComponent = () => {
       <p className="text-gradient-dayblue-blue-green-600">
         Click on the Vite and React logos to learn more
       </p>
-      <p className="text-gradient-dayblue-blue-green-600">
+      <p className="text-gradient-dayblue-blue-green-600 mb-7">
         Click on the Vite and React logos to learn more
       </p>
-      <FormInput placeholder="Email" icon={<FiMail />} />
-      <ChatInputBox />
+      <FormInput
+        placeholder="Email"
+        icon={<FiMail />}
+        placeholderPosition="left"
+      />
+
+      {/* <ChatInputBox /> */}
     </>
   );
 };
