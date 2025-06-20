@@ -36,14 +36,9 @@ const features = [
 
 const IdeaCard_3 = () => {
   return (
-    <div>
+    <div className="my-[5px]">
       <div className="flex w-[73rem] gap-3 px-9 rounded-3xl py-3 border border-gray-700">
-        <img
-          className="flex w-10 h-10 rounded-2xl"
-          src="https://thumbs.dreamstime.com/b/vector-brush-strokes-circles-paint-white-background-ink-hand-drawn-paint-brush-circle-logo-label-design-element-vector-brush-143779821.jpg"
-          alt="Logo"
-        />
-
+        <div className="bg-[url(https://i.pinimg.com/736x/7a/dd/c4/7addc46af04e63e7a92a1e8cc3a224cb.jpg)] w-[40px] h-[40px] bg-cover rounded-2xl"></div>
         <div className="flex justify-between w-full my-4">
           <div className="flex flex-col gap-5">
             <p className="text-gray-300 font-semibold">
@@ -57,7 +52,7 @@ const IdeaCard_3 = () => {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className="border border-gray-700 bg-noble-black-500/70 flex flex-col gap-4 items-left w-[11.5rem] pl-3 py-10 rounded-3xl"
+                  className="inset-shadow-xs inset-shadow-noble-black-500 bg-linear-to-r from-noble-black-600  to-noble-black-900 backdrop-blur-xs flex flex-col gap-4 items-left w-[11.5rem] pl-3 py-10 rounded-xl"
                 >
                   {feature.icon}
                   <div className="leading-5">
