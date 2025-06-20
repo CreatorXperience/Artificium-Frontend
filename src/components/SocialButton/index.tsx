@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // Define the props for the Button component
 interface ButtonProps {
@@ -33,11 +33,7 @@ const Button: React.FC<ButtonProps> = ({ icon, text, onClick }) => {
 
   return (
     <button className={buttonClasses} onClick={onClick}>
-      {icon && (
-        <span className={iconClasses}>
-          {icon}
-        </span>
-      )}
+      {icon && <span className={iconClasses}>{icon}</span>}
       {text}
     </button>
   );

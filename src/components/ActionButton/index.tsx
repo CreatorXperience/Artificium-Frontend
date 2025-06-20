@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
 interface ActionButtonProps {
   text: string;
@@ -26,7 +26,7 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
       
       `;
 
-      const stateClasses = active
+    const stateClasses = active
       ? `
       text-noble-black-600
       bg-stem-green-500
@@ -52,7 +52,6 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
         ref={ref}
         className={`${baseClasses} ${stateClasses}`}
         onClick={onClick}
-
       >
         {text}
       </button>
