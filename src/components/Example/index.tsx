@@ -9,6 +9,7 @@ import IdeaCard_1 from "../IdeaCard_1";
 import IdeaCard_2 from "../IdeaCard_2";
 import IdeaCard_3 from "../IdeaCard_3";
 import ActionButton from "../ActionButton";
+import OnlineOffline from "../OnlineOfflineCard";
 
 const ExampleComponent = () => {
   const [count, setCount] = useState<number>(0);
@@ -20,12 +21,13 @@ const ExampleComponent = () => {
   };
   return (
     <>
-      <div>
+      <div className="flex">
         <div>
           <IdeaCard_1 />
           <IdeaCard_2 />
           <IdeaCard_3 />
         </div>
+        <OnlineOffline/>
       </div>
 
       <h1 className="bg-gradient-green-blue-500 font-plus">Vite + React</h1>
