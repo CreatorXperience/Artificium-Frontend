@@ -17,13 +17,13 @@ export default function ManageProjectAccessModal({
     currentWorkSpaceMembers,
     selectedUsersToInvite,
     publicLinkAccess,
-    isLinkCopied,
+
     projectRoles,
     publicAccessLevels,
     setPublicLinkAccess,
     handleAddUserToInvite,
     handleChangeMemberRole,
-    handleCopyLink,
+
     handleInviteUsers,
     handleRemoveUserToInvite,
     setInviteRole,
@@ -67,8 +67,6 @@ export default function ManageProjectAccessModal({
         publicLinkAccess={publicLinkAccess}
         setPublicLinkAccess={setPublicLinkAccess}
         publicAccessLevels={publicAccessLevels}
-        handleCopyLink={handleCopyLink}
-        isLinkCopied={isLinkCopied}
       />
     </ModalWrapper>
   );
