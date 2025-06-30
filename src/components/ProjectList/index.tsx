@@ -38,8 +38,8 @@ const ProjectList: React.FC = () => {
         Projects
       </div>
 
-      {/* Project List with hover scrollbar */}
-      <div className="space-y-2 max-h-52 overflow-y-auto pr-1 scrollbar-hide hover:scrollbar-thin hover:scrollbar-thumb-gray-400 dark:hover:scrollbar-thumb-noble-black-500 hover:scrollbar-track-transparent">
+      {/* Project List with custom scrollbar */}
+      <div className="space-y-2 max-h-52 overflow-y-auto pr-1 custom-scrollbar">
         {initialProjects.map(({ name, color, shape: Shape }) => {
           const isActive = activeProject === name;
           return (
