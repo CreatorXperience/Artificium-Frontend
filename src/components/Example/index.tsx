@@ -9,6 +9,7 @@ import IdeaCard_1 from "../IdeaCard_1";
 import IdeaCard_2 from "../IdeaCard_2";
 import IdeaCard_3 from "../IdeaCard_3";
 import ActionButton from "../ActionButton";
+import LeftSidebar from "../LeftSidebar";
 import ManageProjectAccessModal from '../ManageProjectAccessModal';
 
 const ExampleComponent = () => {
@@ -56,7 +57,7 @@ const ExampleComponent = () => {
       <h1 className='bg-gradient-dayblue-blue-green-600'>Vite + React</h1>
       <div className='card'>
         <button onClick={() => setCount(count + 1)}>
-          {/* count is {count} */}
+          count is {count}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
@@ -103,6 +104,7 @@ const ExampleComponent = () => {
         icon={<FiMail />}
         placeholderPosition='left'
       />
+      <LeftSidebar />
     </>
   );
 };
