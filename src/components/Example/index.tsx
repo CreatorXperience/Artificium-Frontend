@@ -10,6 +10,8 @@ import IdeaCard_2 from "../IdeaCard_2";
 import IdeaCard_3 from "../IdeaCard_3";
 import ActionButton from "../ActionButton";
 import OnlineOffline from "../OnlineOfflineCard";
+import MembersCard from "../MembersCard";
+import ChatPanel from "../ChatPanel";
 
 const ExampleComponent = () => {
   const [count, setCount] = useState<number>(0);
@@ -27,7 +29,9 @@ const ExampleComponent = () => {
           <IdeaCard_2 />
           <IdeaCard_3 />
         </div>
-        <OnlineOffline/>
+        {/* <OnlineOffline/>
+        <MembersCard/> */}
+        <ChatPanel/>
       </div>
 
       <h1 className="bg-gradient-green-blue-500 font-plus">Vite + React</h1>
