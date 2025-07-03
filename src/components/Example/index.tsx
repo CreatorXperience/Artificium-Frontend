@@ -12,6 +12,7 @@ import ActionButton from "../ActionButton";
 import ChatPanel from "../ChatPanel";
 import LeftSidebar from "../LeftSidebar";
 import ManageProjectAccessModal from "../ManageProjectAccessModal";
+import WorkspaceOverview from "../WorkSpaceOverview/index";
 
 const ExampleComponent = () => {
   const [count, setCount] = useState<number>(0);
@@ -105,6 +106,7 @@ const ExampleComponent = () => {
         placeholderPosition="left"
       />
       <LeftSidebar />
+      <WorkspaceOverview />
     </>
   );
 };
