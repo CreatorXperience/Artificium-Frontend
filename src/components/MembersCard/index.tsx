@@ -1,7 +1,7 @@
 import { useState } from "react";
 // import ChatMemberBtn from "../ChatMemberBtn";
 import { IoIosArrowForward } from "react-icons/io";
-import { AiTwotoneLock } from "react-icons/ai";
+import { BiSolidLockAlt } from "react-icons/bi";
 import { TfiWorld } from "react-icons/tfi";
 import UserCard from "../UserCard";
 import useUsers from "../UserData";
@@ -33,12 +33,12 @@ const MembersCard = () => {
 
           {showSecrets && (
             <div className="mt-2 flex flex-col gap-3 text-gray-400">
-              <div className="flex items-center gap-3">
-                <AiTwotoneLock className="text-gray-500 size-6"/>
+              <div className="flex items-center gap-3 py-4">
+                <BiSolidLockAlt className="text-gray-500 size-6" />
                 <p>Top Secret</p>
               </div>
               <div className="flex items-center gap-3">
-                <TfiWorld className="text-gray-500 size-6"/>
+                <TfiWorld className="text-gray-500 size-6" />
                 <p>FeedBack</p>
               </div>
             </div>
@@ -51,7 +51,9 @@ const MembersCard = () => {
               <TfiWorld className="text-gray-200 size-6" />
               <p>Spaceship Crew</p>
             </div>
-            <p className="text-[12px] bg-heisenberg-blue-800 p-2 rounded-2xl">{users.length}</p>
+            <p className="text-[12px] bg-heisenberg-blue-800 p-2 w-[35px] flex justify-center rounded-xl inset-shadow-xs inset-shadow-noble-black-500 bg-linear-to-r from-stem-green-800 from-0%  via-stem-green-900 via-5%   to-noble-black-900 to-70% backdrop-blur-xs ">
+              {users.length}
+            </p>
           </div>
           {/* 
           <div className="flex mt-4 ml-2">
@@ -84,17 +86,16 @@ const MembersCard = () => {
           </div>
         </div>
 
+        <div className="flex items-center gap-3 ml-3">
+          <TfiWorld className="text-gray-200 size-6" />
+          <p>User Interface</p>
+        </div>
+        <div className="flex items-center gap-3 ml-3">
+          <TfiWorld className="text-gray-200 size-6" />
+          <p>User Experience</p>
+        </div>
 
-          <div className="flex items-center gap-3 ml-3">
-              <TfiWorld className="text-gray-200 size-6" />
-              <p>User Interface</p>
-            </div>
-          <div className="flex items-center gap-3 ml-3">
-              <TfiWorld className="text-gray-200 size-6" />
-              <p>User Experience</p>
-            </div>
-
-          <div className="flex items-center gap-3 ml-3">
+        <div className="flex items-center gap-3 ml-3">
           <IoIosArrowForward />
           <p>Private Channels</p>
         </div>
