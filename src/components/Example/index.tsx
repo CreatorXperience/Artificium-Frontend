@@ -9,6 +9,9 @@ import IdeaCard_1 from "../IdeaCard_1";
 import IdeaCard_2 from "../IdeaCard_2";
 import IdeaCard_3 from "../IdeaCard_3";
 import ActionButton from "../ActionButton";
+import OnlineOffline from "../OnlineOfflineCard";
+import MembersCard from "../MembersCard";
+import ChatPanel from "../ChatPanel";
 import LeftSidebar from "../LeftSidebar";
 import ManageProjectAccessModal from '../ManageProjectAccessModal';
 
@@ -28,6 +31,8 @@ const ExampleComponent = () => {
 
   return (
     <>
+      <div className="flex">
+
       <h1 className='text-noble-black-100 text-3xl'>Project Access Manager</h1>
       <button
         onClick={handleOpenAccessModal}
@@ -46,6 +51,9 @@ const ExampleComponent = () => {
           <IdeaCard_2 />
           <IdeaCard_3 />
         </div>
+        {/* <OnlineOffline/>
+        <MembersCard/> */}
+        <ChatPanel/>
       </div>
 
       <h1 className='bg-gradient-green-blue-500 font-plus'>Vite + React</h1>
