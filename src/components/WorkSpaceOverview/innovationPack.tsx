@@ -55,7 +55,7 @@ const categories = [
 
 export default function InnovationStarterPack() {
   return (
-    <div className="min-h-screen bg-noble-black-500 font-plus px-4 py-12 md:px-12">
+    <div className="min-h-screen  font-plus px-4 py-12 md:px-12">
       <div className="text-center mb-14">
         <h1 className="text-xl md:text-5xl font-md text-white mb-4">
           Innovation Starter Pack
@@ -68,13 +68,10 @@ export default function InnovationStarterPack() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {categories.map((cat) => (
-          <div
-            key={cat.title}
-            className="p-6  shadow-lg hover:shadow-xl transition-shadow duration-300"
-          >
+          <div key={cat.title} className="p-6  transition-shadow duration-300">
             <div className="flex flex-col items-center mb-6">
               <div
-                className={`flex items-center justify-center p-3 rounded-full bg-noble-black-700 w-12 h-12
+                className={`flex items-center justify-center  p-3 rounded-full bg-noble-black-700 w-12 h-12
     ${
       cat.Color === "stem-green-100"
         ? "shadow-[0_0_15px_#16a34a40]"
@@ -99,7 +96,7 @@ export default function InnovationStarterPack() {
                 {cat.items.map((item) => (
                   <li
                     key={item}
-                    className="flex justify-between items-center bg-noble-black-700 p-3 rounded-md text-noble-black-200 hover:text-white hover:bg-noble-black-300 transition-colors cursor-pointer"
+                    className="flex justify-between items-center hover:bg-noble-black-600 bg-noble-black-700 p-3 rounded-md text-noble-black-200 hover:text-white transition-colors cursor-pointer"
                   >
                     <span>{item}</span>
                     <FaArrowRight size={15} />

@@ -4,7 +4,7 @@ import InnovationStarterPack from "./innovationPack";
 
 const WorkspaceOverview = () => {
   return (
-    <div className="min-h-screen bg-noble-black-500 font-plus p-2  ">
+    <div className="min-h-screen font-plus p-2  ">
       <Header />
       <InnovationStarterPack />
       <ChatInputBox />

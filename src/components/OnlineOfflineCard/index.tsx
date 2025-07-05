@@ -1,7 +1,3 @@
-// components/status/OnlineOffline.tsx
-
-// import useUsers from "../../hooks/useUsers";
-// import UserCard from "../members/UserCard";
 import useUsers from "../UserData";
 import UserCard from "../UserCard";
 
@@ -10,7 +6,6 @@ const OnlineOffline = () => {
 
   return (
     <div className="">
-      
       <div>
         <div className="flex justify-between items-center">
           <p className="text-gray-500 ml-4 text-sm mb-2">Currently Online</p>
