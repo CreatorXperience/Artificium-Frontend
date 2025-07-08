@@ -113,6 +113,7 @@ const ExampleComponent = () => {
         placeholderPosition='left'
       />
       <LeftSidebar />
+    </div>
     </>
   );
 };
