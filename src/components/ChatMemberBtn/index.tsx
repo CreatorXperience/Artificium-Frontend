@@ -13,7 +13,7 @@ const ChatMemberBtn = ({ activeTab, setActiveTab }: Props) => {
         onClick={() => setActiveTab("chats")}
         className={`flex items-center justify-center gap-2 w-1/2 py-2 transition  ${
           activeTab === "chats"
-            ? "bg-noble-black-600 rounded-lg h-[100%] text-white"
+            ? "bg-noble-black-900 rounded-lg h-[100%] text-white"
             : "text-white hover:bg-noble-black-500 rounded-lg"
         }`}
       >
@@ -24,7 +24,7 @@ const ChatMemberBtn = ({ activeTab, setActiveTab }: Props) => {
         onClick={() => setActiveTab("members")}
         className={`flex items-center justify-center gap-2 w-1/2 py-2 transition ${
           activeTab === "members"
-            ? "bg-noble-black-600 rounded-lg h-[100%]"
+            ? "bg-noble-black-900  rounded-lg h-[100%]"
             : "text-white hover:bg-noble-black-500 rounded-lg"
         }`}
       >

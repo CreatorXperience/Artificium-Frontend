@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { BsCircle, BsSquare, BsTriangle } from "react-icons/bs";
+import { BsCircle, BsSquare, BsTriangle, BsApp } from "react-icons/bs";
+import getRandomColor from "../../utils/getRandomColor";
 
-// Utility functions
-const getRandomColor = (): string => {
-  const letters = "0123456789ABCDEF";
-  return "#" + Array.from({ length: 6 }, () => letters[Math.floor(Math.random() * 16)]).join("");
-};
-
-const shapeIcons = [BsCircle, BsSquare, BsTriangle];
-const getRandomShape = () => shapeIcons[Math.floor(Math.random() * shapeIcons.length)];
+const shapeIcons = [BsCircle, BsSquare, BsTriangle, BsApp];
+const getRandomShape = () =>
+  shapeIcons[Math.floor(Math.random() * shapeIcons.length)];
 
 const projectNames = [
   "Orbital Oddysey",
@@ -73,7 +69,8 @@ const ProjectList: React.FC = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 dark:bg-black/90 p-4">
-          <div className="rounded-lg p-6 w-full max-w-md font-plus border
+          <div
+            className="rounded-lg p-6 w-full max-w-md font-plus border
             dark:bg-noble-black-700 dark:text-noble-black-100 dark:border-noble-black-500
             bg-white text-gray-900 border-gray-300"
           >

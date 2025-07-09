@@ -106,6 +106,7 @@ const ExampleComponent = () => {
         placeholderPosition="left"
       />
       <LeftSidebar />
+
       <WorkspaceOverview />
     </>
   );
