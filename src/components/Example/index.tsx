@@ -107,9 +107,7 @@ const ExampleComponent = () => {
       />
       <LeftSidebar />
 
-    </div>
       <WorkspaceOverview />
-
     </>
   );
 };
