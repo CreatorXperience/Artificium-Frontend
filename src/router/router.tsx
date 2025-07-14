@@ -4,6 +4,8 @@ import route from "../constants/routes";
 import IdeaCard_1 from "../components/IdeaCard_1";
 import IdeaCard_3 from "../components/IdeaCard_3";
 import IdeaCard_2 from "../components/IdeaCard_2";
+import Workspace from "../components/Workspace";
+import AccessRequest from "../components/AccessRequest";
 
 // add your routes here
 const router = createBrowserRouter([
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
   {
     path: route.idea_2,
     element: <IdeaCard_2 />,
+  },
+  {
+    path: route.Workspace,
+    element: <Workspace />,
+  },
+  {
+    path: route.AccessRequest,
+    element: <AccessRequest />,
   },
 ]);
 
