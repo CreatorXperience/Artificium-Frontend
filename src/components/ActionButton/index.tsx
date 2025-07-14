@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
 
 interface ActionButtonProps {
-  text: string;
-  onClick: () => void;
+  text?: string;
+  onClick?: () => void;
   active?: boolean;
 }
 
@@ -38,13 +38,14 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
       cursor-pointer
       `
       : `
-      bg-gray-300
+      
       text-noble-black-100
-      hover:bg-noble-black-700
+      hover:bg-noble-black-600
       active:bg-noble-black-700
       focus:ring-noble-black-700
+      bg-noble-black-700
+      cursor-pointer
 
-      bg-noble-black-600
         `;
 
     return (

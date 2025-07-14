@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaShareAlt, FaExclamationTriangle } from "react-icons/fa";
+import { FaShareAlt } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 import { HiOutlineChat } from "react-icons/hi";
 import { HiOutlineFolder } from "react-icons/hi2";
@@ -12,7 +12,7 @@ const users = [
 ];
 
 const tabs = [
-  { label: "Artificium", icon: <FaExclamationTriangle />, key: "artificium" },
+  { label: "Artificium", key: "artificium" },
   { label: "Chat", icon: <HiOutlineChat />, key: "chat" },
   { label: "Library", icon: <HiOutlineFolder />, key: "library" },
 ];
@@ -116,7 +116,17 @@ export default function Header() {
                   : "rgba(155, 156, 158, 1)",
               }}
             >
-              {tab.icon}
+              {tab.icon ? (
+                tab.icon
+              ) : (
+                <div className="">
+                  <img
+                    src="https://i.postimg.cc/nLFY8Q8d/Logo.png"
+                    alt="Logo"
+                    className="h-3"
+                  />
+                </div>
+              )}
               <span>{tab.label}</span>
               {isActive && (
                 <div
