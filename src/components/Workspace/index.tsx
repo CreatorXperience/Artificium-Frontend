@@ -9,14 +9,16 @@ const Workspace = () => {
     <div className="min-h-screen flex flex-col md:flex-row bg-noble-black-800 text-white font-plus">
       {/* Left Section */}
       <div className="w-full md:w-3/5 flex flex-col justify-between px-6 sm:px-10 md:px-16 py-10">
+        {/* Logo */}
         <div className="w-full max-w-xl mx-auto">
-          {/* Logo */}
           <img
             src="https://i.postimg.cc/nLFY8Q8d/Logo.png"
             alt="Logo"
             className="h-6 mb-8"
           />
+        </div>
 
+        <div className="w-full max-w-xl mx-auto mt-5">
           {/* Heading */}
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 leading-snug">
             Join or Create a Workspace
