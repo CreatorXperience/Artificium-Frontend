@@ -5,7 +5,7 @@ const route = {
   idea_2: "idea_2",
   Workspace: "workspace",
   AccessRequest: "AccessRequest",
-  SignIn: "signin",
+  Login: "login",
   SignUp: "signUp",
 };
 

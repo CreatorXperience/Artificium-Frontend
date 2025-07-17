@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: route.SignIn,
+    path: route.Login,
     element: <SignIn />,
   },
 ]);
