@@ -5,9 +5,10 @@ interface ButtonProps {
   icon?: React.ReactNode;
   text: string;
   onClick: () => void;
+  isLoading?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ icon, text, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ icon, text, onClick, isLoading }) => {
   const buttonClasses = `
     bg-noble-black-600 text-noble-black-100
     py-2 px-4 rounded-md
@@ -20,19 +21,14 @@ const Button: React.FC<ButtonProps> = ({ icon, text, onClick }) => {
     transition-all duration-200 ease-in-out
     focus:outline-none focus:ring-2 focus:ring-noble-black-600 focus:ring-opacity-50
     
-    // --- Responsive Width Adjustments ---
-    w-full                  // Full width on mobile by default
-    max-w-full              // Ensures it never overflows its direct parent on mobile
-    md:w-auto               // On medium screens and up, width adapts to content
-    md:max-w-sm             // Optional: Limit desktop width to a maximum (e.g., 24rem/384px)
-    lg:w-1/3                // Example: Takes 33.33% width on large screens and up
-    xl:w-1/4                // Example: Takes 25% width on extra-large screens and up
   `;
 
-  const iconClasses = `w-5 h-5 flex-shrink-0 text-noble-black-100`;
+  const iconClasses = `w-5 h-5 flex-shrink-0 `;
 
   return (
-    <button className={buttonClasses} onClick={onClick}>
+    <button className={buttonClasses} onClick={onClick} disabled={isLoading}>
+      {isLoading && <span className="loader"></span>}{" "}
+      {/* Optional loading indicator */}
       {icon && <span className={iconClasses}>{icon}</span>}
       {text}
     </button>

@@ -5,6 +5,8 @@ const route = {
   idea_2: "idea_2",
   Workspace: "workspace",
   AccessRequest: "AccessRequest",
+  SignIn: "signin",
+  SignUp: "signUp",
 };
 
 export default route;

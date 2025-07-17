@@ -6,6 +6,8 @@ import IdeaCard_3 from "../components/IdeaCard_3";
 import IdeaCard_2 from "../components/IdeaCard_2";
 import Workspace from "../components/Workspace";
 import AccessRequest from "../components/AccessRequest";
+import SignUp from "../components/SignUp";
+import SignIn from "../components/Login/Index";
 
 // add your routes here
 const router = createBrowserRouter([
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
   {
     path: route.AccessRequest,
     element: <AccessRequest />,
+  },
+  {
+    path: route.SignUp,
+    element: <SignUp />,
+  },
+  {
+    path: route.SignIn,
+    element: <SignIn />,
   },
 ]);
 
