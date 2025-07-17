@@ -6,7 +6,7 @@ const route = {
   Workspace: "workspace",
   AccessRequest: "AccessRequest",
   Login: "login",
-  SignUp: "signUp",
+  SignUp: "signup",
 };
 
 export default route;

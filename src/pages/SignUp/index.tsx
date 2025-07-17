@@ -2,16 +2,15 @@ import { FaGoogle } from "react-icons/fa";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Link } from "react-router";
 import { useState } from "react";
-import FormInput from "../FormInput";
-import ActionButton from "../ActionButton";
-import Button from "../SocialButton";
-// If handleGoogleSignUp is a default export:
 import { useGoogleAuth } from "../../feature/auth/services/googleAuth";
 
 // Or, if the actual named export is different, for example 'googleSignUp':
 // import { googleSignUp as handleGoogleSignUp } from "../../feature/auth/services/googleAuth";
 
 import { useSignUp } from "../../hooks/useSignUp";
+import FormInput from "../../components/FormInput";
+import ActionButton from "../../components/ActionButton";
+import Button from "../../components/SocialButton";
 
 type FormData = {
   email: string;
@@ -51,8 +50,8 @@ const SignUp = () => {
             className="h-6"
           />
           <Link
-            to="/signIn"
-            className="text-sm text-stem-green-700 hover:underline"
+            to="/login"
+            className="text-sm text-stem-green-500 hover:underline"
           >
             Log in
           </Link>
