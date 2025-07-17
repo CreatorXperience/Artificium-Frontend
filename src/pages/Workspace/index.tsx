@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ActionButton from "../ActionButton";
-import FormInput from "../FormInput";
+import ActionButton from "../../components/ActionButton";
+import FormInput from "../../components/FormInput";
 import CreateWorkspaceModal from "./CreateWorkspaceModal";
 const Workspace = () => {
   const [showModal, setShowModal] = useState(false);

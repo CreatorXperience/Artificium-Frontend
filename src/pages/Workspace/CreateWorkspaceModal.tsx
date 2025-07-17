@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiUpload, FiX } from "react-icons/fi";
-import ActionButton from "../ActionButton";
-import FormInput from "../FormInput";
+import ActionButton from "../../components/ActionButton";
+import FormInput from "../../components/FormInput";
 
 type Props = {
   onClose: () => void;
