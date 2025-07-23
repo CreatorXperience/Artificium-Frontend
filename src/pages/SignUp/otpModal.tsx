@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-import ActionButton from "../ActionButton";
+import ActionButton from "../../components/ActionButton";
 import toast from "react-hot-toast";
 
 interface OtpResponse {
