@@ -27,5 +27,5 @@ export const signup = async (formData: FormData, BASE_URL: string) => {
     throw new Error(SignUpData.message || "Signup failed");
   }
 
-  return SignUpData;
+  return SignUpData.data;
 };

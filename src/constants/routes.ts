@@ -7,6 +7,9 @@ const route = {
   AccessRequest: "AccessRequest",
   Login: "login",
   SignUp: "signUp",
+  ForgetPassword: "ForgetPassword",
+  VerifyEmail: "VerifyEmail",
+  ResetPassword: "/reset-password",
 };
 
 export default route;
