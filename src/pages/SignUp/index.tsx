@@ -2,11 +2,17 @@ import { FaGoogle } from "react-icons/fa";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Link } from "react-router";
 import { useState } from "react";
+<<<<<<< HEAD:src/components/SignUp/index.tsx
 import FormInput from "../FormInput";
 import ActionButton from "../ActionButton";
 import SocialButton from "../SocialButton";
+=======
+>>>>>>> 32d456cb6e03723c3dfcbc0306b89f5e8b16d8f5:src/pages/SignUp/index.tsx
 import { useGoogleAuth } from "../../feature/auth/services/googleAuth";
 import { useSignUp } from "../../hooks/useSignUp";
+import FormInput from "../../components/FormInput";
+import ActionButton from "../../components/ActionButton";
+import Button from "../../components/SocialButton";
 
 import GetOtpModal from "./otpModal";
 import toast from "react-hot-toast";
@@ -68,7 +74,11 @@ const SignUp = () => {
           />
           <Link
             to="/login"
+<<<<<<< HEAD:src/components/SignUp/index.tsx
             className="text-sm text-stem-green-700 hover:underline"
+=======
+            className="text-sm text-stem-green-500 hover:underline"
+>>>>>>> 32d456cb6e03723c3dfcbc0306b89f5e8b16d8f5:src/pages/SignUp/index.tsx
           >
             Log in
           </Link>

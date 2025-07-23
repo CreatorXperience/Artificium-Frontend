@@ -4,13 +4,16 @@ import route from "../constants/routes";
 import IdeaCard_1 from "../components/IdeaCard_1";
 import IdeaCard_3 from "../components/IdeaCard_3";
 import IdeaCard_2 from "../components/IdeaCard_2";
-import Workspace from "../components/Workspace";
+import Workspace from "../pages/Workspace";
 import AccessRequest from "../components/AccessRequest";
-import SignUp from "../components/SignUp";
 import SignIn from "../components/Login/Index";
+<<<<<<< HEAD
 import ForgetPassword from "../components/ForgetPassword";
 import VerifyEmail from "../components/VerifyEmail/VerifyEmail";
 import ResetPassword from "../components/ResetPassword/ResetPassword";
+=======
+import SignUp from "../pages/SignUp";
+>>>>>>> 32d456cb6e03723c3dfcbc0306b89f5e8b16d8f5
 
 // add your routes here
 const router = createBrowserRouter([
