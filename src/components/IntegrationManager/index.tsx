@@ -16,6 +16,7 @@ import TeamsMessageForm from '../TeamsMessageForm';
 import PagerDutyIncidentForm from '../PagerDutyIncidentForm';
 import GitHubIssueForm from '../GitHubIssueForm';
 import GitHubPRForm from '../GitHubPRForm';
+import toast from 'react-hot-toast';
 
 export default function IntegrationManager() {
   const [chatInputValue, setChatInputValue] = useState('');
@@ -151,7 +152,7 @@ export default function IntegrationManager() {
       setSelectedIntegration(null);
       setShowIntegrationList(false);
     } else {
-      alert('Form submission failed');
+      toast.error('Form submission failed');
     }
   };
 

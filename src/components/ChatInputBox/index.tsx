@@ -29,7 +29,10 @@ function ChatInput({ value, onChange, onSlashTyped }: ChatInputProps) {
   };
 
   return (
-    <div className='w-full px-4 py-3 pt-5 rounded-xl bg-[rgba(6,7,8,1)] flex items-center gap-3 font-plus'>
+    <div
+      className='w-full px-4 py-3 pt-5 rounded-xl bg-[rgba(6,7,8,1)] flex items-center gap-3 font-plus   
+          focus-within:shadow-[0_0_0_3px_#82dbf7,0_0_10px_#b6f09c]'
+    >
       {/* Microphone Icon */}
       <button className='cursor-pointer text-[rgba(155, 156, 158, 1)]'>
         <FiMic className='w-5 h-5' />

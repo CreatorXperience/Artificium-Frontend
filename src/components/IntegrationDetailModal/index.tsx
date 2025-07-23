@@ -99,14 +99,14 @@ export default function IntegrationModal({
                 </div>
                 <div className='flex justify-end gap-3 mt-6'>
                   <button
-                    className='border px-4 py-2 rounded'
+                    className='border px-4 py-2 rounded cursor-pointer'
                     onClick={onClose}
                   >
                     Back
                   </button>
                   <button
                     onClick={handleCreateRule}
-                    className='bg-green-600 text-white px-4 py-2 rounded'
+                    className='bg-green-600 text-white px-4 py-2 rounded cursor-pointer'
                   >
                     Create Rule
                   </button>
