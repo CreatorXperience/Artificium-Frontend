@@ -2,28 +2,34 @@ import { FaGoogle } from "react-icons/fa";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Link } from "react-router";
 import { useState } from "react";
+<<<<<<< HEAD:src/components/SignUp/index.tsx
+import FormInput from "../FormInput";
+import ActionButton from "../ActionButton";
+import SocialButton from "../SocialButton";
+=======
+>>>>>>> 32d456cb6e03723c3dfcbc0306b89f5e8b16d8f5:src/pages/SignUp/index.tsx
 import { useGoogleAuth } from "../../feature/auth/services/googleAuth";
-
-// Or, if the actual named export is different, for example 'googleSignUp':
-// import { googleSignUp as handleGoogleSignUp } from "../../feature/auth/services/googleAuth";
-
 import { useSignUp } from "../../hooks/useSignUp";
 import FormInput from "../../components/FormInput";
 import ActionButton from "../../components/ActionButton";
 import Button from "../../components/SocialButton";
 
+import GetOtpModal from "./otpModal";
+import toast from "react-hot-toast";
+
 type FormData = {
-  email: string;
   firstName: string;
   lastName: string;
+  email: string;
   password: string;
   repeatPassword: string;
 };
-const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://artificium-v2.onrender.com";
+
 const SignUp = () => {
   const { handleGoogleSignUp } = useGoogleAuth();
   const [agreed, setAgreed] = useState(false);
+  const [otpModalOpen, setOtpModalOpen] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -32,10 +38,27 @@ const SignUp = () => {
   } = useForm<FormData>();
 
   const password = watch("password");
-  const mutation = useSignUp(BASE_URL);
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    mutation.mutate(data);
-    // Handle signup logic here
+  const mutation = useSignUp();
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    if (data.password !== data.repeatPassword) {
+      toast.error("Passwords don't match");
+      return;
+    }
+
+    const { firstName, lastName, email, password } = data;
+
+    mutation.mutate(
+      { firstName, lastName, email, password },
+      {
+        onSuccess: (user) => {
+         
+          if (!user.isVerified) {
+            setOtpModalOpen(true);
+          }
+        },
+      }
+    );
   };
 
   return (
@@ -51,7 +74,11 @@ const SignUp = () => {
           />
           <Link
             to="/login"
+<<<<<<< HEAD:src/components/SignUp/index.tsx
+            className="text-sm text-stem-green-700 hover:underline"
+=======
             className="text-sm text-stem-green-500 hover:underline"
+>>>>>>> 32d456cb6e03723c3dfcbc0306b89f5e8b16d8f5:src/pages/SignUp/index.tsx
           >
             Log in
           </Link>
@@ -63,8 +90,8 @@ const SignUp = () => {
             Connect with your team and bring your creative ideas to life.
           </h2>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* First Name */}
               <div>
                 <label className="text-sm text-noble-black-200 mb-1 block">
@@ -74,6 +101,10 @@ const SignUp = () => {
                   placeholder="First name"
                   {...register("firstName", {
                     required: "First name is required",
+                    minLength: {
+                      value: 2,
+                      message: "Must be at least 2 characters",
+                    },
                   })}
                   error={errors.firstName?.message}
                 />
@@ -88,6 +119,10 @@ const SignUp = () => {
                   placeholder="Last name"
                   {...register("lastName", {
                     required: "Last name is required",
+                    minLength: {
+                      value: 2,
+                      message: "Must be at least 2 characters",
+                    },
                   })}
                   error={errors.lastName?.message}
                 />
@@ -123,11 +158,16 @@ const SignUp = () => {
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
-                      value: 6,
-                      message: "Password must be at least 6 characters",
+                      value: 8,
+                      message: "Password must be at least 8 characters",
+                    },
+                    pattern: {
+                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+                      message: "Must contain uppercase, lowercase, and number",
                     },
                   })}
                   error={errors.password?.message}
+                  autoComplete="new-password"
                 />
               </div>
 
@@ -140,17 +180,18 @@ const SignUp = () => {
                   placeholder="Repeat password"
                   type="password"
                   {...register("repeatPassword", {
-                    required: "Repeat password is required",
+                    required: "Please repeat your password",
                     validate: (value) =>
                       value === password || "Passwords do not match",
                   })}
                   error={errors.repeatPassword?.message}
+                  autoComplete="new-password"
                 />
               </div>
             </div>
 
             {/* Terms */}
-            <div className="flex items-center mb-6">
+            <div className="flex items-center">
               <input
                 type="checkbox"
                 className="mr-2 w-4 h-4"
@@ -170,7 +211,7 @@ const SignUp = () => {
             <ActionButton
               text={
                 mutation.isPending
-                  ? "Creating Account"
+                  ? "Creating Account..."
                   : "Create new free Account"
               }
               disabled={!agreed || mutation.isPending}
@@ -188,11 +229,11 @@ const SignUp = () => {
         </div>
 
         {/* Social Media Buttons */}
-        <div className="w-full flex flex-col justify-center sm:flex-row gap-4 mb-6">
-          <Button
+        <div className="w-full flex justify-center">
+          <SocialButton
             text="Sign up with Google"
             icon={<FaGoogle size={20} />}
-            onClick={() => handleGoogleSignUp()}
+            onClick={handleGoogleSignUp}
             isLoading={mutation.isPending}
           />
         </div>
@@ -214,6 +255,15 @@ const SignUp = () => {
           className="absolute inset-0 w-full h-full object-cover"
         />
       </div>
+
+      {/* OTP Modal */}
+      {otpModalOpen && mutation.data && (
+        <GetOtpModal
+          onClose={() => setOtpModalOpen(false)}
+          id={mutation.data.id}
+          email={mutation.data.email}
+        />
+      )}
     </div>
   );
 };

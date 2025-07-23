@@ -1,7 +1,8 @@
 // src/hooks/useSignIn.ts
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
+import { useUser } from "../hooks/useUser";
 
 type LoginData = {
   email: string;
@@ -9,7 +10,9 @@ type LoginData = {
 };
 
 export const useSignIn = (BASE_URL: string) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const { updateUser } = useUser();
+
   return useMutation({
     mutationFn: async (credentials: LoginData) => {
       const response = await fetch(`${BASE_URL}/auth/login`, {
@@ -29,12 +32,21 @@ export const useSignIn = (BASE_URL: string) => {
       return data;
     },
     onSuccess: (data) => {
-      // Store user data and token
-      localStorage.setItem("user", JSON.stringify(data.data));
-      localStorage.setItem("token", data.token);
+      const { id, firstname, lastname, email, image, isVerified, username } =
+        data.data;
+      const user = {
+        id,
+        firstname,
+        lastname,
+        email,
+        image,
+        isVerified,
+        username,
+      };
+      updateUser(user);
 
       toast.success("Login successful!");
-      navigate("/Workspace");
+      // navigate("/Workspace");
     },
     onError: (error: Error) => {
       toast.error(error.message || "Login failed. Please try again.");

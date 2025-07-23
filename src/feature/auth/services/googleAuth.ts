@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useGoogleLogin } from "@react-oauth/google";
+import { useUser } from "../../../hooks/useUser";
 
 const GOOGLE_USER_INFO_URL = import.meta.env.VITE_GOOGLE_USER_INFO_URL || "";
 const BASE_URL =
@@ -8,6 +9,7 @@ const BASE_URL =
 
 export const useGoogleAuth = () => {
   const navigate = useNavigate();
+  const { updateUser } = useUser();
 
   const handleGoogleSignUp = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -48,7 +50,7 @@ export const useGoogleAuth = () => {
           return;
         }
 
-        localStorage.setItem("user", JSON.stringify(SignUpData.data));
+        updateUser({ ...payload });
         toast.success("Sign up successful!");
         navigate("/Workspace");
       } catch (error) {
@@ -99,8 +101,8 @@ export const useGoogleAuth = () => {
           throw new Error(SignInData.message || "Google login failed");
         }
 
-        localStorage.setItem("token", SignInData.token);
-        localStorage.setItem("user", JSON.stringify(SignInData.data));
+        updateUser({ ...payload });
+
         toast.success("Login successful!");
         navigate("/Workspace");
       } catch (error) {
