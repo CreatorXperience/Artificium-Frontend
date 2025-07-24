@@ -8,9 +8,10 @@ import { useSignUp } from "../../hooks/useSignUp";
 import FormInput from "../../components/FormInput";
 import ActionButton from "../../components/ActionButton";
 
+import SocialButton from "../../components/SocialButton";
+
 import GetOtpModal from "./otpModal";
 import toast from "react-hot-toast";
-import SocialButton from "../../components/SocialButton";
 
 type FormData = {
   firstName: string;
@@ -69,6 +70,7 @@ const SignUp = () => {
           <Link
             to="/login"
             className="text-sm text-stem-green-700 hover:underline"
+            // className="text-sm text-stem-green-500 hover:underline"
           >
             Log in
           </Link>
