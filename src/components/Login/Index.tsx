@@ -103,7 +103,7 @@ const SignIn = () => {
               Remember me
             </label>
             <Link
-              to="/ForgetPassword"
+              to="/Forget-Password"
               className="text-day-blue-300 hover:underline"
             >
               Forgot Password?

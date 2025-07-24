@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router";
 import ExampleComponent from "../components/Example";
 import route from "../constants/routes";
 import IdeaCard_1 from "../components/IdeaCard_1";
-import IdeaCard_3 from "../components/IdeaCard_3";
 import IdeaCard_2 from "../components/IdeaCard_2";
+import IdeaCard_3 from "../components/IdeaCard_3";
 import Workspace from "../pages/Workspace";
 import AccessRequest from "../components/AccessRequest";
 import SignIn from "../components/Login/Index";
@@ -12,7 +12,9 @@ import VerifyEmail from "../components/VerifyEmail/VerifyEmail";
 import ResetPassword from "../components/ResetPassword/ResetPassword";
 import SignUp from "../pages/SignUp";
 
-// add your routes here
+import ProtectedRoute from "./ProtectedRoutes";
+import PublicRoute from "./PublicRoutes";
+
 const router = createBrowserRouter([
   {
     path: route.home,
@@ -23,38 +25,70 @@ const router = createBrowserRouter([
     element: <IdeaCard_1 />,
   },
   {
-    path: route.idea_3,
-    element: <IdeaCard_3 />,
-  },
-  {
     path: route.idea_2,
     element: <IdeaCard_2 />,
   },
   {
+    path: route.idea_3,
+    element: <IdeaCard_3 />,
+  },
+  {
     path: route.Workspace,
-    element: <Workspace />,
+    element: (
+      <ProtectedRoute>
+        <Workspace />
+      </ProtectedRoute>
+    ),
   },
   {
     path: route.AccessRequest,
-    element: <AccessRequest />,
+    element: (
+      <ProtectedRoute>
+        <AccessRequest />
+      </ProtectedRoute>
+    ),
+  },
+  // 🔐 Public-only routes (auth pages)
+  {
+    path: route.Login,
+    element: (
+      <PublicRoute>
+        <SignIn />
+      </PublicRoute>
+    ),
   },
   {
     path: route.SignUp,
-    element: <SignUp />,
-  },
-  {
-    path: route.Login,
-    element: <SignIn />,
+    element: (
+      <PublicRoute>
+        <SignUp />
+      </PublicRoute>
+    ),
   },
   {
     path: route.ForgetPassword,
-    element: <ForgetPassword />,
+    element: (
+      <PublicRoute>
+        <ForgetPassword />
+      </PublicRoute>
+    ),
+  },
+  {
+    path: route.ResetPassword,
+    element: (
+      <PublicRoute>
+        <ResetPassword />
+      </PublicRoute>
+    ),
   },
   {
     path: route.VerifyEmail,
-    element: <VerifyEmail />,
+    element: (
+      <PublicRoute>
+        <VerifyEmail />
+      </PublicRoute>
+    ),
   },
-  { path: route.ResetPassword, element: <ResetPassword /> }, // Assuming ResetPassword is similar to ForgetPassword
 ]);
 
 export default router;
