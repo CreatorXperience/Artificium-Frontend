@@ -7,6 +7,9 @@ import IdeaCard_2 from "../components/IdeaCard_2";
 import Workspace from "../pages/Workspace";
 import AccessRequest from "../components/AccessRequest";
 import SignIn from "../components/Login/Index";
+import ForgetPassword from "../components/ForgetPassword";
+import VerifyEmail from "../components/VerifyEmail/VerifyEmail";
+import ResetPassword from "../components/ResetPassword/ResetPassword";
 import SignUp from "../pages/SignUp";
 
 // add your routes here
@@ -43,6 +46,15 @@ const router = createBrowserRouter([
     path: route.Login,
     element: <SignIn />,
   },
+  {
+    path: route.ForgetPassword,
+    element: <ForgetPassword />,
+  },
+  {
+    path: route.VerifyEmail,
+    element: <VerifyEmail />,
+  },
+  { path: route.ResetPassword, element: <ResetPassword /> }, // Assuming ResetPassword is similar to ForgetPassword
 ]);
 
 export default router;
