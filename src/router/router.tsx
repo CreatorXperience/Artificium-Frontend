@@ -6,7 +6,7 @@ import IdeaCard_2 from "../components/IdeaCard_2";
 import IdeaCard_3 from "../components/IdeaCard_3";
 import Workspace from "../pages/Workspace";
 import AccessRequest from "../components/AccessRequest";
-import SignIn from "../components/Login/Index";
+import SignIn from "../pages/Login/Index";
 import ForgetPassword from "../components/ForgetPassword";
 import VerifyEmail from "../components/VerifyEmail/VerifyEmail";
 import ResetPassword from "../components/ResetPassword/ResetPassword";

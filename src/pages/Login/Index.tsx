@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { FaGoogle, FaLock } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import { Link } from "react-router";
-import Button from "../SocialButton";
-import FormInput from "../FormInput";
-import ActionButton from "../ActionButton";
+import Button from "../../components/SocialButton";
+import FormInput from "../../components/FormInput";
+import ActionButton from "../../components/ActionButton";
 import { useState } from "react";
 import { useGoogleAuth } from "../../feature/auth/services/googleAuth";
 import { useSignIn } from "../../hooks/useSignIn";
@@ -26,7 +26,6 @@ const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const { handleGoogleSignIn } = useGoogleAuth();
   const mutation = useSignIn(BASE_URL);
-
   const onSubmit = (data: SignInFormData) => {
     mutation.mutate({
       email: data.email,
