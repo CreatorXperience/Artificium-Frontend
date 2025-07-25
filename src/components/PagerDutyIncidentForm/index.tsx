@@ -29,9 +29,11 @@ const PagerDutyIncidentForm = forwardRef<IntegrationFormHandler>((_, ref) => {
     formState: { errors },
   } = form;
 
-  const onSubmit = async (data: PagerDutyIncidentFormData) => {
+  const onSubmit = async (
+    data: PagerDutyIncidentFormData,
+  ): Promise<PagerDutyIncidentFormData> => {
     console.log('PagerDuty Incident:', data);
-    return true;
+    return data;
   };
 
   useIntegrationFormHandler(ref, form, onSubmit);

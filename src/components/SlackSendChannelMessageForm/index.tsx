@@ -20,9 +20,11 @@ const SlackChannelMessageForm = forwardRef<IntegrationFormHandler>((_, ref) => {
 
   const { control } = form;
 
-  const onSubmit = async (data: SlackChannelFormData) => {
+  const onSubmit = async (
+    data: SlackChannelFormData,
+  ): Promise<SlackChannelFormData> => {
     console.log('Slack Channel Message:', data);
-    return true;
+    return data;
   };
 
   useIntegrationFormHandler(ref, form, onSubmit);
