@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-// import ActionButton from "../ActionButton";
-import toast from "react-hot-toast";
 import ActionButton from "../../components/ActionButton";
+import toast from "react-hot-toast";
 
 interface OtpResponse {
   success: boolean;
@@ -45,7 +44,7 @@ const GetOtpModal = ({ onClose, id, email }: GetOtpModalProps) => {
 
   // Countdown effect
   useEffect(() => {
-    let interval: number;
+    let interval: NodeJS.Timeout;
 
     if (expireAt) {
       interval = setInterval(() => {
