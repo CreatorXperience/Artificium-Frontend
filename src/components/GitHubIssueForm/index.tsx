@@ -22,9 +22,11 @@ const GitHubIssueForm = forwardRef<IntegrationFormHandler>((_, ref) => {
 
   const { control } = form;
 
-  const onSubmit = async (data: GitHubIssueFormData) => {
+  const onSubmit = async (
+    data: GitHubIssueFormData,
+  ): Promise<GitHubIssueFormData> => {
     console.log('GitHub Issue:', data);
-    return true;
+    return data;
   };
 
   useIntegrationFormHandler(ref, form, onSubmit);

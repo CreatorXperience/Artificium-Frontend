@@ -24,10 +24,11 @@ const SendEmailForm = forwardRef<IntegrationFormHandler>((_, ref) => {
 
   const { control } = form;
 
-  const onSubmit = async (data: SendEmailFormData) => {
+  const onSubmit = async (
+    data: SendEmailFormData,
+  ): Promise<SendEmailFormData> => {
     console.log(data);
-    //Run api logic and return true or false based on api return state
-    return true;
+    return data;
   };
 
   useIntegrationFormHandler(ref, form, onSubmit);

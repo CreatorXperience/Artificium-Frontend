@@ -25,9 +25,11 @@ const GitHubPRForm = forwardRef<IntegrationFormHandler>((_, ref) => {
 
   const { control } = form;
 
-  const onSubmit = async (data: GitHubPRFormData) => {
+  const onSubmit = async (
+    data: GitHubPRFormData,
+  ): Promise<GitHubPRFormData> => {
     console.log('GitHub Pull Request:', data);
-    return true;
+    return data;
   };
 
   useIntegrationFormHandler(ref, form, onSubmit);

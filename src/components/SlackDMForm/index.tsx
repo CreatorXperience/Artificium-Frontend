@@ -20,9 +20,9 @@ const SlackDMForm = forwardRef<IntegrationFormHandler>((_, ref) => {
 
   const { control } = form;
 
-  const onSubmit = async (data: SlackDMFormData) => {
+  const onSubmit = async (data: SlackDMFormData): Promise<SlackDMFormData> => {
     console.log('Slack DM:', data);
-    return true;
+    return data;
   };
 
   useIntegrationFormHandler(ref, form, onSubmit);

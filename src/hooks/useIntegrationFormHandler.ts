@@ -5,7 +5,7 @@ import { useImperativeHandle } from 'react';
 function useIntegrationFormHandler<T extends FieldValues>(
   ref: React.Ref<IntegrationFormHandler>,
   form: UseFormReturn<T>,
-  onSubmit: (data: T) => Promise<boolean>,
+  onSubmit: (data: T) => Promise<T>,
 ) {
   const {
     handleSubmit,
@@ -14,13 +14,13 @@ function useIntegrationFormHandler<T extends FieldValues>(
 
   useImperativeHandle(ref, () => ({
     submitForm: async () => {
-      let success = false;
+      let payload: T | null = null;
       await handleSubmit(async (data) => {
         const result = await onSubmit(data);
-        success = result;
+        payload = result;
       })();
 
-      return success;
+      return payload;
     },
     isDirty,
     isSubmitted: isSubmitSuccessful,

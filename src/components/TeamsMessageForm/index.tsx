@@ -20,9 +20,11 @@ const TeamsMessageForm = forwardRef<IntegrationFormHandler>((_, ref) => {
 
   const { control } = form;
 
-  const onSubmit = async (data: TeamsMessageFormData) => {
+  const onSubmit = async (
+    data: TeamsMessageFormData,
+  ): Promise<TeamsMessageFormData> => {
     console.log('Teams Message:', data);
-    return true;
+    return data;
   };
 
   useIntegrationFormHandler(ref, form, onSubmit);

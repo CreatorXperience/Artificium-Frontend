@@ -31,6 +31,12 @@ export default function IntegrationManager() {
     message: string;
     onConfirm: () => void;
   }>({ open: false, message: '', onConfirm: () => {} });
+  const [integrationTag, setIntegrationTag] =
+    useState<IntegrationAction | null>(null);
+  const [integrationPayload, setIntegrationPayload] = useState<object | null>(
+    null,
+  );
+  // const [chatMessage, setChatMessage] = useState<string>('');
 
   const listRef = useRef<HTMLDivElement | null>(null);
 
@@ -100,6 +106,7 @@ export default function IntegrationManager() {
 
   // ✅ Trigger slash input detection
   const handleSlashTyped = (rect?: DOMRect) => {
+    if (integrationTag) return;
     console.log('rect', rect);
     if (rect?.height) {
       setInputRect(rect);
@@ -147,13 +154,44 @@ export default function IntegrationManager() {
   };
 
   const handleSubmitIntegration = async () => {
-    const success = await formRef.current?.submitForm();
-    if (success) {
+    const payload = await formRef.current?.submitForm();
+    console.log(payload);
+    if (payload) {
+      setIntegrationPayload(payload);
+      setIntegrationTag(selectedIntegration);
       setSelectedIntegration(null);
       setShowIntegrationList(false);
     } else {
       toast.error('Form submission failed');
     }
+  };
+
+  console.log('selectedIntegration:', selectedIntegration);
+
+  const handleSendMessage = function () {
+    //Dummy message sending
+    if (!chatInputValue.trim()) return;
+
+    const messageId = Date.now().toString();
+
+    if (integrationTag && integrationPayload) {
+      toast.success('message sent successfully');
+      console.log({
+        messageId,
+        integration: integrationTag,
+        integrationPayload,
+      });
+
+      setIntegrationTag(null);
+      setIntegrationPayload(null);
+      setChatInputValue('');
+      return;
+    }
+  };
+
+  const handleCancelIntegration = function () {
+    setIntegrationTag(null);
+    setIntegrationPayload(null);
   };
 
   return (
@@ -176,6 +214,9 @@ export default function IntegrationManager() {
         value={chatInputValue}
         onChange={(value) => setChatInputValue(value)}
         onSlashTyped={handleSlashTyped}
+        integrationAction={integrationTag}
+        onSend={handleSendMessage}
+        handleCancelIntegration={handleCancelIntegration}
       />
 
       {/* Integration List */}
@@ -209,6 +250,8 @@ export default function IntegrationManager() {
           {FormComponent && <FormComponent ref={formRef} />}
         </IntegrationDetailModal>
       )}
+
+      <input type='audio' />
     </>
   );
 }

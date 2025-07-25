@@ -1,13 +1,29 @@
 import { useEffect, useRef } from 'react';
 import { FiMic, FiPaperclip, FiSend } from 'react-icons/fi';
+import { IoCloseOutline } from 'react-icons/io5';
 
-interface ChatInputProps {
+interface BaseIntegrationAction {
+  service: string;
+}
+
+interface ChatInputProps<T extends BaseIntegrationAction | null> {
   value?: string;
   onChange?: (value: string) => void;
   onSlashTyped?: (rect?: DOMRect) => void;
+  integrationAction: T;
+  onSend: () => void;
+  handleCancelIntegration: () => void;
 }
 
-function ChatInput({ value, onChange, onSlashTyped }: ChatInputProps) {
+function ChatInput<T extends BaseIntegrationAction | null>({
+  value,
+  onChange,
+  onSlashTyped,
+  integrationAction,
+  onSend,
+  handleCancelIntegration,
+}: ChatInputProps<T>) {
+  console.log(onSend);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -31,12 +47,21 @@ function ChatInput({ value, onChange, onSlashTyped }: ChatInputProps) {
   return (
     <div
       className='w-full px-4 py-3 pt-5 rounded-xl bg-[rgba(6,7,8,1)] flex items-center gap-3 font-plus   
-          focus-within:shadow-[0_0_0_3px_#82dbf7,0_0_10px_#b6f09c]'
+          focus-within:shadow-[0_0_0_3px_#82dbf7,0_0_10px_#b6f09c] relative'
     >
       {/* Microphone Icon */}
       <button className='cursor-pointer text-[rgba(155, 156, 158, 1)]'>
         <FiMic className='w-5 h-5' />
       </button>
+
+      {integrationAction && (
+        <span className='bg-noble-black-700 text-heisenberg-blue-600 px-2 py-1 rounded-full flex items-center gap-2 shadow-[0_0_0_1px_#1A1D21,0_0_5px_#1A1D21] inset-shadow-2xs'>
+          <span>@{integrationAction.service.toLowerCase()}</span>
+          <span className='cursor-pointer' onClick={handleCancelIntegration}>
+            <IoCloseOutline />
+          </span>
+        </span>
+      )}
 
       {/* Input Field */}
       <input
@@ -54,7 +79,10 @@ function ChatInput({ value, onChange, onSlashTyped }: ChatInputProps) {
       </button>
 
       {/* Send Button */}
-      <button className='bg-[rgba(19,22,25,1)] rounded-full w-8 h-8 flex items-center justify-center cursor-pointer'>
+      <button
+        className='bg-[rgba(19,22,25,1)] rounded-full w-8 h-8 flex items-center justify-center cursor-pointer'
+        onClick={onSend}
+      >
         <FiSend className='w-4 h-4 text-white' />
       </button>
     </div>
