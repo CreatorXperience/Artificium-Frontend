@@ -18,7 +18,11 @@ import PublicRoute from "./PublicRoutes";
 const router = createBrowserRouter([
   {
     path: route.home,
-    element: <ExampleComponent />,
+    element: (
+      <ProtectedRoute>
+        <ExampleComponent />
+      </ProtectedRoute>
+    ),
   },
   {
     path: route.idea_1,
@@ -37,6 +41,7 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Workspace />
+        //{" "}
       </ProtectedRoute>
     ),
   },

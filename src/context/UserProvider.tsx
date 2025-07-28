@@ -19,15 +19,15 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     email: "",
   });
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryFn: getMe,
     queryKey: ["/me"],
-    refetchInterval: 5000,
-    refetchOnMount: true,
+    staleTime: 5000,
   });
 
   useEffect(() => {
     if (data && data.data) {
+      console.log(data.data);
       setUser(data.data);
     }
   }, [data]);
@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setUser((prev: User) => ({ ...prev, ...newData }));
   };
 
-  const value: UserContextType = { user, setUser, updateUser };
+  const value: UserContextType = { user, setUser, updateUser, isLoading };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
