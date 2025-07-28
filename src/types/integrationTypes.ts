@@ -1,6 +1,9 @@
 //Integration types
 
-export type IntegrationCategory = "Triggers" | "Actions";
+
+import type { FieldValues } from 'react-hook-form';
+
+export type IntegrationCategory = 'Triggers' | 'Actions';
 export type IntegrationService =
   | "Gmail"
   | "Slack"
@@ -31,8 +34,8 @@ export interface IntegrationGroup {
   actions: IntegrationAction[];
 }
 
-export interface IntegrationFormHandler {
-  submitForm: () => Promise<boolean>;
+export interface IntegrationFormHandler<T extends FieldValues = FieldValues> {
+  submitForm: () => Promise<T | null>;
   isDirty: boolean;
   isSubmitted: boolean;
 }
