@@ -1,7 +1,7 @@
 // src/hooks/useSignIn.ts
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-// import { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useUser } from "../hooks/useUser";
 
 type LoginData = {
@@ -10,10 +10,10 @@ type LoginData = {
 };
 
 export const useSignIn = (BASE_URL: string) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { updateUser } = useUser();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (credentials: LoginData) => {
       const response = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
@@ -21,6 +21,7 @@ export const useSignIn = (BASE_URL: string) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(credentials),
+        credentials: "include"
       });
 
       const data = await response.json();
@@ -28,6 +29,7 @@ export const useSignIn = (BASE_URL: string) => {
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
+
 
       return data;
     },
@@ -46,11 +48,13 @@ export const useSignIn = (BASE_URL: string) => {
       updateUser(user);
 
       toast.success("Login successful!");
-      // navigate("/Workspace");
+      navigate("/Workspace");
     },
     onError: (error: Error) => {
       toast.error(error.message || "Login failed. Please try again.");
       console.error("Login error:", error);
     },
   });
+
+  return mutation
 };
