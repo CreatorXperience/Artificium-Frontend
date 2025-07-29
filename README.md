@@ -54,6 +54,23 @@ npm run dev
   ngrok http localhost:5173
 ```
 
+-- output 
+
+```bash
+Take our ngrok in production survey! https://forms.gle/aXiBFWzEA36Dud
+                                                                     
+Session Status                online                                 
+Account                       allyearmustobey@gmail.com (Plan: Free) 
+Update                        update available (version 3.25.0, Ctrl-
+Version                       3.23.1                                 
+Region                        Europe (eu)                            
+Web Interface                 http://127.0.0.1:4040                  
+Forwarding                    https://toucan-epic-grubworm.ngrok-free  -> use this link on the browser
+                                                                     
+Connections                   ttl     opn     rt1     rt5     p50    
+                              0       0       0.00    0.00    0.00
+```
+
 ## **Using Docker:**
 
 ### **prerequisites:**
