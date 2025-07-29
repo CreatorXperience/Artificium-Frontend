@@ -33,7 +33,12 @@
 - Javascript
 - Tailwindcss
 
-## **Developemnt**
+## **Developement**
+
+###  **Ngrok** 
+### NB⚠️:
+We developing, ngrok should be installed on your machine for cookie to work cause the backend cookie will only set if the frontend is running on https.
+
 
 ### **Manual Installation:**
 
@@ -42,6 +47,11 @@ git clone https://github.com/CreatorXperience/Artificium-Frontend.git
 cd Artificium-Frontend
 npm i
 npm run dev
+```
+
+
+```bash
+  ngrok http localhost:5173
 ```
 
 ## **Using Docker:**
