@@ -60,7 +60,7 @@ npm run dev
 Take our ngrok in production survey! https://forms.gle/aXiBFWzEA36Dud
                                                                      
 Session Status                online                                 
-Account                       allyearmustobey@gmail.com (Plan: Free) 
+Account                       your-email@gmail.com (Plan: Free) 
 Update                        update available (version 3.25.0, Ctrl-
 Version                       3.23.1                                 
 Region                        Europe (eu)                            
