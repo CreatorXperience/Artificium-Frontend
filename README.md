@@ -39,7 +39,7 @@
 ### NB⚠️:
 While developing, ngrok should be installed on your machine for cookie to work cause the backend cookie will only set cookie if the frontend is running on https.
 
-- Ubuntu:
+- Linux :
   
   ```bash
   curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
