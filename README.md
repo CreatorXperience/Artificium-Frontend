@@ -63,7 +63,7 @@ While developing, ngrok should be installed on your machine for cookie to work c
   ```
 
 
-After Installation [login to ngrok ](https://ngrok.com) and copy your under installation section in ngrok ,run the command that looks like this on your terminal:
+After Installation [login to ngrok ](https://ngrok.com) and copy  your token under the installation section in ngrok ,run the command that looks like this on your terminal:
 
 ```bash
   ngrok config add-authtoken your-token
