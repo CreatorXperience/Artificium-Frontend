@@ -37,7 +37,7 @@
 
 ###  **Ngrok** 
 ### NB⚠️:
-We developing, ngrok should be installed on your machine for cookie to work cause the backend cookie will only set if the frontend is running on https.
+While developing, ngrok should be installed on your machine for cookie to work cause the backend cookie will only set cookie if the frontend is running on https.
 
 
 ### **Manual Installation:**
