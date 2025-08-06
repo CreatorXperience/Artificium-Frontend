@@ -42,7 +42,7 @@ const ExampleComponent = () => {
         />
 
         <VideoPlayer
-          videoUrl='/media/testvideo.mp4'
+          videoUrl='https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4'
           label='There is also this amazing video installation. Check it out:'
         />
 
