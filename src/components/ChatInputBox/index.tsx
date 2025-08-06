@@ -23,7 +23,6 @@ function ChatInput<T extends BaseIntegrationAction | null>({
   onSend,
   handleCancelIntegration,
 }: ChatInputProps<T>) {
-  console.log(onSend);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
