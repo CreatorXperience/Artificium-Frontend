@@ -12,9 +12,10 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!isLoading && user.id && !socketRef.current) {
-      const socket = io(URL, {
-        withCredentials: true,
-      });
+      const socket = io(
+        URL,
+        // , {withCredentials: true,}//add later
+      );
 
       socket.on('connect', () => {
         setIsConnected(true);
