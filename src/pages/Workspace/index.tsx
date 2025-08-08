@@ -2,14 +2,92 @@ import { useState } from "react";
 import ActionButton from "../../components/ActionButton";
 import FormInput from "../../components/FormInput";
 import CreateWorkspaceModal from "./CreateWorkspaceModal";
+import axiosInstance from "../../utils/axiosInstance";
+import { useUser } from "../../hooks/useUser";
+import { useNavigate } from "react-router";
+import toast, { Toaster } from "react-hot-toast";
+import type { AxiosError } from "axios";
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const Workspace = () => {
+  const { id } = useUser().user;
+  const [url, setUrl] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const extractWorkspaceId = (url: string): string | null => {
+    if (!url.trim()) return null;
+    try {
+      const formattedUrl = url.includes("http") ? url : `https://${url}`;
+      const parsedUrl = new URL(formattedUrl);
+      const parts = parsedUrl.pathname.split("/");
+      return parts[2] || null;
+    } catch (error) {
+      console.error("Invalid URL", error);
+      return null;
+    }
+  };
+
+  const joinPublicWorkspace = async (workspaceId: string) => {
+    try {
+      const response = await axiosInstance.post(
+        `${BASE_URL}/workspace/join?workspaceId=${workspaceId}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success("Successfully joined the workspace!", {
+        duration: 5000,
+      });
+      navigate(`/workspace/`);
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      const message =
+        axiosError.response?.data?.message || "Default error message";
+      toast.error(message);
+    }
+  };
+
+  const getWorkspace = async (workspaceId: string) => {
+    try {
+      setLoading(true);
+      const response = await axiosInstance.get(`/workspace/${workspaceId}`);
+      const workspaceData = response.data.data;
+
+      const isMember = workspaceData.members.includes(id);
+
+      if (workspaceData.visibility === true && !isMember) {
+        navigate(`/access-request/${workspaceId}`);
+      } else if (workspaceData.visibility === false && !isMember) {
+        await joinPublicWorkspace(workspaceId);
+        navigate(`/workSpacePreview/${workspaceId}`);
+      } else {
+        toast.success("You are already a member of this workspace", {
+          duration: 5000,
+        });
+        navigate("/workspace");
+      }
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      const message =
+        axiosError.response?.data?.message || "Default error message";
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-noble-black-800 text-white font-plus">
+      <Toaster position="top-right" reverseOrder={false} />
+
       {/* Left Section */}
       <div className="w-full md:w-3/5 flex flex-col justify-between px-6 sm:px-10 md:px-16 py-10">
-        {/* Logo */}
         <div className="w-full max-w-xl mx-auto">
           <img
             src="https://i.postimg.cc/nLFY8Q8d/Logo.png"
@@ -19,7 +97,6 @@ const Workspace = () => {
         </div>
 
         <div className="w-full max-w-xl mx-auto mt-5">
-          {/* Heading */}
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 leading-snug">
             Join or Create a Workspace
           </h1>
@@ -28,27 +105,35 @@ const Workspace = () => {
             one to collaborate with your team.
           </p>
 
-          {/* Input + Join */}
           <div className="flex flex-col sm:flex-row items-stretch gap-4 mb-6">
             <div className="flex-1">
               <FormInput
                 placeholder="Your workspace URL .artificium.app"
                 placeholderPosition="center"
+                onInput={(e) => setUrl((e.target as HTMLInputElement).value)}
               />
             </div>
             <div className="w-full sm:w-auto">
-              <ActionButton text="Join Workspace" />
+              <ActionButton
+                text={loading ? "Loading..." : "Join Workspace"}
+                onClick={() => {
+                  const workspaceId = extractWorkspaceId(url);
+                  if (workspaceId) {
+                    getWorkspace(workspaceId);
+                  } else {
+                    toast.error("Please enter a valid workspace URL.");
+                  }
+                }}
+              />
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="flex items-center mb-6">
+          <div className="flex items-center my-6">
             <hr className="flex-grow border-noble-black-600" />
             <span className="mx-3 text-noble-black-400 text-sm">or</span>
             <hr className="flex-grow border-noble-black-600" />
           </div>
 
-          {/* Create */}
           <ActionButton
             text="Create new Workspace"
             active={false}
@@ -56,7 +141,6 @@ const Workspace = () => {
           />
         </div>
 
-        {/* Footer */}
         <footer className="flex flex-col sm:flex-row justify-between items-center text-noble-black-400 text-xs sm:text-sm mt-12 max-w-xl w-full mx-auto gap-2 sm:gap-0">
           <span>Artificium.app © {new Date().getFullYear()}</span>
           <a href="/privacy" className="underline hover:text-white">
@@ -65,7 +149,6 @@ const Workspace = () => {
         </footer>
       </div>
 
-      {/* Right Section (hidden on small screens) */}
       <div className="hidden md:block md:w-2/5 relative">
         <img
           src="https://i.postimg.cc/brTZfThC/abstract-03.png"

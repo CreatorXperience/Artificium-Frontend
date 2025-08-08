@@ -14,6 +14,7 @@ import SignUp from "../pages/SignUp";
 
 import ProtectedRoute from "./ProtectedRoutes";
 import PublicRoute from "./PublicRoutes";
+import WorkspacePreviewPage from "../components/AccessRequest/ WorkspacePreviewPage";
 
 const router = createBrowserRouter([
   {
@@ -46,10 +47,18 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: route.AccessRequest,
+    path: `${route.AccessRequest}/:id`,
     element: (
       <ProtectedRoute>
         <AccessRequest />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: `${route.workSpacePreview}/:id`,
+    element: (
+      <ProtectedRoute>
+        <WorkspacePreviewPage />
       </ProtectedRoute>
     ),
   },

@@ -13,7 +13,9 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   if (isLoading) {
     return <Suspense fallback={<h1>Loading</h1>}></Suspense>;
   }
-  if (!isLoading && user) return children;
+  if (!isLoading && user) {
+    return children;
+  }
 };
 
 export default ProtectedRoute;
