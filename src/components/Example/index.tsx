@@ -12,6 +12,10 @@ import ChatPanel from '../ChatPanel';
 import LeftSidebar from '../LeftSidebar';
 import ManageProjectAccessModal from '../ManageProjectAccessModal';
 import WorkspaceOverview from '../WorkSpaceOverview/index';
+import AudioPlayer from '../AudioPlayer';
+import VideoPlayer from '../VideoPlayer';
+import FileCard from '../FileCard';
+import ImagePreview from '../ImagePreview';
 
 const ExampleComponent = () => {
   const [count, setCount] = useState<number>(0);
@@ -29,6 +33,30 @@ const ExampleComponent = () => {
 
   return (
     <>
+      <div className='mb-20 border p-4 rounded-md flex flex-col space-y-4'>
+        <p>Media components</p>
+
+        <AudioPlayer
+          label='I also recorded a bit of interactive sound installation. Take a listen:'
+          audioUrl='https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+        />
+
+        <VideoPlayer
+          videoUrl='https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4'
+          label='There is also this amazing video installation. Check it out:'
+        />
+
+        <ImagePreview
+          label='This is what it looks like:'
+          imageUrl='https://plus.unsplash.com/premium_photo-1683120966127-14162cdd0935?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVjaG5vbG9neXxlbnwwfHwwfHx8MA%3D%3D'
+        />
+
+        <FileCard
+          fileName='document.txt'
+          fileUrl='/media/testfile.txt'
+          label='Check out the file below:'
+        />
+      </div>
       <h1 className='text-noble-black-100 text-3xl'>Project Access Manager</h1>
       <button
         onClick={handleOpenAccessModal}
