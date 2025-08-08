@@ -1,3 +1,4 @@
+import { type Socket } from "socket.io-client";
 export interface User {
   id: string;
   email: string;
@@ -13,6 +14,10 @@ export interface UserContextType {
   isLoading: boolean;
   setUser: React.Dispatch<React.SetStateAction<User>>;
   updateUser: (newData: Partial<User>) => void;
+}
+export interface SocketContextProps {
+  socket: Socket | null;
+  isConnected: boolean;
 }
 export type Member = {
   id: string;

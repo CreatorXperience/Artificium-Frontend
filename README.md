@@ -39,7 +39,7 @@
 ### NB⚠️:
 While developing, ngrok should be installed on your machine for cookie to work cause the backend cookie will only set cookie if the frontend is running on https.
 
-- Linux :
+- Linux Installation :
   
   ```bash
   curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
@@ -51,7 +51,24 @@ While developing, ngrok should be installed on your machine for cookie to work c
 
   ```
 
+
+- Windows Installation :
+  [👉 download via link](https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip)
+
+- Mac Installation : 
+
+  ```bash
+    brew install ngrok
   
+  ```
+
+
+After Installation [login to ngrok ](https://ngrok.com) and copy  your token under the installation section in ngrok ,run the command that looks like this on your terminal:
+
+```bash
+  ngrok config add-authtoken your-token
+```
+
 
   
 ### **Manual Installation:**
