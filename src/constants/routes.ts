@@ -10,6 +10,7 @@ const route = {
   ForgetPassword: "forget-password",
   VerifyEmail: "verify-email",
   ResetPassword: "/reset-password",
+  workSpacePreview: "workSpacePreview",
 };
 
 export default route;

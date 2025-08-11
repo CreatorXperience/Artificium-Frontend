@@ -23,6 +23,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     queryFn: getMe,
     queryKey: ["/me"],
     staleTime: 5000,
+    refetchOnWindowFocus: false,
+    refetchIntervalInBackground: true,
   });
 
   useEffect(() => {

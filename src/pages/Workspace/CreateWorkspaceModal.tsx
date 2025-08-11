@@ -3,6 +3,47 @@ import { FiUpload, FiX } from "react-icons/fi";
 import ActionButton from "../../components/ActionButton";
 import FormInput from "../../components/FormInput";
 
+const categories = [
+  "Business",
+  "Education",
+  "Health",
+  "Technology",
+  "Finance",
+  "Entertainment",
+  "Sports",
+  "Lifestyle",
+  "Art",
+  "Science",
+  "Travel",
+  "Food",
+  "Politics",
+  "Environment",
+  "History",
+  "Literature",
+  "Marketing",
+  "Music",
+  "Fashion",
+  "Photography",
+  "Programming",
+  "Religion",
+  "Nonprofit",
+  "Gaming",
+  "Automotive",
+  "News",
+  "Parenting",
+  "Real Estate",
+  "Law",
+  "Engineering",
+  "Psychology",
+  "Social Media",
+  "Productivity",
+  "Design",
+  "Culture",
+  "Startups",
+  "E-commerce",
+  "Crypto",
+  "AI & Machine Learning",
+];
 type Props = {
   onClose: () => void;
 };
@@ -12,6 +53,7 @@ const CreateWorkspaceModal = ({ onClose }: Props) => {
   const [visibility, setVisibility] = useState("public");
   const [description, setDescription] = useState("");
   const [rules, setRules] = useState("");
+  const [category, setCategory] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -28,10 +70,11 @@ const CreateWorkspaceModal = ({ onClose }: Props) => {
       description,
       rules,
       image,
+      category,
     };
     setHasSubmitted(true);
 
-    if (!name || !description || !rules || !image) {
+    if (!name || !description || !rules || !image || !category) {
       alert("Please fill in all fields and upload an image.");
     } else {
       console.log("📝 Submitted Workspace:", formData);
@@ -132,6 +175,27 @@ const CreateWorkspaceModal = ({ onClose }: Props) => {
               </label>
             ))}
           </div>
+        </div>
+        {/* Category Select */}
+        <div>
+          <label className="text-sm text-noble-black-200 block mb-1">
+            Category
+          </label>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full p-3 rounded-md bg-noble-black-700 text-white outline-none"
+          >
+            <option value="">Select a category</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+          {!category && hasSubmitted && (
+            <p className="text-red-500 text-xs">Category is required</p>
+          )}
         </div>
 
         {/* Description */}
