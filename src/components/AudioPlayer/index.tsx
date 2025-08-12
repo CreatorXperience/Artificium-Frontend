@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaPause, FaPlay } from 'react-icons/fa';
 import { formatTime } from '../../utils/helpers';
+import { useMediaManager } from '../../hooks/useMediaManager';
 
 interface AudioPlayerProps {
   audioUrl?: string;
@@ -9,41 +10,45 @@ interface AudioPlayerProps {
 
 export default function AudioPlayer({ audioUrl, label }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const idRef = useRef<string>(crypto.randomUUID());
   const progressRef = useRef<HTMLDivElement>(null);
 
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const { currentMediaId, setCurrentMediaId } = useMediaManager();
+
   const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
+    setIsPlaying((prev) => {
+      const next = !prev;
+      if (next) setCurrentMediaId(idRef.current);
+      return next;
+    });
   };
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
+    if (currentMediaId !== idRef.current && isPlaying) setIsPlaying(false);
+
     if (isPlaying) {
       audio.play();
     } else {
       audio.pause();
     }
-  }, [isPlaying]);
+  }, [isPlaying, currentMediaId]);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const handleLoadedMetaData = function () {
-      setDuration(audio.duration);
-    };
+    const handleLoadedMetaData = () => setDuration(audio.duration);
 
-    const handleTimeUpdate = () => {
-      setProgress(audio.currentTime);
-    };
+    const handleTimeUpdate = () => setProgress(audio.currentTime);
 
-    const handleEnded = () => {
-      setIsPlaying(false);
-    };
+    const handleEnded = () => setIsPlaying(false);
 
     audio.addEventListener('loadedmetadata', handleLoadedMetaData);
     audio.addEventListener('timeupdate', handleTimeUpdate);
