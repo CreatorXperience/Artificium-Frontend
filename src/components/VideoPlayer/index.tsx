@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { FaPlay, FaPause, FaDownload } from 'react-icons/fa';
 import { formatTime } from '../../utils/helpers';
 import { MdFullscreen, MdOutlineFullscreenExit } from 'react-icons/md';
+import { useMediaManager } from '../../hooks/useMediaManager';
 
 interface VideoPlayerProps {
   videoUrl: string;
@@ -11,50 +12,52 @@ interface VideoPlayerProps {
 
 export default function VideoPlayer({ videoUrl, label }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const idRef = useRef<string>(crypto.randomUUID());
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const [duration, setDuration] = useState(0);
   const [progress, setProgress] = useState(0);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [showControls, setShowControls] = useState(false);
+  const { currentMediaId, setCurrentMediaId } = useMediaManager();
 
-  const togglePlay = useCallback(
-    function () {
-      const video = videoRef.current;
-      if (!video) return;
-
-      setIsPlaying(!isPlaying);
-    },
-    [isPlaying],
-  );
+  const togglePlay = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    setIsPlaying((prev) => {
+      const next = !prev;
+      if (next) setCurrentMediaId(idRef.current);
+      return next;
+    });
+  }, [setCurrentMediaId]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    if (currentMediaId !== idRef.current && isPlaying) {
+      setIsPlaying(false);
+      return;
+    }
 
     if (isPlaying) {
       video.play();
     } else {
       video.pause();
     }
-  }, [isPlaying]);
+  }, [isPlaying, currentMediaId]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const handleTimeUpdate = function () {
-      setProgress(video.currentTime);
-    };
+    const handleTimeUpdate = () => setProgress(video.currentTime);
 
-    const handleLoadedMetaData = function () {
-      setDuration(video.duration);
-    };
+    const handleLoadedMetaData = () => setDuration(video.duration);
 
-    const handleEnded = function () {
-      setIsPlaying(false);
-    };
+    const handleEnded = () => setIsPlaying(false);
 
     video.addEventListener('loadedmetadata', handleLoadedMetaData);
     video.addEventListener('timeupdate', handleTimeUpdate);
@@ -79,9 +82,7 @@ export default function VideoPlayer({ videoUrl, label }: VideoPlayerProps) {
       timeOutId = setTimeout(() => setShowControls(false), 3000);
     };
 
-    const handleMouseLeave = function () {
-      setShowControls(false);
-    };
+    const handleMouseLeave = () => setShowControls(false);
 
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
@@ -96,6 +97,7 @@ export default function VideoPlayer({ videoUrl, label }: VideoPlayerProps) {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    if (!isFullScreen) return;
 
     const handleKeyDown = function (e: KeyboardEvent) {
       e.preventDefault();
@@ -109,7 +111,17 @@ export default function VideoPlayer({ videoUrl, label }: VideoPlayerProps) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [togglePlay]);
+  }, [togglePlay, isFullScreen]);
+
+  useEffect(() => {
+    const handleFullScreenChange = () =>
+      setIsFullScreen(document.fullscreenElement === containerRef.current);
+
+    document.addEventListener('fullscreenchange', handleFullScreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullScreenChange);
+    };
+  }, []);
 
   const handleClickSeek = function (e: React.MouseEvent<HTMLDivElement>) {
     const video = videoRef.current;
@@ -131,10 +143,8 @@ export default function VideoPlayer({ videoUrl, label }: VideoPlayerProps) {
 
     if (!document.fullscreenElement) {
       container.requestFullscreen();
-      setIsFullScreen(true);
     } else {
       document.exitFullscreen();
-      setIsFullScreen(false);
     }
   };
 

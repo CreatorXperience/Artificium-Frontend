@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./context/UserProvider";
 import { SocketProvider } from './context/SocketProvider';
+import MediaProvider from './context/MediaProvider';
 
 const client = new QueryClient();
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
@@ -17,7 +18,9 @@ function App() {
         <QueryClientProvider client={client}>
           <UserProvider>
             <SocketProvider>
-              <RouterProvider router={router}></RouterProvider>
+              <MediaProvider>
+                <RouterProvider router={router}></RouterProvider>
+              </MediaProvider>
             </SocketProvider>
           </UserProvider>
         </QueryClientProvider>
