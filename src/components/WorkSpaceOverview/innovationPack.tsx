@@ -56,8 +56,8 @@ const categories = [
 export default function InnovationStarterPack() {
   return (
     <div className="min-h-screen  font-plus px-4 py-12 md:px-12">
-      <div className="text-center mb-14">
-        <h1 className="text-xl md:text-5xl font-md text-white mb-4">
+      <div className="text-center mb-5">
+        <h1 className="text-xl md:text-5xl font-md text-white mb-1">
           Innovation Starter Pack
         </h1>
         <p className="text-noble-black-300 max-w-3xl mx-auto">
@@ -66,22 +66,22 @@ export default function InnovationStarterPack() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1">
         {categories.map((cat) => (
           <div key={cat.title} className="p-6  transition-shadow duration-300">
-            <div className="flex flex-col items-center mb-6">
+            <div className="flex flex-col items-center mb-3">
               <div
                 className={`flex items-center justify-center  p-3 rounded-full bg-noble-black-700 w-12 h-12
     ${
       cat.Color === "stem-green-100"
         ? "shadow-[0_0_15px_#16a34a40]"
         : cat.Color === "day-blue-100"
-        ? "shadow-[0_0_15px_#0ea5e940]"
-        : cat.Color === "purple-blue-100"
-        ? "shadow-[0_0_15px_#8b5cf640]"
-        : cat.Color === "sunglow-100"
-        ? "shadow-[0_0_15px_#facc1540]"
-        : ""
+          ? "shadow-[0_0_15px_#0ea5e940]"
+          : cat.Color === "purple-blue-100"
+            ? "shadow-[0_0_15px_#8b5cf640]"
+            : cat.Color === "sunglow-100"
+              ? "shadow-[0_0_15px_#facc1540]"
+              : ""
     }`}
               >
                 {cat.icon}
@@ -91,8 +91,8 @@ export default function InnovationStarterPack() {
                 {cat.title}
               </h2>
             </div>
-            <div className="w-full max-w-xl mx-auto px-4">
-              <ul className="space-y-4">
+            <div className="w-full max-w-xl mx-auto px-2">
+              <ul className="space-y-3">
                 {cat.items.map((item) => (
                   <li
                     key={item}

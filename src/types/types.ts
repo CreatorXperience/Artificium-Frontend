@@ -24,7 +24,40 @@ export type Member = {
   name: string;
   email: string;
   image: string;
-  role: string;
+  role?: string;
   userId: string;
   workspaceId: string;
+  memberId?: string;
+};
+export interface ProjectMember {
+  memberId: string;
+  name: string;
+  email: string;
+  image: string;
+  workspaceId: string;
+  userId: string;
+}
+
+export interface Project {
+  name: string;
+  purpose: string;
+  workspaceId: string;
+  visibility: boolean;
+  id: string;
+  members: ProjectMember[];
+  color: string;
+  Shape: React.ComponentType<{
+    className?: string;
+    style?: React.CSSProperties;
+  }>;
+}
+export type ProjectContextType = {
+  activeProject: Project | null;
+  isLoading: boolean;
+  setActiveProject: React.Dispatch<React.SetStateAction<Project | null>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  updateProject: (updatedData: Partial<Project>) => Promise<void>;
+  deleteProject: () => Promise<void>;
+  addMemberToProject: (member: ProjectMember) => Promise<void>;
+  removeMemberFromProject: (memberId: string) => Promise<void>;
 };

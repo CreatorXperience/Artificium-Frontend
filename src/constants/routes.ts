@@ -11,6 +11,7 @@ const route = {
   VerifyEmail: "verify-email",
   ResetPassword: "/reset-password",
   workSpacePreview: "workSpacePreview",
+  WorkspaceHome: "workspace-home",
 };
 
 export default route;

@@ -1,25 +1,41 @@
 import { createBrowserRouter } from "react-router";
-import ExampleComponent from "../components/Example";
+import { lazy, Suspense, type JSX } from "react";
 import route from "../constants/routes";
-import IdeaCard_1 from "../components/IdeaCard_1";
-import IdeaCard_2 from "../components/IdeaCard_2";
-import IdeaCard_3 from "../components/IdeaCard_3";
-import Workspace from "../pages/Workspace";
-import AccessRequest from "../components/AccessRequest";
-import SignIn from "../pages/Login/Index";
-import ForgetPassword from "../components/ForgetPassword";
-import VerifyEmail from "../components/VerifyEmail/VerifyEmail";
-import ResetPassword from "../components/ResetPassword/ResetPassword";
-import SignUp from "../pages/SignUp";
 
 import ProtectedRoute from "./ProtectedRoutes";
 import PublicRoute from "./PublicRoutes";
-import WorkspacePreviewPage from "../components/AccessRequest/ WorkspacePreviewPage";
+
+// Lazy imports
+const ExampleComponent = lazy(() => import("../components/Example"));
+const IdeaCard_1 = lazy(() => import("../components/IdeaCard_1"));
+const IdeaCard_2 = lazy(() => import("../components/IdeaCard_2"));
+const IdeaCard_3 = lazy(() => import("../components/IdeaCard_3"));
+const Workspace = lazy(() => import("../pages/Workspace"));
+const AccessRequest = lazy(() => import("../components/AccessRequest"));
+const SignIn = lazy(() => import("../pages/Login/Index"));
+const ForgetPassword = lazy(() => import("../components/ForgetPassword"));
+const VerifyEmail = lazy(() => import("../components/VerifyEmail/VerifyEmail"));
+const ResetPassword = lazy(
+  () => import("../components/ResetPassword/ResetPassword")
+);
+const SignUp = lazy(() => import("../pages/SignUp"));
+const WorkspacePreviewPage = lazy(
+  () => import("../components/AccessRequest/ WorkspacePreviewPage")
+);
+
+// Loader component
+// Remove the Loader component definition and import Loader from the new file
+import { Loader } from "../components/Loader/Loader.tsx";
+const WorkspaceHome = lazy(() => import("../pages/WorkspaceHome/index.tsx"));
+
+const withSuspense = (element: JSX.Element) => (
+  <Suspense fallback={<Loader />}>{element}</Suspense>
+);
 
 const router = createBrowserRouter([
   {
     path: route.home,
-    element: (
+    element: withSuspense(
       <ProtectedRoute>
         <ExampleComponent />
       </ProtectedRoute>
@@ -27,28 +43,27 @@ const router = createBrowserRouter([
   },
   {
     path: route.idea_1,
-    element: <IdeaCard_1 />,
+    element: withSuspense(<IdeaCard_1 />),
   },
   {
     path: route.idea_2,
-    element: <IdeaCard_2 />,
+    element: withSuspense(<IdeaCard_2 />),
   },
   {
     path: route.idea_3,
-    element: <IdeaCard_3 />,
+    element: withSuspense(<IdeaCard_3 />),
   },
   {
     path: route.Workspace,
-    element: (
+    element: withSuspense(
       <ProtectedRoute>
         <Workspace />
-        //{" "}
       </ProtectedRoute>
     ),
   },
   {
     path: `${route.AccessRequest}/:id`,
-    element: (
+    element: withSuspense(
       <ProtectedRoute>
         <AccessRequest />
       </ProtectedRoute>
@@ -56,16 +71,23 @@ const router = createBrowserRouter([
   },
   {
     path: `${route.workSpacePreview}/:id`,
-    element: (
+    element: withSuspense(
       <ProtectedRoute>
         <WorkspacePreviewPage />
       </ProtectedRoute>
     ),
   },
-  // 🔐 Public-only routes (auth pages)
+  {
+    path: "/workspace-home/:workspaceId/:projectId?",
+    element: withSuspense(
+      <ProtectedRoute>
+        <WorkspaceHome />,
+      </ProtectedRoute>
+    ),
+  },
   {
     path: route.Login,
-    element: (
+    element: withSuspense(
       <PublicRoute>
         <SignIn />
       </PublicRoute>
@@ -73,7 +95,7 @@ const router = createBrowserRouter([
   },
   {
     path: route.SignUp,
-    element: (
+    element: withSuspense(
       <PublicRoute>
         <SignUp />
       </PublicRoute>
@@ -81,7 +103,7 @@ const router = createBrowserRouter([
   },
   {
     path: route.ForgetPassword,
-    element: (
+    element: withSuspense(
       <PublicRoute>
         <ForgetPassword />
       </PublicRoute>
@@ -89,19 +111,11 @@ const router = createBrowserRouter([
   },
   {
     path: route.ResetPassword,
-    element: (
-      <PublicRoute>
-        <ResetPassword />
-      </PublicRoute>
-    ),
+    element: withSuspense(<ResetPassword />),
   },
   {
     path: route.VerifyEmail,
-    element: (
-      <PublicRoute>
-        <VerifyEmail />
-      </PublicRoute>
-    ),
+    element: withSuspense(<VerifyEmail />),
   },
 ]);
 
