@@ -1,4 +1,4 @@
-import { IoCloseOutline } from 'react-icons/io5';
+import { IoCloseOutline } from "react-icons/io5";
 
 export function ManageProjectHeading({
   onCloseModal,
@@ -19,13 +19,13 @@ export function ManageProjectHeading({
 
   return (
     <>
-      <div className='flex justify-between items-center py-4'>
-        <h2 className='text-xl font-semibold'>{heading}</h2>
+      <div className="flex justify-between items-center py-4">
+        <h2 className="text-xl font-semibold">{heading}</h2>
         {onCloseModal && (
           <button
-            aria-label='close'
-            onClick={onCloseModal}
-            className='text-noble-black-300 hover:text-noble-black-100 transition-colors text-2xl cursor-pointer'
+            aria-label="close"
+            onClick={() => onCloseModal()}
+            className="text-noble-black-300 hover:text-noble-black-100 transition-colors text-2xl cursor-pointer"
           >
             <IoCloseOutline />
           </button>
@@ -33,7 +33,7 @@ export function ManageProjectHeading({
       </div>
 
       {description && (
-        <div className='py-2 pb-6 text-noble-black-300 text-sm'>
+        <div className="py-2 pb-6 text-noble-black-300 text-sm">
           <p>{description}</p>
         </div>
       )}

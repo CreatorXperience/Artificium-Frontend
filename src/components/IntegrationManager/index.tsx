@@ -1,25 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
-import ChatInputBox from '../ChatInputBox';
-import IntegrationListModal from '../IntegrationListModal';
-import IntegrationDetailModal from '../IntegrationDetailModal';
-import ConfirmModal from '../ConfirmModal';
-import { integrationGroups } from '../../data/integrationData';
+import { useEffect, useRef, useState } from "react";
+import ChatInputBox from "../ChatInputBox";
+import IntegrationListModal from "../IntegrationListModal";
+import IntegrationDetailModal from "../IntegrationDetailModal";
+import ConfirmModal from "../ConfirmModal";
+import { integrationGroups } from "../../data/integrationData";
 import type {
   IntegrationAction,
   IntegrationActionTypes,
   IntegrationFormHandler,
-} from '../../types/integrationTypes';
-import SendEmailForm from '../SendEmailForm';
-import SlackChannelMessageForm from '../SlackSendChannelMessageForm';
-import SlackDMForm from '../SlackDMForm';
-import TeamsMessageForm from '../TeamsMessageForm';
-import PagerDutyIncidentForm from '../PagerDutyIncidentForm';
-import GitHubIssueForm from '../GitHubIssueForm';
-import GitHubPRForm from '../GitHubPRForm';
-import toast from 'react-hot-toast';
+} from "../../types/integrationTypes";
+import SendEmailForm from "../SendEmailForm";
+import SlackChannelMessageForm from "../SlackSendChannelMessageForm";
+import SlackDMForm from "../SlackDMForm";
+import TeamsMessageForm from "../TeamsMessageForm";
+import PagerDutyIncidentForm from "../PagerDutyIncidentForm";
+import GitHubIssueForm from "../GitHubIssueForm";
+import GitHubPRForm from "../GitHubPRForm";
+import toast from "react-hot-toast";
 
 export default function IntegrationManager() {
-  const [chatInputValue, setChatInputValue] = useState('');
+  const [chatInputValue, setChatInputValue] = useState("");
   const [showIntegrationList, setShowIntegrationList] = useState(false);
   const [inputRect, setInputRect] = useState<DOMRect | null>(null);
   const [selectedIntegration, setSelectedIntegration] =
@@ -30,11 +30,11 @@ export default function IntegrationManager() {
     open: boolean;
     message: string;
     onConfirm: () => void;
-  }>({ open: false, message: '', onConfirm: () => {} });
+  }>({ open: false, message: "", onConfirm: () => {} });
   const [integrationTag, setIntegrationTag] =
     useState<IntegrationAction | null>(null);
   const [integrationPayload, setIntegrationPayload] = useState<object | null>(
-    null,
+    null
   );
   // const [chatMessage, setChatMessage] = useState<string>('');
 
@@ -52,9 +52,9 @@ export default function IntegrationManager() {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showIntegrationList]);
 
@@ -67,22 +67,22 @@ export default function IntegrationManager() {
       setInputRect(null);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [showIntegrationList]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         setShowIntegrationList(false);
         setInputRect(null);
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const formRef = useRef<IntegrationFormHandler>(null);
@@ -91,13 +91,13 @@ export default function IntegrationManager() {
     IntegrationActionTypes,
     React.ForwardRefExoticComponent<React.RefAttributes<IntegrationFormHandler>>
   > = {
-    'send-email': SendEmailForm,
-    'send-channel-message': SlackChannelMessageForm,
-    'send-direct-message': SlackDMForm,
-    'send-teams-message': TeamsMessageForm,
-    'create-incident': PagerDutyIncidentForm,
-    'create-issue': GitHubIssueForm,
-    'create-pull-request': GitHubPRForm,
+    "send-email": SendEmailForm,
+    "send-channel-message": SlackChannelMessageForm,
+    "send-direct-message": SlackDMForm,
+    "send-teams-message": TeamsMessageForm,
+    "create-incident": PagerDutyIncidentForm,
+    "create-issue": GitHubIssueForm,
+    "create-pull-request": GitHubPRForm,
   };
 
   const FormComponent = selectedIntegration
@@ -107,7 +107,7 @@ export default function IntegrationManager() {
   // ✅ Trigger slash input detection
   const handleSlashTyped = (rect?: DOMRect) => {
     if (integrationTag) return;
-    console.log('rect', rect);
+    console.log("rect", rect);
     if (rect?.height) {
       setInputRect(rect);
       setShowIntegrationList(true);
@@ -121,7 +121,7 @@ export default function IntegrationManager() {
     if (formRef.current?.isDirty && !formRef.current?.isSubmitted) {
       setConfirmModal({
         open: true,
-        message: 'Discard changes and close?',
+        message: "Discard changes and close?",
         onConfirm: () => {
           setSelectedIntegration(null);
           setConfirmModal((prev) => ({ ...prev, open: false }));
@@ -138,7 +138,7 @@ export default function IntegrationManager() {
       setPendingIntegration(action);
       setConfirmModal({
         open: true,
-        message: 'Discard changes and switch integration?',
+        message: "Discard changes and switch integration?",
         onConfirm: () => {
           if (pendingIntegration) {
             setSelectedIntegration(pendingIntegration);
@@ -162,11 +162,11 @@ export default function IntegrationManager() {
       setSelectedIntegration(null);
       setShowIntegrationList(false);
     } else {
-      toast.error('Form submission failed');
+      toast.error("Form submission failed");
     }
   };
 
-  console.log('selectedIntegration:', selectedIntegration);
+  console.log("selectedIntegration:", selectedIntegration);
 
   const handleSendMessage = function () {
     //Dummy message sending
@@ -175,7 +175,7 @@ export default function IntegrationManager() {
     const messageId = Date.now().toString();
 
     if (integrationTag && integrationPayload) {
-      toast.success('message sent successfully');
+      toast.success("message sent successfully");
       console.log({
         messageId,
         integration: integrationTag,
@@ -184,7 +184,7 @@ export default function IntegrationManager() {
 
       setIntegrationTag(null);
       setIntegrationPayload(null);
-      setChatInputValue('');
+      setChatInputValue("");
       return;
     }
   };
@@ -195,17 +195,17 @@ export default function IntegrationManager() {
   };
 
   return (
-    <>
+    <div className="w-full h-[60px] border-amber-700">
       {/* Confirm Modal */}
       {confirmModal.open && (
         <ConfirmModal
           isOpen={confirmModal.open}
           onClose={() => setConfirmModal((prev) => ({ ...prev, open: false }))}
           onConfirm={confirmModal.onConfirm}
-          title='Unsaved Changes'
+          title="Unsaved Changes"
           message={confirmModal.message}
-          confirmText='Discard'
-          variant='danger'
+          confirmText="Discard"
+          variant="danger"
         />
       )}
 
@@ -223,11 +223,11 @@ export default function IntegrationManager() {
       {showIntegrationList && inputRect && (
         <div
           ref={listRef}
-          className='fixed z-50 w-64'
+          className="fixed z-50 w-64"
           style={{
             top: inputRect ? inputRect.top - 16 : 0, // show above the input
             left: inputRect ? inputRect.left : 0,
-            transform: 'translateY(-100%)', // aligns above input
+            transform: "translateY(-100%)", // aligns above input
           }}
         >
           <IntegrationListModal
@@ -251,7 +251,8 @@ export default function IntegrationManager() {
         </IntegrationDetailModal>
       )}
 
-      <input type='audio' />
-    </>
+      {/* fix page overflow issue if you're gonna uncomment the tag below */}
+      {/*       <input type="audio" /> */}
+    </div>
   );
 }

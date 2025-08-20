@@ -35,6 +35,8 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
       text-gray-900
       hover:bg-lime-500
       active:bg-lime-600
+      hover:text-gray-900
+      active:text-gray-900
       focus:ring-lime-300
       cursor-pointer
       `
@@ -43,6 +45,8 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
       text-noble-black-100
       hover:bg-noble-black-600
       active:bg-noble-black-700
+      hover:text-noble-black-200
+      active:text-noble-black-300
       focus:ring-noble-black-700
       bg-noble-black-700
       cursor-pointer

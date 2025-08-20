@@ -1,3 +1,4 @@
+// components/VerifyEmail.tsx
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
@@ -49,8 +50,8 @@ const VerifyEmail: React.FC = () => {
   } = useMutation({
     mutationFn: verifyOtpRequest,
     onSuccess: (data) => {
-      updateUser(data.user);
-      navigate("/workSpace");
+      updateUser(data.user); // ✅ Login now
+      navigate("/workSpace"); // ✅ Only after verification
     },
     onError: (error: Error) => {
       setError(error.message);
@@ -72,13 +73,9 @@ const VerifyEmail: React.FC = () => {
 
   const handleResendCode = () => {
     if (resendCountdown > 0) return;
-
     setIsResending(true);
     setError("");
-
-    // You can replace this with an actual resend OTP API call
     console.log("Resending verification code...");
-
     setTimeout(() => {
       setIsResending(false);
       setResendCountdown(30);
@@ -87,24 +84,20 @@ const VerifyEmail: React.FC = () => {
 
   useEffect(() => {
     if (resendCountdown <= 0) return;
-
     const timer = setTimeout(() => {
       setResendCountdown((prev) => prev - 1);
     }, 1000);
-
     return () => clearTimeout(timer);
   }, [resendCountdown]);
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-noble-black-800 text-white font-plus">
-      {/* Left Section */}
       <div className="w-full md:w-3/5 flex flex-col justify-center px-4 sm:px-8 md:px-16 py-10 sm:py-16 space-y-6">
         <div className="max-w-md w-full space-y-6 mx-auto">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center sm:text-left">
             Verify your{" "}
             <span className="text-gradient-green-blue-dayblue-500">email</span>
           </h1>
-
           <p className="text-noble-black-300 text-sm sm:text-base text-center sm:text-left">
             Enter the 6-digit code sent to your email to continue.
           </p>
@@ -169,8 +162,6 @@ const VerifyEmail: React.FC = () => {
           </a>
         </div>
       </div>
-
-      {/* Right Section */}
       <div className="hidden md:block md:w-2/5 relative">
         <img
           src="https://i.postimg.cc/wjz7xBR2/9375b84f-6b13-4868-822d-20925e5fb194.jpg"

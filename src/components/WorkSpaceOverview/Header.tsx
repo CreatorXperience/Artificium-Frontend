@@ -3,6 +3,8 @@ import { FaShareAlt } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 import { HiOutlineChat } from "react-icons/hi";
 import { HiOutlineFolder } from "react-icons/hi2";
+import { useProject } from "../../hooks/useProject";
+import ManageProjectAccessModal from "../ManageProjectAccessModal";
 
 const users = [
   "https://i.postimg.cc/zGZC6dSs/Screenshot-from-2025-07-03-21-11-31.png",
@@ -19,9 +21,18 @@ const tabs = [
 
 export default function Header() {
   const [activeTab, setActiveTab] = useState("artificium");
+  const [isAccessModalOpen, setIsAccessModalOpen] = useState<boolean>(false);
+
+  const project = useProject().activeProject;
+
+  const handleOpenAccessModal = () => setIsAccessModalOpen(true);
+  const handleCloseAccessModal = () => setIsAccessModalOpen(false);
 
   return (
-    <div className="rounded-lg" style={{ backgroundColor: "rgba(6, 7, 8, 1)" }}>
+    <div
+      className="rounded-lg h-full"
+      style={{ backgroundColor: "rgba(6, 7, 8, 1)" }}
+    >
       {/* Header */}
       <div
         className="flex items-center justify-between px-6 py-4 border-b"
@@ -29,9 +40,9 @@ export default function Header() {
       >
         {/* Left */}
         <div>
-          <h1 className="text-lg font-semibold text-white">Orbital Odyssey</h1>
+          <h1 className="text-lg font-semibold text-white">{project?.name}</h1>
           <p className="text-sm" style={{ color: "rgba(155, 156, 158, 1)" }}>
-            Marketing Campaign for a new TV Series Launch
+            {project?.purpose || "No Description defined for this project."}
           </p>
         </div>
 
@@ -80,6 +91,7 @@ export default function Header() {
             onMouseLeave={(e) =>
               (e.currentTarget.style.color = "rgba(155, 156, 158, 1)")
             }
+            onClick={handleOpenAccessModal}
           >
             <FaShareAlt size={16} />
             <span>Share</span>
@@ -100,6 +112,9 @@ export default function Header() {
           </div>
         </div>
       </div>
+      {isAccessModalOpen && (
+        <ManageProjectAccessModal onCloseModal={handleCloseAccessModal} />
+      )}
 
       {/* Tabs */}
       <nav className="flex gap-10 px-6  py-6 text-sm">
