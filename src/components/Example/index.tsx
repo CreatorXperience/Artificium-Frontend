@@ -16,7 +16,6 @@ import AudioPlayer from "../AudioPlayer";
 import VideoPlayer from "../VideoPlayer";
 import FileCard from "../FileCard";
 import ImagePreview from "../ImagePreview";
-import WorkspaceHome from "../../pages/WorkspaceHome";
 
 const ExampleComponent = () => {
   const [count, setCount] = useState<number>(0);
@@ -139,7 +138,6 @@ const ExampleComponent = () => {
       <LeftSidebar />
 
       <WorkspaceOverview />
-      <WorkspaceHome />
     </>
   );
 };

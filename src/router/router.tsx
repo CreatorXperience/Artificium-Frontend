@@ -34,7 +34,23 @@ const withSuspense = (element: JSX.Element) => (
 
 const router = createBrowserRouter([
   {
+    path: route.workspace,
+    element: withSuspense(
+      <ProtectedRoute>
+        <WorkspaceHome />
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: route.home,
+    element: withSuspense(
+      <ProtectedRoute>
+        <ExampleComponent />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: route.example,
     element: withSuspense(
       <ProtectedRoute>
         <ExampleComponent />
@@ -54,7 +70,7 @@ const router = createBrowserRouter([
     element: withSuspense(<IdeaCard_3 />),
   },
   {
-    path: route.Workspace,
+    path: route.joinWorkspace,
     element: withSuspense(
       <ProtectedRoute>
         <Workspace />

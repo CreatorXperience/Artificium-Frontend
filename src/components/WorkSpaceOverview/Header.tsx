@@ -29,7 +29,10 @@ export default function Header() {
   const handleCloseAccessModal = () => setIsAccessModalOpen(false);
 
   return (
-    <div className="rounded-lg" style={{ backgroundColor: "rgba(6, 7, 8, 1)" }}>
+    <div
+      className="rounded-lg h-full"
+      style={{ backgroundColor: "rgba(6, 7, 8, 1)" }}
+    >
       {/* Header */}
       <div
         className="flex items-center justify-between px-6 py-4 border-b"

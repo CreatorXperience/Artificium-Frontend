@@ -3,7 +3,7 @@ import axiosInstance from "./axiosInstance";
 export const getWorkspaceMemberShip = async (workspaceId: string) => {
   try {
     const response = await axiosInstance.get(
-      `/workspace/workspace/${workspaceId}/membership`,
+      `/workspace/${workspaceId}/membership`,
       {}
     );
     if (response.status !== 200) {

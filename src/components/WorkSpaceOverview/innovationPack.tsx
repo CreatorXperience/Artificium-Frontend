@@ -55,7 +55,7 @@ const categories = [
 
 export default function InnovationStarterPack() {
   return (
-    <div className="min-h-screen  font-plus px-4 py-12 md:px-12">
+    <div className="h-full overflow-auto no-scrollbar  font-plus px-4 py-12 md:px-12">
       <div className="text-center mb-5">
         <h1 className="text-xl md:text-5xl font-md text-white mb-1">
           Innovation Starter Pack
