@@ -13,7 +13,7 @@ const PublicRoute = ({ children }: { children: ReactNode }) => {
   }
   if (!isLoading && user?.id) {
     // Authenticated user trying to visit login, signup, etc.? Redirect to home.
-    return <Navigate to="/workspace" replace />;
+    return <Navigate to='/' replace />;
   }
 
   return children;

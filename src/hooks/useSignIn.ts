@@ -48,7 +48,7 @@ export const useSignIn = (BASE_URL: string) => {
       updateUser(user);
 
       toast.success("Login successful!");
-      navigate("/Workspace");
+      navigate('/');
     },
     onError: (error: Error) => {
       toast.error(error.message || "Login failed. Please try again.");

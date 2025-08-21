@@ -21,6 +21,7 @@ export default function VideoPlayer({ videoUrl, label }: VideoPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [showControls, setShowControls] = useState(false);
+  
   const { currentMediaId, setCurrentMediaId } = useMediaManager();
 
   const togglePlay = useCallback(() => {
