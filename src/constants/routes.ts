@@ -1,10 +1,10 @@
 const route = {
+  workspace: '/workspace/:workspaceId',
   home: '/',
-  example: 'example',
   idea_1: 'idea_1',
   idea_3: 'idea_3',
   idea_2: 'idea_2',
-  Workspace: 'workspace',
+  joinWorkspace: 'join-workspace',
   AccessRequest: 'access-request',
   Login: 'login',
   SignUp: 'signup',
@@ -12,6 +12,8 @@ const route = {
   VerifyEmail: 'verify-email',
   ResetPassword: '/reset-password',
   workSpacePreview: 'workSpacePreview',
+  WorkspaceHome: 'workspace-home',
+  example: '/example',
 };
 
 export default route;

@@ -1,7 +1,6 @@
 import toast from "react-hot-toast";
 import { signup } from "../feature/auth/services/signup";
 import { useMutation } from "@tanstack/react-query";
-import { useUser } from "./useUser";
 
 export type SignUpFormData = {
   firstName: string;
@@ -20,7 +19,6 @@ type UserResponse = {
 };
 
 export const useSignUp = () => {
-  const { updateUser } = useUser();
   const BASE_URL =
     import.meta.env.VITE_API_BASE_URL || "https://artificium-v2.onrender.com";
 
@@ -30,7 +28,6 @@ export const useSignUp = () => {
     },
     onSuccess: (data) => {
       toast.success("Sign up successful!", { duration: 3000 });
-      updateUser(data);
 
       return data;
     },

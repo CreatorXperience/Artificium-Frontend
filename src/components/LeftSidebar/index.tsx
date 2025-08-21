@@ -10,9 +10,9 @@ const LeftSidebar: React.FC = () => {
     <>
       {/* Mobile Sidebar Toggle */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded shadow 
+        className="md:hidden top-0 left-4  px-3 py-2 rounded shadow 
                    dark:bg-noble-black-700 dark:text-noble-black-100 
-                   bg-white text-noble-black-800"
+                   bg-white text-noble-black-800 z-50 "
         onClick={() => setMobileSidebarOpen(true)}
       >
         ☰
@@ -22,11 +22,13 @@ const LeftSidebar: React.FC = () => {
       {mobileSidebarOpen && (
         <>
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            className="fixed top-0 inset-0 bg-black bg-opacity-50 z-40"
             onClick={() => setMobileSidebarOpen(false)}
           />
-          <div className="fixed inset-y-0 left-0 w-72 p-6 overflow-y-auto z-50 
-                          dark:bg-noble-black-800 bg-white text-black">
+          <div
+            className="fixed inset-y-0 left-0 w-72 p-6 overflow-y-auto z-50 
+                          dark:bg-noble-black-800 bg-white text-black"
+          >
             <div className="flex justify-end mb-4">
               <button
                 className="text-xl dark:text-noble-black-100 text-noble-black-800"
@@ -41,15 +43,19 @@ const LeftSidebar: React.FC = () => {
       )}
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex h-screen w-72 flex-col justify-between p-6 border-r font-plus 
+      <aside
+        className="hidden md:flex  w-72  flex-col min-h-screen justify-between p-6 border-r font-plus 
                        dark:bg-noble-black-800 dark:text-noble-black-100 dark:border-noble-black-600 
-                       bg-white text-noble-black-800 border-gray-200">
+                       bg-white text-noble-black-800 border-gray-200"
+      >
         <div>
           <SidebarHeader />
 
           {/* General Section */}
-          <div className="text-xs uppercase font-semibold mb-3 tracking-wider select-none 
-                          dark:text-noble-black-300 text-noble-black-500">
+          <div
+            className="text-xs uppercase font-semifalsebold mb-3 tracking-wider select-none 
+                          dark:text-noble-black-300 text-noble-black-500"
+          >
             General
           </div>
 
@@ -60,12 +66,16 @@ const LeftSidebar: React.FC = () => {
                          dark:text-noble-black-200 dark:hover:text-noble-black-100 dark:hover:bg-noble-black-600 
                          text-noble-black-700 hover:text-noble-black-900 hover:bg-gray-100"
             >
-              <i className="fas fa-search mr-3 
-                         dark:text-noble-black-300 text-noble-black-500" />
+              <i
+                className="fas fa-search mr-3 
+                         dark:text-noble-black-300 text-noble-black-500"
+              />
               Search
-              <span className="ml-auto text-[10px] font-semibold rounded px-2 py-0.5 select-none 
+              <span
+                className="ml-auto text-[10px] font-semibold rounded px-2 py-0.5 select-none 
                              dark:bg-noble-black-500 dark:text-noble-black-300 
-                             bg-gray-200 text-gray-500">
+                             bg-gray-200 text-gray-500"
+              >
                 ⌘ S
               </span>
             </button>
@@ -76,8 +86,10 @@ const LeftSidebar: React.FC = () => {
                          dark:text-noble-black-200 dark:hover:text-noble-black-100 dark:hover:bg-noble-black-600 
                          text-noble-black-700 hover:text-noble-black-900 hover:bg-gray-100"
             >
-              <i className="far fa-credit-card mr-3 
-                         dark:text-noble-black-300 text-noble-black-500" />
+              <i
+                className="far fa-credit-card mr-3 
+                         dark:text-noble-black-300 text-noble-black-500"
+              />
               Billing
             </a>
           </nav>

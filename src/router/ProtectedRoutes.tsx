@@ -2,6 +2,7 @@
 import { Navigate, useLocation } from "react-router";
 import { useUser } from "../hooks/useUser";
 import { Suspense, type ReactNode } from "react";
+import { Loader } from "../components/Loader/Loader";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { user, isLoading } = useUser();
@@ -11,9 +12,19 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     return <Navigate to={"/login"} state={{ from: location }} />;
   }
   if (isLoading) {
-    return <Suspense fallback={<h1>Loading</h1>}></Suspense>;
+    return <Suspense fallback={<Loader />}></Suspense>;
   }
   if (!isLoading && user) {
+    // User is authenticated, render the children components
+    // if (!user.isVerified) {
+    //   return (
+    //     <Navigate
+    //       to={`/verify-email?userId=${user.id}`}
+    //       state={{ from: location }}
+    //     />
+    //   );
+    // }
+
     return children;
   }
 };
