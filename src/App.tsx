@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./context/UserProvider";
 import { SocketProvider } from './context/SocketProvider';
 import MediaProvider from './context/MediaProvider';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const client = new QueryClient();
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
@@ -16,6 +17,7 @@ function App() {
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         <Toaster position='top-right' reverseOrder={false} />
         <QueryClientProvider client={client}>
+          <ReactQueryDevtools initialIsOpen={false} />
           <UserProvider>
             <SocketProvider>
               <MediaProvider>

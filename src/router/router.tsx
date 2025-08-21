@@ -15,10 +15,19 @@ import SignUp from "../pages/SignUp";
 import ProtectedRoute from "./ProtectedRoutes";
 import PublicRoute from "./PublicRoutes";
 import WorkspacePreviewPage from "../components/AccessRequest/ WorkspacePreviewPage";
+import WorkspacePage from '../pages/Workspace/WorkspacePage';
 
 const router = createBrowserRouter([
   {
     path: route.home,
+    element: (
+      <ProtectedRoute>
+        <WorkspacePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: route.example,
     element: (
       <ProtectedRoute>
         <ExampleComponent />
@@ -42,7 +51,7 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Workspace />
-        //{" "}
+        //{' '}
       </ProtectedRoute>
     ),
   },
