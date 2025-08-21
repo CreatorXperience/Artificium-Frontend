@@ -47,7 +47,7 @@ const Sidebar = ({ filter }: { filter: string }) => {
               return (
                 <li
                   key={link.param}
-                  className={` px-3 py-2 rounded hover:bg-noble-black-600 cursor-pointer text-sm ${
+                  className={`rounded hover:bg-noble-black-600 cursor-pointer text-sm ${
                     filter === link.param
                       ? 'text-stem-green-600 bg-noble-black-600'
                       : 'text-noble-black-400'
@@ -55,7 +55,7 @@ const Sidebar = ({ filter }: { filter: string }) => {
                 >
                   <NavLink
                     to={`/?workspace=${link.param}`}
-                    className={`flex items-center gap-2`}
+                    className={`flex items-center gap-2  px-3 py-2 `}
                   >
                     <span>{Icon && <Icon />}</span> {link.name}
                   </NavLink>
@@ -64,7 +64,7 @@ const Sidebar = ({ filter }: { filter: string }) => {
             })}
           </ul>
         </nav>
-        {/* Quick Filters */}
+        ;{/* Quick Filters */}
         <div className=''>
           <h4 className='text-base font-semibold text-noble-black-300 mb-2'>
             Quick Filters
@@ -85,7 +85,7 @@ const Sidebar = ({ filter }: { filter: string }) => {
             ))}
           </div>
         </div>
-        {/* Categories */}
+        ;{/* Categories */}
         <div>
           <h4 className='text-sm font-semibold text-noble-black-300 mb-2'>
             Categories
@@ -96,7 +96,7 @@ const Sidebar = ({ filter }: { filter: string }) => {
               return (
                 <li
                   key={category.param}
-                  className={` px-3 py-2 rounded hover:bg-noble-black-600 cursor-pointer text-sm ${
+                  className={`rounded hover:bg-noble-black-600 cursor-pointer text-sm ${
                     filter === category.param
                       ? 'text-stem-green-600 bg-noble-black-600'
                       : 'text-noble-black-400'
@@ -104,7 +104,7 @@ const Sidebar = ({ filter }: { filter: string }) => {
                 >
                   <NavLink
                     to={`/?workspace=${category.param}`}
-                    className={`flex items-center gap-2`}
+                    className={`flex items-center gap-2  px-3 py-2 `}
                   >
                     <span>{Icon && <Icon />}</span> {category.name}
                   </NavLink>
@@ -113,6 +113,7 @@ const Sidebar = ({ filter }: { filter: string }) => {
             })}
           </ul>
         </div>
+        ;;
       </aside>
     </>
   );

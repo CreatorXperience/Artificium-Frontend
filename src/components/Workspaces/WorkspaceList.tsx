@@ -10,11 +10,17 @@ import WorkspaceListSkeleton from './WorkspaceListSkeleton';
 import useGetAllWorkspaces from '../../hooks/useGetAllWorkspaces';
 import type { FilterParam } from '../../constants/sidebar';
 import useFilteredWorkspaces from '../../hooks/useFilteredWorkspaces';
+import toast from 'react-hot-toast';
+import CreateWorkspaceModal from '../../pages/Workspace/CreateWorkspaceModal';
 
 const WorkspaceList = ({
   filter,
   searchTerm,
+  showCreateWorkspaceModal,
+  setSetShowCreateWorkspaceModal,
 }: {
+  showCreateWorkspaceModal: boolean;
+  setSetShowCreateWorkspaceModal: (value: boolean) => void;
   filter: FilterParam;
   searchTerm: string;
 }) => {
@@ -35,12 +41,12 @@ const WorkspaceList = ({
     filter,
     searchTerm,
   });
+  if (isGettingWorkspacesError) {
+    toast.error(isGettingWorkspacesError.message);
+    return <WorkspaceListSkeleton />;
+  }
 
-  if (
-    isGettingWorkspacesLoading ||
-    isGettingWorkspacesError ||
-    !allWorkspaces
-  ) {
+  if (isGettingWorkspacesLoading || !allWorkspaces) {
     return <WorkspaceListSkeleton />;
   }
 
@@ -95,6 +101,7 @@ const WorkspaceList = ({
           tabIndex={0}
           role='button'
           aria-label='Create new workspace'
+          onClick={() => setSetShowCreateWorkspaceModal(true)}
         >
           <span className='text-xl sm:text-2xl text-stem-green-500'>
             <FaPlus />
@@ -112,6 +119,12 @@ const WorkspaceList = ({
         <FooterSummary />
         <Pagination />
       </div>
+
+      {showCreateWorkspaceModal && (
+        <CreateWorkspaceModal
+          onClose={() => setSetShowCreateWorkspaceModal(false)}
+        />
+      )}
     </section>
   );
 };

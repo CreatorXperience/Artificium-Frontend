@@ -7,23 +7,33 @@ import type { FilterParam } from '../../constants/sidebar';
 
 const WorkspacePage = () => {
   const [searcTerm, setSearcTerm] = useState<string>('');
-  const [searchParams] = useSearchParams();
-  const filter: FilterParam =
-    (searchParams.get('workspace') as FilterParam) ?? 'explore';
+    const [showCreateWorkspaceModal, setSetShowCreateWorkspaceModal] =
+      useState(false);
+    const [searchParams] = useSearchParams();
+    const filter: FilterParam =
+      (searchParams.get('workspace') as FilterParam) ?? 'explore';
 
-  const handleSearch = (text: string) => setSearcTerm(text);
+    const handleSearch = (text: string) => setSearcTerm(text);
 
-  return (
-    <div className='w-full h-screen overflow-hidden max-h-screen flex min-h-screen bg-noble-black-800 flex-col'>
-      <div className='w-full'>
-        <WorkspaceHeader setSearchTerm={handleSearch} />
+    return (
+      <div className='w-full h-screen overflow-hidden max-h-screen flex min-h-screen bg-noble-black-800 flex-col'>
+        <div className='w-full'>
+          <WorkspaceHeader
+            setSearchTerm={handleSearch}
+            setSetShowCreateWorkspaceModal={setSetShowCreateWorkspaceModal}
+          />
+        </div>
+        <div className='flex-1 flex h-screen min-h-screen overflow-y-auto'>
+          <Sidebar filter={filter} />
+          <WorkspaceList
+            filter={filter}
+            searchTerm={searcTerm}
+            setSetShowCreateWorkspaceModal={setSetShowCreateWorkspaceModal}
+            showCreateWorkspaceModal={showCreateWorkspaceModal}
+          />
+        </div>
       </div>
-      <div className='flex-1 flex h-screen min-h-screen overflow-y-auto'>
-        <Sidebar filter={filter} />
-        <WorkspaceList filter={filter} searchTerm={searcTerm} />
-      </div>
-    </div>
-  );
+    );
 };
 
 export default WorkspacePage;

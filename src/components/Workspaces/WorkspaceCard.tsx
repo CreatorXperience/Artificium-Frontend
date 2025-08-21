@@ -4,6 +4,7 @@ import { IoEllipsisHorizontalSharp } from 'react-icons/io5';
 import { categoryMap } from '../../constants/categories';
 import { BsLaptop } from 'react-icons/bs';
 import AvatarSkeleton from './AvatarSkeleton';
+import { useNavigate } from 'react-router';
 
 export default function WorkspaceCard({
   workspace,
@@ -12,6 +13,7 @@ export default function WorkspaceCard({
   workspace: Workspace;
   view: 'grid' | 'list';
 }) {
+  const navigate = useNavigate();
   const {
     allWorkspaceMembersData,
     allWorkspaceMembersError,
@@ -68,6 +70,7 @@ export default function WorkspaceCard({
         className='bg-noble-black-700 rounded-xl shadow-md p-4 sm:p-5 flex flex-col gap-3 border border-noble-black-600 hover:shadow-lg transition cursor-pointer min-w-0 justify-between'
         tabIndex={0}
         aria-label={`Open workspace ${workspace.name}`}
+        onClick={() => navigate(`/workspace/${workspace.id}`)}
       >
         <div className='flex items-center justify-between'>
           <span className={`text-xl sm:text-2xl p-2 rounded ${categoryClass}`}>
