@@ -3,53 +3,39 @@ import InnovationStarterPack from "./innovationPack";
 import IntegrationManager from "../IntegrationManager";
 import { useProject } from "../../hooks/useProject";
 import LeftSidebar from "../LeftSidebar";
-import { Rocket } from "lucide-react";
 
 const WorkspaceOverview = () => {
-  const { activeProject } = useProject();
+  const Project = useProject();
 
   return (
-    <div className="flex min-h-screen bg-noble-black-900 text-white font-plus w-full">
-      {/* Sidebar */}
-      <LeftSidebar />
+    <div className="border-red-400 w-full min-h-screen bg-noble-black-800 font-plus p-2 sm:flex">
+      <div className="sm:h-[42rem] fixed sm:static z-50 sm:z-0 ">
+        <LeftSidebar />
+      </div>
 
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col">
-        {activeProject ? (
-          <div className="flex-1 flex flex-col">
-            {/* Top Header */}
-            <div className="sticky top-0 z-20 bg-noble-black-900/90 backdrop-blur-md border-b border-noble-black-700 shadow-md">
+      <div className="min-h-screen w-full">
+        {Project ? (
+          <>
+            <div className="h-auto w-full">
               <Header />
             </div>
 
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-8">
-              {/* Innovation Pack */}
-              <section className="w-full h-[40rem] rounded-2xl bg-noble-black-800 shadow-xl border border-noble-black-700 p-6 transition hover:border-electric-green-600/40">
-                <InnovationStarterPack />
-              </section>
-
-              {/* Integration Manager */}
-              <section className="w-full rounded-2xl bg-noble-black-800 shadow-xl border border-noble-black-700 p-6">
-                <IntegrationManager />
-              </section>
+            <div className="h-[38rem] sm:h-[42rem] ">
+              <InnovationStarterPack />
             </div>
-          </div>
+            <div className="border-red-600 flex  flex-row align-bottom justify-end">
+              <IntegrationManager />
+            </div>
+          </>
         ) : (
-          // Empty State
-          <div className="flex-1 flex items-center justify-center p-6">
-            <div className="rounded-2xl bg-noble-black-800 shadow-xl border border-noble-black-700 p-10 text-center max-w-md">
-              <div className="flex justify-center mb-6">
-                <Rocket size={48} className="text-electric-green-600" />
-              </div>
-              <h2 className="text-2xl font-semibold mb-4">No Active Project</h2>
-              <p className="text-noble-black-400 mb-6">
-                Create or select a project to unlock your workspace.
-              </p>
-            </div>
+          <div className="flex flex-col items-center justify-center h-full text-center text-white">
+            <p className="text-lg mb-4">No project in this workspace</p>
+            <button className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition">
+              Add New Project
+            </button>
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 };

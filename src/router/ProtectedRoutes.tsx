@@ -1,32 +1,32 @@
+// src/routes/ProtectedRoute.tsx
 import { Navigate, useLocation } from "react-router";
 import { useUser } from "../hooks/useUser";
-import { type ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { Loader } from "../components/Loader/Loader";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { user, isLoading } = useUser();
   const location = useLocation();
 
+  if (!isLoading && !user) {
+    return <Navigate to={"/login"} state={{ from: location }} />;
+  }
   if (isLoading) {
-    return <Loader />;
+    return <Suspense fallback={<Loader />}></Suspense>;
   }
+  if (!isLoading && user) {
+    // User is authenticated, render the children components
+    // if (!user.isVerified) {
+    //   return (
+    //     <Navigate
+    //       to={`/verify-email?userId=${user.id}`}
+    //       state={{ from: location }}
+    //     />
+    //   );
+    // }
 
-  if (!user || !user.id) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return children;
   }
-
-  // Example: if your app needs email verification
-  // if (!user.isVerified) {
-  //   return (
-  //     <Navigate
-  //       to={`/verify-email?userId=${user.id}`}
-  //       state={{ from: location }}
-  //       replace
-  //     />
-  //   );
-  // }
-
-  return <>{children}</>;
 };
 
 export default ProtectedRoute;

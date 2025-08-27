@@ -85,8 +85,8 @@ const CreateWorkspaceModal = ({ onClose }: Props) => {
       name,
       category,
       description,
-      visibility: visibility === "public" ? true : false,
-      image: image || null,
+      visibility: visibility === "public" ? false : true,
+      image: image || null, // optional
     };
 
     console.log("📝 Submitted Workspace:", workspaceData);
@@ -97,7 +97,9 @@ const CreateWorkspaceModal = ({ onClose }: Props) => {
     );
     if (workspace) {
       console.log("====================================");
-      navigate(`/workspace/${workspace.id}`);
+      console.log("🚀 Created Workspace:", workspace);
+      console.log("====================================");
+      navigate(`/workspace-home/${workspace.id}`);
       onClose();
     } else {
       console.error("Failed to create workspace");
@@ -115,21 +117,10 @@ const CreateWorkspaceModal = ({ onClose }: Props) => {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
-  if (isLoading) {
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center px-4">
-        <div className="bg-noble-black-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-screen overflow-y-auto p-8 font-plus space-y-4 relative flex flex-col items-center">
-          <div className="loader ease-linear rounded-full border-8 border-t-8 border-noble-black-200 h-16 w-16 mb-4"></div>
-          <h2 className="text-xl font-semibold text-white">
-            Creating Workspace...
-          </h2>
-        </div>
-      </div>
-    );
-  }
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center px-4">
-      <div className="bg-noble-black-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-screen overflow-y-auto p-8 font-plus space-y-4 relative">
+      <div className="bg-noble-black-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-screen overflow-y-auto p-8 font-plus space-y-6 relative">
         {/* Header */}
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold text-white">
@@ -144,7 +135,7 @@ const CreateWorkspaceModal = ({ onClose }: Props) => {
         </div>
 
         {/* Upload Image */}
-        <label className="flex items-center gap-2 bg-noble-black-700 p-4 rounded-lg cursor-pointer hover:bg-noble-black-600 transition">
+        <label className="flex items-center gap-4 bg-noble-black-700 p-4 rounded-lg cursor-pointer hover:bg-noble-black-600 transition">
           <div className="bg-noble-black-600 p-3 rounded-lg">
             <FiUpload className="text-white text-xl" />
           </div>
@@ -230,7 +221,7 @@ const CreateWorkspaceModal = ({ onClose }: Props) => {
           </label>
           <div className="relative p-[2px] rounded-lg bg-transparent transition focus-within:bg-gradient-blue-green-500 focus-within:shadow-[0_0_0_3px_#82dbf7,0_0_10px_#b6f09c]">
             <textarea
-              className="w-full p-3 rounded-md bg-noble-black-700 text-white h-20 resize-none outline-none"
+              className="w-full p-3 rounded-md bg-noble-black-700 text-white h-24 resize-none outline-none"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Purpose of the workspace"
@@ -242,7 +233,7 @@ const CreateWorkspaceModal = ({ onClose }: Props) => {
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-end gap-4 pt-1">
+        <div className="flex justify-end gap-4 pt-4">
           <ActionButton text="Cancel" active={false} onClick={onClose} />
           <ActionButton
             text={isLoading ? "Creating..." : "Create Workspace"}
