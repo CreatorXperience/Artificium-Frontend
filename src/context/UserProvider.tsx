@@ -10,11 +10,13 @@ const getMe = async () => {
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User>({
-    id: "",
-    email: "",
     firstname: "",
     lastname: "",
+    id: "",
+    image: "",
     isVerified: false,
+    username: "",
+    email: "",
   });
 
   const { data, isLoading } = useQuery({

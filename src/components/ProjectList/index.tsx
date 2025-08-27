@@ -9,10 +9,8 @@ import { getWorkspaceMemberShip } from "../../utils/getWorkspaceMemberShip";
 import axiosInstance from "../../utils/axiosInstance";
 import { getAlProjects } from "../../utils/getAllProject";
 import { useNavigate, useParams } from "react-router";
+import { MiniLoader } from "../Loader/MiniLoader";
 import { useProject } from "../../hooks/useProject";
-import ProjectSkeleton from "../Skeleton/ProjectSkeleton";
-import Modal from "./Modal";
-import { getProjectMembership } from "../../utils/getProjectMembership";
 
 const shapeIcons = [BsCircle, BsSquare, BsTriangle, BsApp];
 const getRandomShape = () =>
@@ -47,10 +45,8 @@ const createProjectAPI = async (projectData: {
 const ProjectList: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useUser();
-  const safeUser = user!;
   const { activeProject, setActiveProject } = useProject();
   const [projects, setProjects] = useState<Project[]>([]);
-  const [workspaceMemberShip, setWorkspaceMemberShip] = useState<string>("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projectName, setProjectName] = useState("");
@@ -58,41 +54,22 @@ const ProjectList: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { workspaceId } = useParams<{ workspaceId: string }>();
   const [isProjectsLoading, setIsProjectsLoading] = useState(false);
-  console.log("Workspace ID from params:", workspaceId);
 
   const urlWorkspaceId = workspaceId || "";
-  const handleProjectClick = async (project: Project) => {
-    if (!workspaceMemberShip) {
-      toast.error("Workspace membership not loaded yet.");
-      return;
-    }
 
+  const handleProjectClick = (project: Project) => {
     setActiveProject(project);
-    console.log("Project Members:", project);
-
-    try {
-      console.log(workspaceMemberShip, urlWorkspaceId, project.id);
-      const membership = await getProjectMembership(
-        urlWorkspaceId,
-        project.id,
-        workspaceMemberShip
-      );
-      console.log("Project Membership:", membership);
-
-      navigate(`/workspace/${workspaceId}/${project.id}`, { replace: true });
-    } catch (err) {
-      console.error("Failed to fetch project membership:", err);
-      toast.error("Unable to load project membership.");
-    }
+    navigate(`/workspace-home/${workspaceId}/${project.id}`, { replace: true });
   };
 
   // --- Load workspace membership ---
+  const [workspaceMemberShip, setWorkspaceMemberShip] = useState<string>("");
   useEffect(() => {
     const fetchWorkspaceMembership = async () => {
       try {
         const wsMemberShip = await getWorkspaceMemberShip(urlWorkspaceId);
-        console.log("Workspace membership:", wsMemberShip);
-        setWorkspaceMemberShip(wsMemberShip.id);
+        const wsMemberShipId = wsMemberShip.id || wsMemberShip._id;
+        setWorkspaceMemberShip(wsMemberShipId);
       } catch (err) {
         console.error("Failed to fetch workspace membership:", err);
       }
@@ -138,12 +115,12 @@ const ProjectList: React.FC = () => {
         members: workspaceMemberShip
           ? [
               {
-                id: safeUser.id,
-                name: `${safeUser.firstname} ${safeUser.lastname}`,
-                email: safeUser.email,
-                image: safeUser.image || "",
+                id: user.id,
+                name: `${user.firstname} ${user.lastname}`,
+                email: user.email,
+                image: user.image || "",
                 memberId: workspaceMemberShip,
-                userId: safeUser.id,
+                userId: user.id,
                 workspaceId: urlWorkspaceId,
               },
             ]
@@ -180,7 +157,7 @@ const ProjectList: React.FC = () => {
       {/* Project List */}
       <div className="space-y-2 max-h-52 overflow-y-auto pr-1 custom-scrollbar">
         {isProjectsLoading ? (
-          <ProjectSkeleton />
+          <MiniLoader />
         ) : (
           projects.map((project) => {
             const isActive = activeProject?.id === project.id;
@@ -226,65 +203,83 @@ const ProjectList: React.FC = () => {
         Add new project
       </button>
 
-      {/* Create Project Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h2 className="text-lg font-semibold mb-4">Add New Project</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Project Name */}
-          <div>
-            <label className="block text-sm mb-1">Project Name</label>
-            <input
-              type="text"
-              required
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-              className="w-full rounded px-3 py-2 text-sm border border-gray-300 dark:border-noble-black-600 
-                   dark:bg-noble-black-800 dark:text-white"
-            />
-          </div>
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 dark:bg-black/90 p-4">
+          <div
+            className="rounded-lg p-6 w-full max-w-md font-plus border
+            dark:bg-noble-black-700 dark:text-noble-black-100 dark:border-noble-black-500
+            bg-white text-gray-900 border-gray-300"
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Add New Project</h2>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-xl transition text-gray-400 hover:text-black dark:text-noble-black-300 dark:hover:text-white"
+              >
+                &times;
+              </button>
+            </div>
 
-          {/* Description */}
-          <div>
-            <label className="block text-sm mb-1">Description</label>
-            <textarea
-              rows={3}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full rounded px-3 py-2 text-sm border border-gray-300 dark:border-noble-black-600 
-                   dark:bg-noble-black-800 dark:text-white"
-            />
-          </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm mb-1">Project Name</label>
+                <input
+                  type="text"
+                  required
+                  value={projectName}
+                  onChange={(e) => setProjectName(e.target.value)}
+                  className="w-full rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-electric-green-600
+                    dark:bg-noble-black-800 dark:text-noble-black-100 dark:border-noble-black-600
+                    bg-white text-black border border-gray-300"
+                />
+              </div>
 
-          {/* Add Users */}
-          <div>
-            <label className="block text-sm mb-1">Add Users</label>
-            <input
-              type="text"
-              placeholder="Enter emails or usernames"
-              className="w-full rounded px-3 py-2 text-sm border border-gray-300 dark:border-noble-black-600 
-                   dark:bg-noble-black-800 dark:text-white"
-            />
-          </div>
+              <div>
+                <label className="block text-sm mb-1">Description</label>
+                <textarea
+                  rows={3}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="w-full rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-electric-green-600
+                    dark:bg-noble-black-800 dark:text-noble-black-100 dark:border-noble-black-600
+                    bg-white text-black border border-gray-300"
+                />
+              </div>
 
-          {/* Buttons */}
-          <div className="flex justify-end space-x-2">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2 text-sm rounded bg-gray-200 dark:bg-noble-black-600 dark:text-white hover:bg-gray-300 dark:hover:bg-noble-black-500"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-4 py-2 text-sm rounded bg-electric-green-600 text-black font-semibold hover:opacity-90 transition disabled:opacity-50"
-            >
-              {loading ? "Adding..." : "Add Project"}
-            </button>
+              <div>
+                <label className="block text-sm mb-1">Add Users</label>
+                <input
+                  type="text"
+                  placeholder="Enter emails or usernames"
+                  className="w-full rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-electric-green-600
+                    dark:bg-noble-black-800 dark:text-noble-black-100 dark:border-noble-black-600
+                    bg-white text-black border border-gray-300"
+                />
+              </div>
+
+              <div className="flex justify-end space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 text-sm rounded transition
+                    dark:bg-noble-black-600 dark:text-white dark:hover:bg-noble-black-500
+                    bg-gray-200 text-gray-800 hover:bg-gray-300"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="px-4 py-2 text-sm rounded bg-electric-green-600 text-black font-semibold hover:opacity-90 transition disabled:opacity-50"
+                >
+                  {loading ? "Adding..." : "Add Project"}
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-      </Modal>
+        </div>
+      )}
     </>
   );
 };

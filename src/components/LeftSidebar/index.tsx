@@ -2,79 +2,105 @@ import React, { useState } from "react";
 import ProjectList from "../ProjectList";
 import SidebarHeader from "../LeftSidebarHeader";
 import SidebarFooter from "../LeftSidebarFooter";
-import { Search, CreditCard } from "lucide-react";
 
 const LeftSidebar: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
     <>
-      {/* Mobile Toggle */}
+      {/* Mobile Sidebar Toggle */}
       <button
-        className="md:hidden fixed top-4 left-4 px-3 py-2 rounded-lg shadow 
-                   bg-white text-noble-black-800 dark:bg-noble-black-700 dark:text-noble-black-100 
-                   z-50"
-        onClick={() => setOpen(true)}
+        className="md:hidden top-0 left-4  px-3 py-2 rounded shadow 
+                   dark:bg-noble-black-700 dark:text-noble-black-100 
+                   bg-white text-noble-black-800 z-50 "
+        onClick={() => setMobileSidebarOpen(true)}
       >
         ☰
       </button>
 
-      {/* Overlay (mobile) */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
-          onClick={() => setOpen(false)}
-        />
+      {/* Mobile Sidebar */}
+      {mobileSidebarOpen && (
+        <>
+          <div
+            className="fixed top-0 inset-0 bg-black bg-opacity-50 z-40"
+            onClick={() => setMobileSidebarOpen(false)}
+          />
+          <div
+            className="fixed inset-y-0 left-0 w-72 p-6 overflow-y-auto z-50 
+                          dark:bg-noble-black-800 bg-white text-black"
+          >
+            <div className="flex justify-end mb-4">
+              <button
+                className="text-xl dark:text-noble-black-100 text-noble-black-800"
+                onClick={() => setMobileSidebarOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
+            {/* Add your mobile content if needed */}
+          </div>
+        </>
       )}
 
-      {/* Sidebar */}
+      {/* Desktop Sidebar */}
       <aside
-        className={`fixed md:static inset-y-0 left-0 w-72 p-6 flex flex-col justify-between border-r font-plus
-                    dark:bg-noble-black-900 dark:text-noble-black-100 dark:border-noble-black-700
-                    bg-white text-noble-black-800 border-gray-200 z-50
-                    transform transition-transform duration-300
-                    ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
+        className="hidden md:flex  w-72  flex-col min-h-screen justify-between p-6 border-r font-plus 
+                       dark:bg-noble-black-800 dark:text-noble-black-100 dark:border-noble-black-600 
+                       bg-white text-noble-black-800 border-gray-200"
       >
-        {/* Mobile Header */}
-        <div className="flex justify-between items-center mb-6 md:hidden">
-          <h2 className="text-lg font-semibold">Menu</h2>
-          <button onClick={() => setOpen(false)} className="text-2xl">
-            ✕
-          </button>
-        </div>
-
-        {/* Sidebar Content */}
-        <div className="flex flex-col h-full">
+        <div>
           <SidebarHeader />
 
-          {/* General */}
-          <div className="text-xs uppercase font-semibold mb-3 tracking-wider text-noble-black-400">
+          {/* General Section */}
+          <div
+            className="text-xs uppercase font-semifalsebold mb-3 tracking-wider select-none 
+                          dark:text-noble-black-300 text-noble-black-500"
+          >
             General
           </div>
 
+          {/* Navigation */}
           <nav className="space-y-2 mb-8">
-            <button className="w-full flex items-center text-sm font-medium rounded-lg px-3 py-2 transition-all duration-200 hover:bg-noble-black-700/60">
-              <Search size={16} className="mr-3 text-noble-black-400" />
+            <button
+              className="w-full flex items-center text-sm font-medium rounded-md px-3 py-2 transition-all duration-200 
+                         dark:text-noble-black-200 dark:hover:text-noble-black-100 dark:hover:bg-noble-black-600 
+                         text-noble-black-700 hover:text-noble-black-900 hover:bg-gray-100"
+            >
+              <i
+                className="fas fa-search mr-3 
+                         dark:text-noble-black-300 text-noble-black-500"
+              />
               Search
-              <span className="ml-auto text-[10px] font-semibold rounded px-2 py-0.5 bg-noble-black-700 text-noble-black-300">
+              <span
+                className="ml-auto text-[10px] font-semibold rounded px-2 py-0.5 select-none 
+                             dark:bg-noble-black-500 dark:text-noble-black-300 
+                             bg-gray-200 text-gray-500"
+              >
                 ⌘ S
               </span>
             </button>
 
             <a
               href="#"
-              className="flex items-center text-sm font-medium rounded-lg px-3 py-2 transition-all duration-200 hover:bg-noble-black-700/60"
+              className="flex items-center text-sm font-medium rounded-md px-3 py-2 transition-all duration-200 
+                         dark:text-noble-black-200 dark:hover:text-noble-black-100 dark:hover:bg-noble-black-600 
+                         text-noble-black-700 hover:text-noble-black-900 hover:bg-gray-100"
             >
-              <CreditCard size={16} className="mr-3 text-noble-black-400" />
+              <i
+                className="far fa-credit-card mr-3 
+                         dark:text-noble-black-300 text-noble-black-500"
+              />
               Billing
             </a>
           </nav>
 
-          <div className="relative flex-1">
+          {/* Project List */}
+          <div className="mb-3">
             <ProjectList />
           </div>
         </div>
 
+        {/* Footer */}
         <SidebarFooter />
       </aside>
     </>

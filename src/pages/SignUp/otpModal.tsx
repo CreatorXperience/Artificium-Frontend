@@ -44,7 +44,7 @@ const GetOtpModal = ({ onClose, id, email }: GetOtpModalProps) => {
 
   // Countdown effect
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
+    let interval: number;
 
     if (expireAt) {
       interval = setInterval(() => {

@@ -5,9 +5,6 @@ import route from "../constants/routes";
 import ProtectedRoute from "./ProtectedRoutes";
 import PublicRoute from "./PublicRoutes";
 
-// Loader
-import { Loader } from "../components/Loader/Loader";
-
 // Lazy imports
 const ExampleComponent = lazy(() => import("../components/Example"));
 const IdeaCard_1 = lazy(() => import("../components/IdeaCard_1"));
@@ -23,14 +20,18 @@ const ResetPassword = lazy(
 );
 const SignUp = lazy(() => import("../pages/SignUp"));
 const WorkspacePreviewPage = lazy(
-  () => import("../components/AccessRequest/WorkspacePreviewPage")
+  () => import("../components/AccessRequest/ WorkspacePreviewPage")
 );
-const WorkspaceHome = lazy(() => import("../pages/WorkspaceHome/index"));
-const WorkspacePage = lazy(() => import("../pages/Workspace/WorkspacePage"));
+
+// Loader component
+// Remove the Loader component definition and import Loader from the new file
+import { Loader } from "../components/Loader/Loader.tsx";
+const WorkspaceHome = lazy(() => import("../pages/WorkspaceHome/index.tsx"));
 
 const withSuspense = (element: JSX.Element) => (
   <Suspense fallback={<Loader />}>{element}</Suspense>
 );
+import WorkspacePage from '../pages/Workspace/WorkspacePage';
 
 const router = createBrowserRouter([
   {
@@ -38,23 +39,24 @@ const router = createBrowserRouter([
     element: withSuspense(
       <ProtectedRoute>
         <WorkspaceHome />
-      </ProtectedRoute>
+      </ProtectedRoute>,
     ),
   },
   {
     path: route.home,
-    element: withSuspense(
+    element: (
       <ProtectedRoute>
         <WorkspacePage />
       </ProtectedRoute>
     ),
   },
+
   {
     path: route.example,
     element: withSuspense(
       <ProtectedRoute>
         <ExampleComponent />
-      </ProtectedRoute>
+      </ProtectedRoute>,
     ),
   },
   {
@@ -74,7 +76,7 @@ const router = createBrowserRouter([
     element: withSuspense(
       <ProtectedRoute>
         <Workspace />
-      </ProtectedRoute>
+      </ProtectedRoute>,
     ),
   },
   {
@@ -82,7 +84,7 @@ const router = createBrowserRouter([
     element: withSuspense(
       <ProtectedRoute>
         <AccessRequest />
-      </ProtectedRoute>
+      </ProtectedRoute>,
     ),
   },
   {
@@ -90,24 +92,23 @@ const router = createBrowserRouter([
     element: withSuspense(
       <ProtectedRoute>
         <WorkspacePreviewPage />
-      </ProtectedRoute>
+      </ProtectedRoute>,
     ),
   },
   {
-    path: "/workspace/:workspaceId/:projectId?",
+    path: '/workspace-home/:workspaceId/:projectId?',
     element: withSuspense(
       <ProtectedRoute>
-        <WorkspaceHome />
-      </ProtectedRoute>
+        <WorkspaceHome />,
+      </ProtectedRoute>,
     ),
   },
-  // Public routes
   {
     path: route.Login,
     element: withSuspense(
       <PublicRoute>
         <SignIn />
-      </PublicRoute>
+      </PublicRoute>,
     ),
   },
   {
@@ -115,7 +116,7 @@ const router = createBrowserRouter([
     element: withSuspense(
       <PublicRoute>
         <SignUp />
-      </PublicRoute>
+      </PublicRoute>,
     ),
   },
   {
@@ -123,24 +124,16 @@ const router = createBrowserRouter([
     element: withSuspense(
       <PublicRoute>
         <ForgetPassword />
-      </PublicRoute>
+      </PublicRoute>,
     ),
   },
   {
     path: route.ResetPassword,
-    element: withSuspense(
-      <PublicRoute>
-        <ResetPassword />
-      </PublicRoute>
-    ),
+    element: withSuspense(<ResetPassword />),
   },
   {
     path: route.VerifyEmail,
-    element: withSuspense(
-      <PublicRoute>
-        <VerifyEmail />
-      </PublicRoute>
-    ),
+    element: withSuspense(<VerifyEmail />),
   },
 ]);
 
