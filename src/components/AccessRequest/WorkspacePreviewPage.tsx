@@ -6,6 +6,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import ActionButton from "../ActionButton";
 import { getAllMembers } from "../../utils/getAllMembers";
 import type { Member } from "../../types/types";
+import { WorkspacePreviewSkeleton } from "./WorkspacePreviewSkeleton";
 
 type Workspace = {
   id: string;
@@ -15,7 +16,7 @@ type Workspace = {
   members: string[];
   owner: string;
   plan: string;
-  visibility: boolean;
+  visibility: boolean; // true = public, false = private
 };
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -25,6 +26,7 @@ const WorkspacePreviewPage = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [Joining, setJoining] = useState(false);
   const [workspace, setWorkspace] = useState<Workspace | null>(null);
   const [allMembersData, setAllMembersData] = useState<Member[]>([]);
 
@@ -53,6 +55,35 @@ const WorkspacePreviewPage = () => {
 
     fetchWorkspaceAndMembers();
   }, [id]);
+
+  const joinPublicWorkspace = async (workspaceId: string) => {
+    try {
+      setJoining(true);
+      const response = await axiosInstance.post(
+        `${BASE_URL}/workspace/join?workspaceId=${workspaceId}`,
+        {},
+        { headers: { "Content-Type": "application/json" } }
+      );
+      setJoining(false);
+      toast.success("Successfully joined the workspace!", { duration: 5000 });
+      return response;
+    } catch (error: unknown) {
+      setJoining(false);
+      const axiosError = error as AxiosError<{ message: string }>;
+      const message =
+        axiosError.response?.data?.message || "Default error message";
+      toast.error(message);
+    }
+  };
+
+  const navigateToWorkspace = async (workspaceId: string) => {
+    await joinPublicWorkspace(workspaceId);
+    navigate(`/workspace/${workspaceId}`);
+  };
+
+  if (loading) {
+    return <WorkspacePreviewSkeleton />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-noble-black-900 text-white font-plus overflow-hidden">
@@ -91,10 +122,16 @@ const WorkspacePreviewPage = () => {
             </p>
 
             {/* CTA Button */}
-            <ActionButton
-              text={loading ? "Loading..." : "Join Now"}
-              disabled={loading}
-            />
+            {workspace?.visibility ? (
+              <ActionButton
+                text={Joining ? "Joining..." : "Join Workspace"}
+                onClick={() => navigateToWorkspace(workspace.id)}
+              />
+            ) : (
+              <p className="text-noble-black-400 text-sm mt-4">
+                This workspace is private. You need an invite to join.
+              </p>
+            )}
 
             {/* Divider */}
             <div className="flex items-center my-8">
@@ -105,7 +142,7 @@ const WorkspacePreviewPage = () => {
 
             {/* Back Button */}
             <ActionButton
-              text="change Workspace"
+              text="Change Workspace"
               active={false}
               onClick={() => navigate("/workspace")}
             />
@@ -124,7 +161,7 @@ const WorkspacePreviewPage = () => {
       {/* Right Section (Visual) */}
       <div className="hidden md:block md:w-2/5 relative">
         <img
-          src={"https://i.postimg.cc/brTZfThC/abstract-03.png"}
+          src="https://i.postimg.cc/brTZfThC/abstract-03.png"
           alt="Workspace Illustration"
           className="absolute inset-0 w-full h-full object-cover"
         />

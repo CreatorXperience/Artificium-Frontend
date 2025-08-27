@@ -52,7 +52,7 @@ export const useGoogleAuth = () => {
 
         updateUser({ ...payload });
         toast.success("Sign up successful!");
-        navigate("/Workspace");
+        navigate("/join-workspace");
       } catch (error) {
         const errorMessage =
           error && typeof error === "object" && "message" in error
