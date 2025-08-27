@@ -1,29 +1,18 @@
 import React from "react";
 import { FaCog } from "react-icons/fa";
 import { useUser } from "../../hooks/useUser";
-import AvatarSkeleton from "../Skeleton/AvatarSkeleton";
 
 const SidebarFooter: React.FC = () => {
-  const { user, isLoading } = useUser(); // 👈 get isLoading too
-
-  if (isLoading) {
-    // While loading user data, show skeleton
-    return (
-      <div className="p-4">
-        <AvatarSkeleton />
-      </div>
-    );
-  }
-
+  const user = useUser().user;
   return (
     <div
       className="flex items-center justify-between rounded-lg p-4 font-plus 
-                 dark:bg-noble-black-700 bg-white 
-                 dark:border-none border border-gray-200"
+                    dark:bg-noble-black-700 bg-white 
+                    dark:border-none border border-gray-200"
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-4">
         <img
-          alt={`Profile avatar of ${user?.firstname || "User"}`}
+          alt="Profile avatar of Ryan Lee"
           className="rounded-full w-[40px] h-[40px]"
           src={
             user?.image ||
@@ -33,9 +22,9 @@ const SidebarFooter: React.FC = () => {
         <div>
           <p
             className="text-base font-semibold 
-                       dark:text-noble-black-100 text-noble-black-900"
+                        dark:text-noble-black-100 text-noble-black-900"
           >
-            {(user?.firstname || "First") + " " + (user?.lastname || "Last")}
+            {(user?.firstname || "Ryan") + " " + (user?.lastname || "Lee")}
           </p>
           <p className="text-sm font-medium text-electric-green-600">Premium</p>
         </div>

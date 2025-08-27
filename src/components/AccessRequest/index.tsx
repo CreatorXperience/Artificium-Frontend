@@ -9,80 +9,21 @@ import type { Member } from "../../types/types";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-// Skeleton Component
-const AccessRequestSkeleton = () => {
-  return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-noble-black-900 text-white font-plus overflow-hidden animate-pulse">
-      {/* Left Section */}
-      <div className="w-full md:w-3/5 flex flex-col justify-between sm:px-10 md:px-16 py-10 relative">
-        {/* Logo */}
-        <div className="mb-6">
-          <div className="h-6 w-24 bg-noble-black-700 rounded"></div>
-        </div>
-
-        {/* Center */}
-        <div className="flex flex-col items-center justify-center flex-grow text-center">
-          {/* Avatars */}
-          <div className="flex -space-x-3 mb-6">
-            {[...Array(4)].map((_, idx) => (
-              <div
-                key={idx}
-                className="w-10 h-10 rounded-full bg-noble-black-700 border-2 border-noble-black-900"
-              ></div>
-            ))}
-          </div>
-
-          {/* Heading */}
-          <div className="h-6 w-64 bg-noble-black-700 rounded mb-4"></div>
-
-          {/* Description */}
-          <div className="h-4 w-72 bg-noble-black-700 rounded mb-8"></div>
-
-          {/* Buttons */}
-          <div className="flex flex-col items-center space-y-3 w-[200px] max-w-xs">
-            <div className="h-10 w-full bg-noble-black-700 rounded"></div>
-            <div className="h-4 w-6 bg-noble-black-700 rounded"></div>
-            <div className="h-10 w-full bg-noble-black-700 rounded"></div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm mt-12 max-w-xl w-full mx-auto gap-2 sm:gap-0">
-          <div className="h-4 w-32 bg-noble-black-700 rounded"></div>
-          <div className="h-4 w-24 bg-noble-black-700 rounded"></div>
-        </div>
-      </div>
-
-      {/* Right Section (Placeholder) */}
-      <div className="hidden md:block md:w-2/5 relative">
-        <div className="absolute inset-0 w-full h-full bg-noble-black-800"></div>
-      </div>
-    </div>
-  );
-};
-
 const AccessRequest = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [AllMembersData, setAllMembersData] = useState<Member[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // start with true
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchedMembers = async () => {
       if (id) {
-        try {
-          const members = await getAllMembers(id);
-          setAllMembersData(members);
-        } catch (err) {
-          toast.error("Failed to fetch members");
-        } finally {
-          setIsLoading(false);
-        }
+        const members = await getAllMembers(id);
+        setAllMembersData(members);
       }
     };
     fetchedMembers();
   }, [id]);
-
   const requestJoinWorkspace = async () => {
     if (!id) {
       toast.error("Workspace ID is missing");
@@ -91,10 +32,17 @@ const AccessRequest = () => {
 
     try {
       setIsLoading(true);
-      await axiosInstance.get(`${BASE_URL}/workspace/access/request`, {
-        params: { workspaceId: id },
-      });
+      const response = await axiosInstance.get(
+        `${BASE_URL}/workspace/access/request`,
+        {
+          params: {
+            workspaceId: id,
+          },
+        }
+      );
+
       toast.success("Access request sent");
+
       navigate(`/workspace`);
     } catch (error: unknown) {
       setIsLoading(false);
@@ -104,10 +52,6 @@ const AccessRequest = () => {
       toast.error(message);
     }
   };
-
-  if (isLoading) {
-    return <AccessRequestSkeleton />;
-  }
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-noble-black-900 text-white font-plus overflow-hidden">
@@ -148,9 +92,7 @@ const AccessRequest = () => {
                 {AllMembersData.length - 3 !== 1 ? "s" : ""} are already here!
               </>
             ) : (
-              `${AllMembersData.length} ${
-                AllMembersData.length === 1 ? "person" : "people"
-              } are already here!`
+              `${AllMembersData.length} ${AllMembersData.length === 1 ? "person" : "people"} are already here!`
             )}
           </h1>
 
@@ -161,7 +103,7 @@ const AccessRequest = () => {
           <div className="flex flex-col items-center space-y-3 w-[200px] max-w-xs">
             <div className="w-full">
               <ActionButton
-                text={isLoading ? "Requesting Access" : "Request Access"}
+                text={isLoading ? "Requesting Access " : "Request Access"}
                 onClick={requestJoinWorkspace}
               />
             </div>
