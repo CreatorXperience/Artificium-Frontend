@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 const client = new QueryClient();
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 function App() {
+  // Hello
   return (
     <div className="">
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
