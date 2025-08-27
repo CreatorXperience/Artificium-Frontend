@@ -9,8 +9,10 @@ export const getWorkspaceMemberShip = async (workspaceId: string) => {
     if (response.status !== 200) {
       throw new Error("Failed to fetch workspace membership");
     }
-    return response.data.data;
-  } catch (error) {
+    //response from the workspaceMembership
+
+    return response.data.data; // returns { id, userId, workspaceId, role }
+  } catch (error: any) {
     console.error("Error fetching workspace membership:", error);
     throw error;
   }
