@@ -3,18 +3,24 @@ import { FaChevronDown } from "react-icons/fa";
 import { getworkspace } from "../../utils/getWorkspace";
 import type { Workspace } from "../../types/workspace";
 import { useParams } from "react-router";
+import AvatarSkeleton from "../Skeleton/AvatarSkeleton"; // 👈 import skeleton
 
 const LeftSidebarHeader: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [workspace, setWorkspace] = useState<Workspace>();
+  const [loading, setLoading] = useState(true); // 👈 add loading state
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { workspaceId } = useParams<{ workspaceId: string }>();
 
   // Fetch workspace data
   useEffect(() => {
     const fetchWorkspace = async () => {
-      const ws = await getworkspace(workspaceId || "");
-      setWorkspace(ws);
+      try {
+        const ws = await getworkspace(workspaceId || "");
+        setWorkspace(ws);
+      } finally {
+        setLoading(false); // 👈 stop loading
+      }
     };
     fetchWorkspace();
   }, [workspaceId]);
@@ -32,6 +38,10 @@ const LeftSidebarHeader: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  if (loading) {
+    return <AvatarSkeleton />; // 👈 show skeleton while fetching
+  }
 
   return (
     <div
@@ -55,7 +65,10 @@ const LeftSidebarHeader: React.FC = () => {
 
         {/* Workspace Info */}
         <div className="flex-1 min-w-0 text-left">
-          <p className="text-base font-semibold leading-tight truncate dark:text-noble-black-100 text-noble-black-900">
+          <p
+            className="text-base font-semibold leading-tight truncate dark:text-noble-black-100 text-noble-black-900"
+            title={workspace?.name || "Workspace Name"}
+          >
             {workspace?.name || "Workspace Name"}
           </p>
           <p className="text-sm font-medium leading-tight dark:text-electric-green-600 text-electric-green-700">

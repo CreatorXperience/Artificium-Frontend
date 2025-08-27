@@ -50,8 +50,8 @@ const VerifyEmail: React.FC = () => {
   } = useMutation({
     mutationFn: verifyOtpRequest,
     onSuccess: (data) => {
-      updateUser(data.user); // ✅ Login now
-      navigate("/workSpace"); // ✅ Only after verification
+      updateUser(data.user);
+      navigate("/join-workspace");
     },
     onError: (error: Error) => {
       setError(error.message);

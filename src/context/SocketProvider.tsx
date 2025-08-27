@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { useUser } from '../hooks/useUser';
-import { SocketContext } from './SocketContext';
-import { io, type Socket } from 'socket.io-client';
+import { useEffect, useRef, useState } from "react";
+import { useUser } from "../hooks/useUser";
+import { SocketContext } from "./SocketContext";
+import { io, type Socket } from "socket.io-client";
 
-const URL = import.meta.env.VITE_API_BASE_URL || '';
+const URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export function SocketProvider({ children }: { children: React.ReactNode }) {
   const [isConnected, setIsConnected] = useState(false);
@@ -11,18 +11,18 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
   const socketRef = useRef<Socket>(null);
 
   useEffect(() => {
-    if (!isLoading && user.id && !socketRef.current) {
+    if (!isLoading && user?.id && !socketRef.current) {
       const socket = io(
-        URL,
+        URL
         // , {withCredentials: true,}//add later
       );
 
-      socket.on('connect', () => {
+      socket.on("connect", () => {
         setIsConnected(true);
-        socket.emit('subscribe', user.id);
+        socket.emit("subscribe", user?.id);
       });
 
-      socket.on('disconnect', () => {
+      socket.on("disconnect", () => {
         setIsConnected(false);
       });
 
@@ -33,7 +33,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       if (socketRef.current) socketRef.current.disconnect();
       socketRef.current = null;
     };
-  }, [isLoading, user.id]);
+  }, [isLoading, user?.id]);
 
   return (
     <SocketContext.Provider value={{ isConnected, socket: socketRef.current }}>

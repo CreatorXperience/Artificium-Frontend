@@ -8,8 +8,6 @@ import { useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import type { AxiosError } from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 const Workspace = () => {
   const { id } = useUser().user;
   const [url, setUrl] = useState("");
@@ -30,29 +28,6 @@ const Workspace = () => {
     }
   };
 
-  const joinPublicWorkspace = async (workspaceId: string) => {
-    try {
-      const response = await axiosInstance.post(
-        `${BASE_URL}/workspace/join?workspaceId=${workspaceId}`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      toast.success("Successfully joined the workspace!", {
-        duration: 5000,
-      });
-      navigate(`/workspace/`);
-    } catch (error: unknown) {
-      const axiosError = error as AxiosError<{ message: string }>;
-      const message =
-        axiosError.response?.data?.message || "Default error message";
-      toast.error(message);
-    }
-  };
-
   const getWorkspace = async (workspaceId: string) => {
     try {
       setLoading(true);
@@ -61,16 +36,18 @@ const Workspace = () => {
 
       const isMember = workspaceData.members.includes(id);
 
-      if (workspaceData.visibility === true && !isMember) {
+      if (workspaceData.visibility === false && !isMember) {
+        // Private → redirect to access request page
         navigate(`/access-request/${workspaceId}`);
-      } else if (workspaceData.visibility === false && !isMember) {
-        await joinPublicWorkspace(workspaceId);
+      } else if (workspaceData.visibility === true && !isMember) {
+        // Public → redirect to preview page (join handled there)
         navigate(`/workSpacePreview/${workspaceId}`);
       } else {
+        // Already a member
         toast.success("You are already a member of this workspace", {
           duration: 5000,
         });
-        navigate("/workspace");
+        navigate("/");
       }
     } catch (error: unknown) {
       const axiosError = error as AxiosError<{ message: string }>;
@@ -149,6 +126,7 @@ const Workspace = () => {
         </footer>
       </div>
 
+      {/* Right Section */}
       <div className="hidden md:block md:w-2/5 relative">
         <img
           src="https://i.postimg.cc/brTZfThC/abstract-03.png"
