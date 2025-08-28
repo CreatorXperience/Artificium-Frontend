@@ -61,7 +61,7 @@ const WorkspaceList = ({
       }
 
       if (workspace.visibility === true) {
-        navigate(`/workSpacePreview/${workspace.id}`);
+        navigate(`/workSpacePreview/${workspace.id}`, { replace: true });
       }
     } catch (error: any) {
       const message =
