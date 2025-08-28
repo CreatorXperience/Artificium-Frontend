@@ -41,6 +41,34 @@ const WorkspaceList = ({
     filter,
     searchTerm,
   });
+
+
+  // 🔹 handle workspace click (private/public/member check)
+  const handleWorkspaceClick = (workspace: any) => {
+    try {
+      const isMember = workspace.members.includes(id);
+
+      if (isMember) {
+        navigate(`/workspace/${workspace.id}`);
+        return;
+      }
+
+      if (workspace.visibility === false) {
+        navigate(`/access-request/${workspace.id}`);
+        return;
+      }
+
+      if (workspace.visibility === true) {
+        navigate(`/workSpacePreview/${workspace.id}`, { replace: true });
+      }
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message || "Could not open workspace";
+      toast.error(message);
+    }
+  };
+
+
   if (isGettingWorkspacesError) {
     toast.error(isGettingWorkspacesError.message);
     return <WorkspaceListSkeleton />;
