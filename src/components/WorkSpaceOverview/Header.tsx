@@ -30,7 +30,7 @@ export default function Header() {
 
   return (
     <div
-      className="rounded-lg h-full"
+      className="rounded-lg  w-auto  md:w-full "
       style={{ backgroundColor: "rgba(6, 7, 8, 1)" }}
     >
       {/* Header */}
