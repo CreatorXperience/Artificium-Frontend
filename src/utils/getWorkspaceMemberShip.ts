@@ -3,7 +3,7 @@ import axiosInstance from "./axiosInstance";
 export const getWorkspaceMemberShip = async (workspaceId: string) => {
   try {
     const response = await axiosInstance.get(
-      `/workspace/${workspaceId}/membership`,
+      `/workspace/workspace/${workspaceId}/membership`,
       {}
     );
     if (response.status !== 200) {
@@ -12,7 +12,7 @@ export const getWorkspaceMemberShip = async (workspaceId: string) => {
     //response from the workspaceMembership
 
     return response.data.data; // returns { id, userId, workspaceId, role }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching workspace membership:", error);
     throw error;
   }

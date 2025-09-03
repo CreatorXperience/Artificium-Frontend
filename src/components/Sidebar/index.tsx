@@ -1,4 +1,10 @@
-import { type ReactNode } from "react";
+import { useContext, useEffect, useState, type ReactNode } from "react";
+import getRandomColor from "../../utils/getRandomColor";
+import { useQuery } from "@tanstack/react-query";
+import { getProjectMembership } from "../../utils/getProjectMembership";
+import { workspaceMemberShipContext } from "../../context/workspaceMembershipContext";
+import type { TProject, TProjects } from "../../types/projectMembertype";
+import { projectMemberShipContext } from "../../context/projectMembershipContext";
 
 /** tiny icon set */
 const IconSearch = () => (
@@ -94,7 +100,19 @@ const Row = ({ icon, label, right }: any) => (
   </button>
 );
 
-const ProjectRow = ({ color, label, active = false }: any) => (
+type TProjectRow = {
+  color: string;
+  label: string;
+  active?: boolean;
+  onClick?: () => void;
+};
+
+const ProjectRow = ({
+  color,
+  label,
+  active = false,
+  onClick = () => {},
+}: TProjectRow) => (
   <button
     className={[
       "flex w-full items-center rounded-xl px-4 py-4 text-left transition",
@@ -102,6 +120,7 @@ const ProjectRow = ({ color, label, active = false }: any) => (
         ? "bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/[0.06] shadow-[0_8px_30px_rgba(0,0,0,0.45)]"
         : "hover:bg-white/[0.04]",
     ].join(" ")}
+    onClick={onClick}
   >
     <div className="flex items-center">
       <Bullet color={color} />
@@ -110,7 +129,33 @@ const ProjectRow = ({ color, label, active = false }: any) => (
   </button>
 );
 
-export default function SidebarNav() {
+export default function SidebarNav({ projects }: TProjects) {
+  const [activeProject, updateActiveProject] = useState<TProject>(projects[0]);
+
+  const workspaceMembership = useContext(workspaceMemberShipContext);
+  const projectMemberShip = useContext(projectMemberShipContext);
+
+  const projectMemberShipQ = useQuery({
+    queryKey: ["project-membership", workspaceMembership?.id],
+    enabled: !!workspaceMembership?.id,
+    queryFn: () =>
+      getProjectMembership(
+        activeProject.workspaceId,
+        activeProject.id,
+        workspaceMembership?.id as string
+      ),
+  });
+
+  const onSelectProject = (project: TProject) => {
+    updateActiveProject(project);
+  };
+
+  useEffect(() => {
+    if (projectMemberShipQ.data) {
+      projectMemberShip?.updateProject(projectMemberShipQ.data);
+    }
+  }, [projectMemberShipQ.data, projectMemberShip]);
+
   return (
     <aside
       className="
@@ -161,7 +206,15 @@ export default function SidebarNav() {
       {/* Projects */}
       <SectionLabel>Projects</SectionLabel>
       <div className="px-3 flex flex-col gap-3">
-        <ProjectRow color="#68F08A" label="Orbital Oddysey" active />
+        {projects.map((item) => (
+          <ProjectRow
+            color={getRandomColor()}
+            label={item.name}
+            onClick={() => onSelectProject(item)}
+            active={activeProject.id === item.id ? true : false}
+          />
+        ))}
+
         <ProjectRow color="#ff5a52" label="Digital Product Launch" />
         <ProjectRow color="#ff9d3b" label="Brand Refresh" />
         <ProjectRow color="#6fe3ff" label="Social Media Strategy" />

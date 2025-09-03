@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Category from "../../components/Category";
 import IntegrationManager from "../../components/IntegrationManager";
 import ProjectHeader from "../../components/ProjectHeader";
 import SidebarNav from "../../components/Sidebar";
 import { FaCaretRight, FaTimes } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router";
+import { getWorkspaceMemberShip } from "../../utils/getWorkspaceMemberShip";
+import { useQuery } from "@tanstack/react-query";
+import { workspaceMemberShipContext } from "../../context/workspaceMembershipContext";
+import { projectMemberShipContext } from "../../context/projectMembershipContext.tsx";
+import type { WorkspaceMemberType } from "../../types/workspaceMemberType";
+import { getAlProjects } from "../../utils/getAllProject";
+import LaunchPage from "../../components/LoaderPage.tsx";
+import type { TProjectMembership } from "../../types/projectMembertype.ts";
+import route from "../../constants/routes.ts";
 
 const IconStack = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5">
@@ -40,9 +50,51 @@ const IconBulb = () => (
     />
   </svg>
 );
+
 const Workspace = () => {
   const [tab, setTab] = useState("artificium");
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
+  const param = useParams<{ workspaceId: string }>();
+  const [workspaceMembership, updateWorkspaceMembership] =
+    useState<WorkspaceMemberType | null>(null);
+
+  const navigate = useNavigate();
+
+  const [projectMembership, updateProjectMembership] =
+    useState<TProjectMembership | null>(null);
+
+  const workspaceId = param.workspaceId || "";
+
+  const workspaceMembershipQ = useQuery({
+    queryKey: ["workspaceMembership", workspaceId],
+    refetchIntervalInBackground: true,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    staleTime: 10000,
+    queryFn: () => getWorkspaceMemberShip(workspaceId),
+  });
+
+  const projectsQ = useQuery({
+    queryKey: ["workspace-project", workspaceId],
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    refetchIntervalInBackground: true,
+    staleTime: 10000,
+    queryFn: () => getAlProjects(workspaceId),
+  });
+
+  useEffect(() => {
+    if (
+      (!workspaceMembershipQ.isLoading && !workspaceMembershipQ.data) ||
+      workspaceMembershipQ.error
+    ) {
+      navigate(`${route.AccessRequest}/${workspaceId}`, { replace: true });
+      return;
+    }
+
+    updateWorkspaceMembership(workspaceMembershipQ.data);
+  }, [workspaceMembershipQ.data, workspaceMembershipQ.error]);
+
   const data = [
     {
       title: "Creative Assets",
@@ -89,60 +141,88 @@ const Workspace = () => {
       ],
     },
   ];
+
+  const updateProjectMembershipCallback = useCallback(
+    (projectMembership: TProjectMembership) => {
+      updateProjectMembership(projectMembership);
+    },
+    []
+  );
+
   return (
-    <div className="min-h-screen flex bg-noble-black-800">
-      <div className="">
-        <button
-          className="md:hidden fixed h-[20px] top-2 left-1  px-3 py-2 rounded shadow 
+    <div>
+      {(projectsQ.isFetching || workspaceMembershipQ.isFetching) && (
+        <LaunchPage />
+      )}
+      {workspaceMembershipQ &&
+      !workspaceMembershipQ.isFetching &&
+      !projectsQ.isFetching ? (
+        <workspaceMemberShipContext.Provider value={workspaceMembership}>
+          <projectMemberShipContext.Provider
+            value={{
+              data: projectMembership,
+              updateProject: updateProjectMembershipCallback,
+            }}
+          >
+            <div className="h-screen flex bg-noble-black-800 ">
+              <div className="">
+                <button
+                  className="md:hidden fixed h-[20px] top-2 left-1  px-3 py-2 rounded shadow 
          dark:text-noble-black-100 
           text-noble-black-800 z-50 "
-          onClick={() => setShow(!show)}
-        >
-          {show == true ? (
-            <FaTimes className="right-4 fixed" />
-          ) : (
-            <FaCaretRight />
-          )}
-        </button>
-      </div>
-      <div
-        className={`fixed lg:static z-20 h-full ${show ? "md:block" : "hidden md:block"}`}
-      >
-        {" "}
-        <SidebarNav />
-      </div>
+                  onClick={() => setShow(!show)}
+                >
+                  {show == true ? (
+                    <FaTimes className="right-4 fixed" />
+                  ) : (
+                    <FaCaretRight />
+                  )}
+                </button>
+              </div>
+              <div
+                className={`fixed lg:static z-20 h-full ${show ? "md:block" : "hidden md:block"}`}
+              >
+                {" "}
+                <SidebarNav projects={projectsQ.data} />
+              </div>
 
-      {/* Main */}
+              {/* Main */}
 
-      <main className="flex-1 w-full h-full">
-        <div className="w-full px-0 md:px-4 py-2  ">
-          <ProjectHeader activeTab={tab} onTabChange={setTab} />
-        </div>
+              <main className="flex-1 w-full h-full ">
+                <div className="w-full px-0 md:px-4 py-2  ">
+                  <ProjectHeader activeTab={tab} onTabChange={setTab} />
+                </div>
 
-        <section className=" md:px-12 flex-1  md:h-[80%]  overflow-hidden w-full">
-          <div className="glass rounded-2xl  h-full p-8 md:p-10  md:w-full">
-            <header className="text-center mb-10">
-              <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
-                Innovation Starter Pack
-              </h1>
-              <p className="text-gray-400 mt-3 text-sm">
-                Kickstart your innovation process with our comprehensive
-                selection of predefined prompts.
-              </p>
-            </header>
+                <section className=" md:px-12 flex-1 h-[54%]  md:h-[68%] overflow-auto   w-full">
+                  <div className="glass rounded-2xl h-auto p-8 md:p-10  md:w-full">
+                    <header className="text-center mb-10">
+                      <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
+                        Innovation Starter Pack
+                      </h1>
+                      <p className="text-gray-400 mt-3 text-sm">
+                        Kickstart your innovation process with our comprehensive
+                        selection of predefined prompts.
+                      </p>
+                    </header>
 
-            <div className="grid h-[50%] max-h-80 lg:max-h-96 overflow-y-scroll no-scrollbar lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
-              {data.map((cat) => (
-                <Category key={cat.title} {...cat} />
-              ))}
+                    <div className="grid h-[400px] max-h-[20%] md:max-h-96 overflow-y-scroll no-scrollbar lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
+                      {data.map((cat) => (
+                        <Category key={cat.title} {...cat} />
+                      ))}
+                    </div>
+                  </div>
+                </section>
+
+                <div className="border-red-600  w-full px-">
+                  <IntegrationManager />
+                </div>
+              </main>
             </div>
-          </div>
-        </section>
-
-        <div className="border-red-600  w-full px-">
-          <IntegrationManager />
-        </div>
-      </main>
+          </projectMemberShipContext.Provider>
+        </workspaceMemberShipContext.Provider>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

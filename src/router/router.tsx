@@ -39,16 +39,7 @@ const router = createBrowserRouter([
     path: route.workspace,
     element: withSuspense(
       <ProtectedRoute>
-        <WorkspaceHome />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/new",
-    element: withSuspense(
-      <ProtectedRoute>
-        {" "}
-        <NewWorkspace />{" "}
+        <NewWorkspace />
       </ProtectedRoute>
     ),
   },

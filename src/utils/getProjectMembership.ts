@@ -1,3 +1,4 @@
+import type { TProjectMembership } from "../types/projectMembertype";
 import axiosInstance from "./axiosInstance";
 
 export const getProjectMembership = async (
@@ -13,7 +14,7 @@ export const getProjectMembership = async (
         workspaceMembershipId,
       },
     });
-    return response.data;
+    return response.data as TProjectMembership & { message: string };
   } catch (error) {
     console.error("Error fetching project membership:", error);
     throw error;
