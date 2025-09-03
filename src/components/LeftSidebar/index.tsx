@@ -10,9 +10,9 @@ const LeftSidebar: React.FC = () => {
     <>
       {/* Mobile Sidebar Toggle */}
       <button
-        className="md:hidden top-0 left-4  px-3 py-2 rounded shadow 
+        className="md:hidden fixed h-[20px] top-0 left-4  px-3 py-2 rounded shadow 
                    dark:bg-noble-black-700 dark:text-noble-black-100 
-                   bg-white text-noble-black-800 z-50 "
+                   bg-noble-black-800 text-noble-black-800 z-50 "
         onClick={() => setMobileSidebarOpen(true)}
       >
         ☰
@@ -38,13 +38,15 @@ const LeftSidebar: React.FC = () => {
               </button>
             </div>
             {/* Add your mobile content if needed */}
+
+            <div className="text-white">Hi</div>
           </div>
         </>
       )}
 
       {/* Desktop Sidebar */}
       <aside
-        className="hidden md:flex  w-72  flex-col min-h-screen justify-between p-6 border-r font-plus 
+        className="hidden md:flex w-72 flex-col min-h-screen justify-between p-6 border-r font-plus 
                        dark:bg-noble-black-800 dark:text-noble-black-100 dark:border-noble-black-600 
                        bg-white text-noble-black-800 border-gray-200"
       >

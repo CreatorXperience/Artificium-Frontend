@@ -228,6 +228,15 @@ html {
   }
 }
 
+
+
+/* custom slow spin */
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 3s linear infinite;
+  }
+}
+
 .animate-spin {
   animation: spin 1s linear infinite;
 }

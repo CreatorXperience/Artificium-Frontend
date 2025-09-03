@@ -10,7 +10,7 @@ export const getAlProjects = async (workspaceId: string) => {
   } catch (error: any) {
     console.error(
       "API error while fetching projects:",
-      error.response?.data || error.message
+      error?.response?.data || error.message
     );
     throw error;
   }

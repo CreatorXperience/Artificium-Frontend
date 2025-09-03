@@ -12,6 +12,7 @@ export interface User {
 export interface UserContextType {
   user: User;
   isLoading: boolean;
+  isError: boolean;
   setUser: React.Dispatch<React.SetStateAction<User>>;
   updateUser: (newData: Partial<User>) => void;
 }
