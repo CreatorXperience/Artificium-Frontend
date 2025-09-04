@@ -27,7 +27,6 @@ const WorkspacePreviewPage = lazy(
 // Loader component
 // Remove the Loader component definition and import Loader from the new file
 import { Loader } from "../components/Loader/Loader.tsx";
-const WorkspaceHome = lazy(() => import("../pages/WorkspaceHome/index.tsx"));
 
 const withSuspense = (element: JSX.Element) => (
   <Suspense fallback={<Loader />}>{element}</Suspense>
@@ -96,14 +95,7 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  {
-    path: "/workspace-home/:workspaceId/:projectId?",
-    element: withSuspense(
-      <ProtectedRoute>
-        <WorkspaceHome />,
-      </ProtectedRoute>
-    ),
-  },
+
   {
     path: route.Login,
     element: withSuspense(
