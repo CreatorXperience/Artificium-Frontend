@@ -149,6 +149,18 @@ const Workspace = () => {
     []
   );
 
+  useEffect(() => {
+    const fire = (e: any) => {
+      setShow(false);
+    };
+
+    document.body.addEventListener("click", fire);
+
+    return () => {
+      document.body.removeEventListener("click", fire);
+    };
+  }, []);
+
   return (
     <div>
       {(projectsQ.isFetching || workspaceMembershipQ.isFetching) && (
@@ -165,22 +177,25 @@ const Workspace = () => {
             }}
           >
             <div className="h-screen flex bg-noble-black-800 ">
+              <div className="border-red-600 lg:ml-[20%] lg:w-[80%] px-2 w-full fixed bottom-5">
+                <IntegrationManager />
+              </div>
+
               <div className="">
                 <button
-                  className="md:hidden fixed h-[20px] top-2 left-1  px-3 py-2 rounded shadow 
+                  className="lg:hidden fixed h-[20px] top-2 left-1  px-3 py-2 rounded shadow 
          dark:text-noble-black-100 
           text-noble-black-800 z-50 "
-                  onClick={() => setShow(!show)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShow(!show);
+                  }}
                 >
-                  {show == true ? (
-                    <FaTimes className="right-4 fixed" />
-                  ) : (
-                    <FaCaretRight />
-                  )}
+                  {show == false && <FaCaretRight />}
                 </button>
               </div>
               <div
-                className={`fixed lg:static z-20 h-full ${show ? "md:block" : "hidden md:block"}`}
+                className={`fixed lg:static z-20 lg:w-[20%] h-full ${show ? "lg:block" : "hidden lg:block"}`}
               >
                 {" "}
                 <SidebarNav projects={projectsQ.data} />
@@ -193,7 +208,7 @@ const Workspace = () => {
                   <ProjectHeader activeTab={tab} onTabChange={setTab} />
                 </div>
 
-                <section className=" md:px-12 flex-1 h-[54%]  md:h-[68%] overflow-auto   w-full">
+                <section className=" md:px-12  flex-1 h-[54%]  md:h-[68%] overflow-auto   w-full ">
                   <div className="glass rounded-2xl h-auto p-8 md:p-10  md:w-full">
                     <header className="text-center mb-10">
                       <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
@@ -205,17 +220,13 @@ const Workspace = () => {
                       </p>
                     </header>
 
-                    <div className="grid h-[400px] max-h-[20%] md:max-h-96 overflow-y-scroll no-scrollbar lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
+                    <div className="grid h-[400px] max-h-[400px] min-h-[200px] md:max-h-96 overflow-y-scroll no-scrollbar lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
                       {data.map((cat) => (
                         <Category key={cat.title} {...cat} />
                       ))}
                     </div>
                   </div>
                 </section>
-
-                <div className="border-red-600  w-full px-">
-                  <IntegrationManager />
-                </div>
               </main>
             </div>
           </projectMemberShipContext.Provider>

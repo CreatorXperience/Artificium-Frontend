@@ -163,7 +163,7 @@ export default function SidebarNav({ projects }: TProjects) {
         md:my-4 
         text-gray-200
         border border-black/10
-      md:w-[360px]
+      md:w-[100%]
         md:h-[calc(100vh-2rem)]
         h-full
         flex flex-col
