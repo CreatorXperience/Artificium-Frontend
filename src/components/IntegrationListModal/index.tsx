@@ -18,7 +18,7 @@ export default function IntegrationListModal({
 }: IntegrationListPanelProps) {
   return (
     <div
-      className={`bg-noble-black-700 rounded-lg border border-noble-black-600 text-noble-black-100 overflow-y-auto custom-scrollbar ${className}`}
+      className={`bg-noble-black-700 rounded-lg border border-noble-black-600 text-noble-black-100 overflow-y-auto custom-scrollbar ${className} z-[10]`}
     >
       <div className='p-4'>
         {integrationGroups.map((group, i) => (
@@ -56,3 +56,6 @@ export default function IntegrationListModal({
     </div>
   );
 }
+
+
+

@@ -92,81 +92,85 @@ type TTAB = {
 
 /** Tab button */
 const Tab = ({ active, icon, label, onClick }: TTAB) => (
-  <button
-    onClick={onClick}
-    className={[
-      "relative flex w-[100px] items-center gap-2 px-4 py-3 rounded-lg transition",
-      active ? "text-white" : "text-gray-400 hover:text-gray-200",
-    ].join(" ")}
-  >
-    <span
+  <div className=''>
+    <button
+      onClick={onClick}
       className={[
-        "inline-flex h-7 w-7 rounded-lg items-center justify-center",
+        'flex w-full items-center gap-2 px-4 py-3 rounded-lg transition',
         active
-          ? "text-[#b7ffb7] bg-[#a9f7a91a] shadow-[0_0_16px_#86efac33]"
-          : "text-gray-400 bg-white/[0.04]",
-      ].join(" ")}
+          ? 'text-white border-b-4 border-b-[#b7ffb7] rounded-b-sm'
+          : 'text-gray-400 hover:text-gray-200',
+      ].join(' ')}
     >
-      {icon}
-    </span>
-    <span className="text-[15px] font-medium">{label}</span>
+      <span
+        className={[
+          'inline-flex h-7 w-7 rounded-lg items-center justify-center',
+          active
+            ? 'text-[#b7ffb7] bg-[#a9f7a91a] shadow-[0_0_16px_#86efac33]'
+            : 'text-gray-400 bg-white/[0.04]',
+        ].join(' ')}
+      >
+        {icon}
+      </span>
+      <span className='text-[15px] font-medium'>{label}</span>
 
-    {/* active underline */}
-    {active && (
-      <span className="absolute -bottom-2 left-0 h-1 w-[120%] rounded-full bg-[#b7ffb7]" />
-    )}
-  </button>
+      {/* active underline */}
+      {/* {active && (
+        <span className='absolute -bottom-2 left-0 h-1 w-[120%] rounded-full bg-[#b7ffb7]' />
+      )} */}
+    </button>
+  </div>
 );
 
 export default function ProjectHeader({
-  title = "Orbital Oddysey",
-  subtitle = "Marketing Campaign for a new TV Series Launch",
+  title = 'Orbital Oddysey',
+  subtitle = 'Marketing Campaign for a new TV Series Launch',
   members = [
-    "https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=200&auto=format&fit=crop",
+    'https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=200&auto=format&fit=crop',
   ],
   extraCount = 4,
-  activeTab = "artificium",
+  activeTab = 'artificium',
   onTabChange = (t: string) => {},
 }) {
   const tabs = [
-    { key: "artificium", label: "Artificium", icon: <IconA /> },
-    { key: "chat", label: "Chat", icon: <IconChat /> },
-    { key: "library", label: "Library", icon: <IconFolder /> },
+    { key: 'artificium', label: 'Artificium', icon: <IconA /> },
+    { key: 'chat', label: 'Chat', icon: <IconChat /> },
+    { key: 'library', label: 'Library', icon: <IconFolder /> },
   ];
 
   return (
-    <div className="rounded-3xl h-auto border border-white/5 bg-[#121415] shadow-[0_16px_60px_rgba(0,0,0,0.5)] overflow-hidden w-full md:w-full ">
+    <div className='rounded-3xl h-auto border border-white/5 bg-[#121415] shadow-[0_16px_60px_rgba(0,0,0,0.5)] overflow-hidden w-full md:w-full '>
       {/* Top row */}
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between px-5 sm:px-6 md:px-8 pt-6">
-        <div className="min-w-0">
-          <h1 className="text-2xl sm:text-3xl md:text-[32px] font-semibold tracking-tight text-white">
+      <div className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between px-5 sm:px-6 md:px-8 pt-6'>
+        <div className='min-w-0'>
+          <h1 className='text-2xl sm:text-3xl md:text-[32px] font-semibold tracking-tight text-white'>
             {title}
           </h1>
-          <p className="text-gray-400 mt-1 text-sm sm:text-base">{subtitle}</p>
+          <p className='text-gray-400 mt-1 text-sm sm:text-base'>{subtitle}</p>
         </div>
 
-        <div className="flex items-center gap-3 md:gap-4">
+        <div className='flex items-center gap-3 md:gap-4'>
           <AvatarGroup urls={members} extra={extraCount} />
-          <button className="hidden sm:flex items-center gap-2 rounded-xl px-3 py-2 text-gray-300 bg-white/[0.04] hover:bg-white/[0.06] border border-white/10">
+          <button className='hidden sm:flex items-center gap-2 rounded-xl px-3 py-2 text-gray-300 bg-white/[0.04] hover:bg-white/[0.06] border border-white/10'>
             <IconShare />
-            <span className="text-sm">Share</span>
+            <span className='text-sm'>Share</span>
           </button>
-          <button className="grid place-items-center h-10 w-10 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] border border-white/10">
+          <button className='grid place-items-center h-10 w-10 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] border border-white/10'>
             <IconPencil />
           </button>
         </div>
       </div>
 
       {/* Divider */}
-      <div className="mt-5 border-t border-white/5" />
+      <div className='mt-5 border-t border-white/5' />
 
       {/* Tabs */}
-      <div className="relative px-3 sm:px-4 md:px-6">
-        <div className="flex items-center gap-1 sm:gap-2 py-3 sm:py-4 md:py-5  no-scrollbar overflow-auto">
+      <div className='px-3 sm:px-4 md:px-6'>
+        <div className='flex items-center gap-1 sm:gap-2 py-3 sm:py-4 md:py-5  no-scrollbar overflow-auto'>
           {tabs.map((t) => (
             <Tab
               key={t.key}
@@ -181,3 +185,5 @@ export default function ProjectHeader({
     </div>
   );
 }
+
+//

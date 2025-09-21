@@ -158,7 +158,7 @@ export default function SidebarNav({ projects }: TProjects) {
 
   return (
     <aside
-      className="
+      className='
         bg-[#141618] md:bg-noble-black-800
         md:my-4 
         text-gray-200
@@ -167,45 +167,45 @@ export default function SidebarNav({ projects }: TProjects) {
         md:h-[calc(100vh-2rem)]
         h-full
         flex flex-col
-        overflow-hidden
-        shadow-[0_20px_60px_rgba(0,0,0,0.6)]
-      "
+        overflow-auto no-scrollbar
+        shadow-[0_20px_60px_rgba(0,0,0,0.6)] pb-13
+      '
     >
       {/* Header */}
-      <div className="px-4 pt-4 pb-3">
-        <div className="flex items-center">
-          <div className="h-10 w-10 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+      <div className='px-4 pt-4 pb-3'>
+        <div className='flex items-center'>
+          <div className='h-10 w-10 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10'>
             {/* org avatar placeholder */}
-            <div className="h-full w-full bg-gradient-to-br from-cyan-400/30 via-fuchsia-400/20 to-indigo-400/20" />
+            <div className='h-full w-full bg-gradient-to-br from-cyan-400/30 via-fuchsia-400/20 to-indigo-400/20' />
           </div>
-          <div className="ml-3">
-            <div className="flex items-center gap-2">
-              <div className="text-[16px] font-semibold">Intellisys</div>
+          <div className='ml-3'>
+            <div className='flex items-center gap-2'>
+              <div className='text-[16px] font-semibold'>Intellisys</div>
               <IconChevron />
             </div>
-            <div className="text-[12px] text-emerald-400">12 members</div>
+            <div className='text-[12px] text-emerald-400'>12 members</div>
           </div>
         </div>
       </div>
 
-      <div className="mx-4 h-px bg-white/5" />
+      <div className='mx-4 h-px bg-white/5' />
 
       {/* General */}
       <SectionLabel>General</SectionLabel>
-      <div className="px-3 flex flex-col gap-1">
+      <div className='px-3 flex flex-col gap-1'>
         <Row
           icon={<IconSearch />}
-          label="Search"
+          label='Search'
           right={<KbdChip>⌘ S</KbdChip>}
         />
-        <Row icon={<IconCard />} label="Billing" />
+        <Row icon={<IconCard />} label='Billing' />
       </div>
 
-      <div className="mx-4 mt-4 h-px bg-white/5" />
+      <div className='mx-4 mt-4 h-px bg-white/5' />
 
       {/* Projects */}
       <SectionLabel>Projects</SectionLabel>
-      <div className="px-3 flex flex-col gap-3">
+      <div className='px-3 flex flex-col gap-3 z-4'>
         {projects.map((item) => (
           <ProjectRow
             color={getRandomColor()}
@@ -215,46 +215,46 @@ export default function SidebarNav({ projects }: TProjects) {
           />
         ))}
 
-        <ProjectRow color="#ff5a52" label="Digital Product Launch" />
-        <ProjectRow color="#ff9d3b" label="Brand Refresh" />
-        <ProjectRow color="#6fe3ff" label="Social Media Strategy" />
-        <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-left text-gray-300 hover:bg-white/[0.04]">
-          <span className="text-gray-300">
+        <ProjectRow color='#ff5a52' label='Digital Product Launch' />
+        <ProjectRow color='#ff9d3b' label='Brand Refresh' />
+        <ProjectRow color='#6fe3ff' label='Social Media Strategy' />
+        <button className='flex items-center gap-3 rounded-xl px-4 py-3 text-left text-gray-300 hover:bg-white/[0.04]'>
+          <span className='text-gray-300'>
             <IconPlus />
           </span>
-          <span className="text-[15px]">Add new project</span>
+          <span className='text-[15px]'>Add new project</span>
         </button>
       </div>
 
       {/* Spacer */}
-      <div className="flex-1" />
+      <div className='flex-1' />
 
       {/* Profile card */}
-      <div className="p-3">
+      <div className='p-3'>
         <div
-          className="
-            relative rounded-2xl border border-white/[0.06]
-            bg-gradient-to-b from-white/[0.06] to-white/[0.02]
+          className='
+            fixed bottom-5 w-[18%] z-10 rounded-2xl border border-white/[0.06]
+            bg-black
             shadow-[0_8px_30px_rgba(0,0,0,0.55)]
             px-3 py-3
-            flex items-center justify-between
-          "
+            flex items-center justify-between 
+          '
         >
-          <div className="flex items-center gap-3">
-            <div className="relative">
+          <div className='flex items-center gap-3'>
+            <div className='relative'>
               <img
-                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&auto=format&fit=crop"
-                alt="avatar"
-                className="h-11 w-11 rounded-xl object-cover ring-1 ring-white/10"
+                src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&auto=format&fit=crop'
+                alt='avatar'
+                className='h-11 w-11 rounded-xl object-cover ring-1 ring-white/10'
               />
-              <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full bg-emerald-400 ring-2 ring-[#141618]" />
+              <span className='absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full bg-emerald-400 ring-2 ring-[#141618]' />
             </div>
             <div>
-              <div className="text-[15px] font-semibold">Ryan Lee</div>
-              <div className="text-[12px] text-emerald-400">Premium</div>
+              <div className='text-[15px] font-semibold'>Ryan Lee</div>
+              <div className='text-[12px] text-emerald-400'>Premium</div>
             </div>
           </div>
-          <button className="rounded-lg p-2 text-gray-300 hover:bg-white/[0.06]">
+          <button className='rounded-lg p-2 text-gray-300 hover:bg-white/[0.06]'>
             <IconGear />
           </button>
         </div>

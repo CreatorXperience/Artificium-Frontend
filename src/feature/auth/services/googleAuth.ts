@@ -5,7 +5,7 @@ import { useUser } from "../../../hooks/useUser";
 
 const GOOGLE_USER_INFO_URL = import.meta.env.VITE_GOOGLE_USER_INFO_URL || "";
 const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://artificium-v2.onrender.com";
+  import.meta.env.VITE_API_BASE_URL || 'https://artificium-main.onrender.com';
 
 export const useGoogleAuth = () => {
   const navigate = useNavigate();

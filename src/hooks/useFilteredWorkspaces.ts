@@ -2,11 +2,7 @@ import type { FilterParam } from '../constants/sidebar';
 import type { Workspace } from '../types/workspaces';
 
 interface FilteredWorkspacesProp {
-  allWorkspaces: {
-    personalWorkspaces: Workspace[];
-    otherPublicWorkspace: Workspace[];
-    workspaceAmIn: Workspace[];
-  };
+  allWorkspaces: Workspace[];
   filter: FilterParam;
   searchTerm: string;
 }
@@ -19,40 +15,9 @@ function useFilteredWorkspaces({
   let currentWorkspacesView: Workspace[] = [];
 
   switch (filter) {
-    case 'explore':
-      currentWorkspacesView = [...allWorkspaces.otherPublicWorkspace];
-      break;
-
-    case 'personal':
-      currentWorkspacesView = [
-        ...allWorkspaces.personalWorkspaces,
-        ...allWorkspaces.workspaceAmIn,
-      ];
-      break;
-
-    case 'public':
-      currentWorkspacesView = [
-        ...allWorkspaces.personalWorkspaces.filter((ws) => ws.visibility),
-        ...allWorkspaces.workspaceAmIn.filter((ws) => ws.visibility),
-      ];
-      break;
-
-    case 'private':
-      currentWorkspacesView = [
-        ...allWorkspaces.personalWorkspaces.filter((ws) => !ws.visibility),
-        ...allWorkspaces.workspaceAmIn.filter((ws) => !ws.visibility),
-      ];
-      break;
-
     case 'business':
       currentWorkspacesView = [
-        ...allWorkspaces.otherPublicWorkspace.filter(
-          (ws) => ws.category.toLowerCase() === 'business',
-        ),
-        ...allWorkspaces.personalWorkspaces.filter(
-          (ws) => ws.category.toLowerCase() === 'business',
-        ),
-        ...allWorkspaces.workspaceAmIn.filter(
+        ...allWorkspaces.filter(
           (ws) => ws.category.toLowerCase() === 'business',
         ),
       ];
@@ -60,13 +25,7 @@ function useFilteredWorkspaces({
 
     case 'development':
       currentWorkspacesView = [
-        ...allWorkspaces.otherPublicWorkspace.filter(
-          (ws) => ws.category.toLowerCase() === 'development',
-        ),
-        ...allWorkspaces.personalWorkspaces.filter(
-          (ws) => ws.category.toLowerCase() === 'development',
-        ),
-        ...allWorkspaces.workspaceAmIn.filter(
+        ...allWorkspaces.filter(
           (ws) => ws.category.toLowerCase() === 'development',
         ),
       ];
@@ -74,34 +33,20 @@ function useFilteredWorkspaces({
 
     case 'design':
       currentWorkspacesView = [
-        ...allWorkspaces.otherPublicWorkspace.filter(
-          (ws) => ws.category.toLowerCase() === 'design',
-        ),
-        ...allWorkspaces.personalWorkspaces.filter(
-          (ws) => ws.category.toLowerCase() === 'design',
-        ),
-        ...allWorkspaces.workspaceAmIn.filter(
-          (ws) => ws.category.toLowerCase() === 'design',
-        ),
+        ...allWorkspaces.filter((ws) => ws.category.toLowerCase() === 'design'),
       ];
       break;
 
     case 'education':
       currentWorkspacesView = [
-        ...allWorkspaces.otherPublicWorkspace.filter(
-          (ws) => ws.category.toLowerCase() === 'education',
-        ),
-        ...allWorkspaces.personalWorkspaces.filter(
-          (ws) => ws.category.toLowerCase() === 'education',
-        ),
-        ...allWorkspaces.workspaceAmIn.filter(
+        ...allWorkspaces.filter(
           (ws) => ws.category.toLowerCase() === 'education',
         ),
       ];
       break;
 
     default:
-      currentWorkspacesView = [];
+      currentWorkspacesView = [...allWorkspaces];
       break;
   }
 

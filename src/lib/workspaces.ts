@@ -1,12 +1,23 @@
 import type {
+  EPage,
   GetAllWorkspacesResponse,
   GetWorkspaceAllMembersResponse,
   GetWorkspaceResponse,
 } from '../types/workspaces';
 import axiosInstance from '../utils/axiosInstance';
 
-export async function getAllWorkspaces(): Promise<GetAllWorkspacesResponse> {
-  const res = await axiosInstance.get('/workspace/all');
+export async function getAllWorkspaces({
+  take,
+  skip,
+  page,
+}: {
+  take: number;
+  skip: number;
+  page: EPage;
+}): Promise<GetAllWorkspacesResponse> {
+  const res = await axiosInstance.get(
+    `/workspace/all?take=${take}&skip=${skip}&page=${page}`,
+  );
   return res.data;
 }
 
