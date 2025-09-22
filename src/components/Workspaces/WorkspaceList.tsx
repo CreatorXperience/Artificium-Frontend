@@ -12,6 +12,7 @@ import type { FilterParam } from '../../constants/sidebar';
 import useFilteredWorkspaces from '../../hooks/useFilteredWorkspaces';
 import toast from 'react-hot-toast';
 import CreateWorkspaceModal from '../../pages/Workspace/CreateWorkspaceModal';
+import { filterToPage } from '../../constants/filterToPage';
 
 const WorkspaceList = ({
   filter,
@@ -25,49 +26,52 @@ const WorkspaceList = ({
   searchTerm: string;
 }) => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const take: number = 6;
+  const skip: number = (currentPage - 1) * take;
 
   const {
     isGettingWorkspacesLoading,
+    isGettingWorkspacesFetching,
     isGettingWorkspacesError,
     allWorkspaces,
-  } = useGetAllWorkspaces();
+  } = useGetAllWorkspaces({
+    take,
+    skip,
+    page: filterToPage[filter],
+    currentPage,
+  });
 
   const finalWorkspacesView = useFilteredWorkspaces({
-    allWorkspaces: allWorkspaces?.data ?? {
-      personalWorkspaces: [],
-      otherPublicWorkspace: [],
-      workspaceAmIn: [],
-    },
+    allWorkspaces: allWorkspaces?.workspaces ?? [],
     filter,
     searchTerm,
   });
 
-
   // 🔹 handle workspace click (private/public/member check)
-  const handleWorkspaceClick = (workspace: any) => {
-    try {
-      const isMember = workspace.members.includes(id);
+  // const handleWorkspaceClick = (workspace: any) => {
+  //   try {
+  //     const isMember = workspace.members.includes(id);
 
-      if (isMember) {
-        navigate(`/workspace/${workspace.id}`);
-        return;
-      }
+  //     if (isMember) {
+  //       navigate(`/workspace/${workspace.id}`);
+  //       return;
+  //     }
 
-      if (workspace.visibility === false) {
-        navigate(`/access-request/${workspace.id}`);
-        return;
-      }
+  //     if (workspace.visibility === false) {
+  //       navigate(`/access-request/${workspace.id}`);
+  //       return;
+  //     }
 
-      if (workspace.visibility === true) {
-        navigate(`/workSpacePreview/${workspace.id}`, { replace: true });
-      }
-    } catch (error: any) {
-      const message =
-        error?.response?.data?.message || "Could not open workspace";
-      toast.error(message);
-    }
-  };
-
+  //     if (workspace.visibility === true) {
+  //       navigate(`/workSpacePreview/${workspace.id}`, { replace: true });
+  //     }
+  //   } catch (error: any) {
+  //     const message =
+  //       error?.response?.data?.message || "Could not open workspace";
+  //     toast.error(message);
+  //   }
+  // };
 
   if (isGettingWorkspacesError) {
     toast.error(isGettingWorkspacesError.message);
@@ -144,8 +148,17 @@ const WorkspaceList = ({
       </div>
       {/* Modal for creating workspace */}
       <div className='flex flex-col-reverse lg:flex-row justify-between items-center mb-10'>
-        <FooterSummary />
-        <Pagination />
+        <FooterSummary
+          currentCount={take}
+          currentPage={currentPage}
+          totalPages={Math.ceil(allWorkspaces.total) ?? 1}
+        />
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          totalPages={Math.ceil(allWorkspaces.total) ?? 1}
+          isFetching={isGettingWorkspacesFetching}
+        />
       </div>
 
       {showCreateWorkspaceModal && (

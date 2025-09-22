@@ -162,7 +162,7 @@ const Workspace = () => {
   }, []);
 
   return (
-    <div>
+    <div className='h-screen overflow-y-hidden'>
       {(projectsQ.isFetching || workspaceMembershipQ.isFetching) && (
         <LaunchPage />
       )}
@@ -176,16 +176,16 @@ const Workspace = () => {
               updateProject: updateProjectMembershipCallback,
             }}
           >
-            <div className="h-screen flex bg-noble-black-800 ">
-              <div className="border-red-600 lg:ml-[20%] lg:w-[80%] px-2 w-full fixed bottom-5">
+            <div className='h-screen flex bg-noble-black-800'>
+              <div className='border-red-600 lg:ml-[20%] lg:w-[80%] px-2 w-full fixed bottom-5'>
                 <IntegrationManager />
               </div>
 
-              <div className="">
+              <div className=''>
                 <button
-                  className="lg:hidden fixed h-[20px] top-2 left-1  px-3 py-2 rounded shadow 
+                  className='lg:hidden fixed h-[20px] top-2 left-1  px-3 py-2 rounded shadow 
          dark:text-noble-black-100 
-          text-noble-black-800 z-50 "
+          text-noble-black-800 z-50 '
                   onClick={(e) => {
                     e.stopPropagation();
                     setShow(!show);
@@ -195,32 +195,32 @@ const Workspace = () => {
                 </button>
               </div>
               <div
-                className={`fixed lg:static z-20 lg:w-[20%] h-full ${show ? "lg:block" : "hidden lg:block"}`}
+                className={`fixed lg:static z-20 lg:w-[20%] h-full ${show ? 'lg:block' : 'hidden lg:block'}`}
               >
-                {" "}
+                {' '}
                 <SidebarNav projects={projectsQ.data} />
               </div>
 
               {/* Main */}
 
-              <main className="flex-1 w-full h-full ">
-                <div className="w-full px-0 md:px-4 py-2  ">
+              <main className='flex-1 w-full h-full '>
+                <div className='w-full px-0 md:px-4 py-2  '>
                   <ProjectHeader activeTab={tab} onTabChange={setTab} />
                 </div>
 
-                <section className=" md:px-12  flex-1 h-[54%]  md:h-[68%] overflow-auto   w-full ">
-                  <div className="glass rounded-2xl h-auto p-8 md:p-10  md:w-full">
-                    <header className="text-center mb-10">
-                      <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
+                <section className=' md:px-12  flex-1 h-[54%]  md:h-[68%] overflow-auto   w-full no-scrollbar pb-13'>
+                  <div className='glass rounded-2xl h-auto p-8 md:p-10  md:w-full'>
+                    <header className='text-center mb-10'>
+                      <h1 className='text-4xl md:text-5xl font-semibold tracking-tight'>
                         Innovation Starter Pack
                       </h1>
-                      <p className="text-gray-400 mt-3 text-sm">
+                      <p className='text-gray-400 mt-3 text-sm'>
                         Kickstart your innovation process with our comprehensive
                         selection of predefined prompts.
                       </p>
                     </header>
 
-                    <div className="grid h-[400px] max-h-[400px] min-h-[200px] md:max-h-96 overflow-y-scroll no-scrollbar lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
+                    <div className='grid h-[400px] max-h-[400px] min-h-[200px] md:max-h-96 overflow-y-scroll no-scrollbar lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6'>
                       {data.map((cat) => (
                         <Category key={cat.title} {...cat} />
                       ))}
@@ -232,7 +232,7 @@ const Workspace = () => {
           </projectMemberShipContext.Provider>
         </workspaceMemberShipContext.Provider>
       ) : (
-        ""
+        ''
       )}
     </div>
   );

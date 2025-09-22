@@ -60,9 +60,11 @@ export interface WorkspaceMember {
 }
 
 export interface AllWorkspacesData {
-  personalWorkspaces: Workspace[];
-  otherPublicWorkspace: Workspace[];
-  workspaceAmIn: Workspace[];
+  // personalWorkspaces: Workspace[];
+  // otherPublicWorkspace: Workspace[];
+  // workspaceAmIn: Workspace[];
+  workspaces: Workspace[];
+  total: number;
 }
 
 export interface GetAllWorkspacesResponse {

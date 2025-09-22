@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 
 const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://artificium-v2.onrender.com";
+  import.meta.env.VITE_API_BASE_URL || 'https://artificium-main.onrender.com';
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");

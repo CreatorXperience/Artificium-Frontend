@@ -30,7 +30,7 @@ const ResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "https://artificium-v2.onrender.com";
+    import.meta.env.VITE_API_BASE_URL || 'https://artificium-main.onrender.com';
 
   const validatePassword = (): string | null => {
     if (!password || !confirmPassword) {

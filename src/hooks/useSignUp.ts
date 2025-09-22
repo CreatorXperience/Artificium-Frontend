@@ -20,7 +20,7 @@ type UserResponse = {
 
 export const useSignUp = () => {
   const BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "https://artificium-v2.onrender.com";
+    import.meta.env.VITE_API_BASE_URL || 'https://artificium-main.onrender.com';
 
   return useMutation<UserResponse, Error, SignUpFormData>({
     mutationFn: async (formData: SignUpFormData) => {

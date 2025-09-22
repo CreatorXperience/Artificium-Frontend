@@ -64,7 +64,7 @@ const Sidebar = ({ filter }: { filter: string }) => {
             })}
           </ul>
         </nav>
-        ;{/* Quick Filters */}
+        {/* Quick Filters */}
         <div className=''>
           <h4 className='text-base font-semibold text-noble-black-300 mb-2'>
             Quick Filters
@@ -85,7 +85,7 @@ const Sidebar = ({ filter }: { filter: string }) => {
             ))}
           </div>
         </div>
-        ;{/* Categories */}
+        {/* Categories */}
         <div>
           <h4 className='text-sm font-semibold text-noble-black-300 mb-2'>
             Categories
@@ -113,7 +113,6 @@ const Sidebar = ({ filter }: { filter: string }) => {
             })}
           </ul>
         </div>
-        ;;
       </aside>
     </>
   );
