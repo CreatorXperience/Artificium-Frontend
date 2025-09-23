@@ -1,8 +1,4 @@
-import {
-  keepPreviousData,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { getAllWorkspaces } from '../lib/workspaces';
 import type { EPage } from '../types/workspaces';
 
@@ -10,15 +6,11 @@ export default function useGetAllWorkspaces({
   take,
   skip,
   page,
-  currentPage,
 }: {
   take: number;
   skip: number;
   page: EPage;
-  currentPage: number;
 }) {
-  const queryClient = useQueryClient();
-
   const {
     data: allWorkspaces,
     isLoading: isGettingWorkspacesLoading,
@@ -29,24 +21,9 @@ export default function useGetAllWorkspaces({
     enabled: !!page,
     queryKey: ['workspaces', page, take, skip],
     placeholderData: keepPreviousData,
+    //Cache data
+    staleTime: 10 * 60 * 1000, // 10 minutes fresh
   });
-
-  if (
-    typeof allWorkspaces?.data?.total === 'number' &&
-    currentPage < allWorkspaces.data.total
-  ) {
-    queryClient.prefetchQuery({
-      queryFn: () => getAllWorkspaces({ take, skip: skip + take, page }),
-      queryKey: ['workspaces', page, take, skip + take],
-    });
-  }
-
-  if (currentPage > 1) {
-    queryClient.prefetchQuery({
-      queryFn: () => getAllWorkspaces({ take, skip: skip - take, page }),
-      queryKey: ['workspaces', page, take, skip - take],
-    });
-  }
 
   return {
     allWorkspaces: allWorkspaces?.data,

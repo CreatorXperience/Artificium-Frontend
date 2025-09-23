@@ -65,6 +65,7 @@ export interface AllWorkspacesData {
   // workspaceAmIn: Workspace[];
   workspaces: Workspace[];
   total: number;
+  pages: number;
 }
 
 export interface GetAllWorkspacesResponse {

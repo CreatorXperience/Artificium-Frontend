@@ -1,15 +1,18 @@
 const FooterSummary = ({
+  totalWorkspaces,
+  currentCount,
   currentPage,
   totalPages,
-  currentCount,
 }: {
   currentPage: number;
   totalPages: number;
   currentCount: number;
+  totalWorkspaces: number;
 }) => {
   return (
     <div className='text-center text-sm text-gray-500 py-2'>
-      Showing {currentCount} workspaces — Page {currentPage} of {totalPages}
+      Showing {currentCount} of {totalWorkspaces} workspaces — Page{' '}
+      {currentPage} of {totalPages}
     </div>
   );
 };

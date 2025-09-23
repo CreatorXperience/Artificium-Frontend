@@ -45,7 +45,7 @@ const Pagination = ({
     <div className='flex items-center justify-center gap-2 py-4'>
       {/* Prev */}
       <button
-        className='px-3 py-1 rounded-lg border border-gray-300 bg-noble-black-500 text-noble-black-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
+        className='px-3 py-1 rounded-lg border border-gray-300 bg-noble-black-500 text-noble-black-200 disabled:opacity-50 disabled:cursor-wait cursor-pointer'
         disabled={currentPage === 1 || isFetching}
         onClick={() => onPageChange(currentPage - 1)}
       >
@@ -76,7 +76,7 @@ const Pagination = ({
 
       {/* Next */}
       <button
-        className='px-3 py-1 rounded-lg border border-gray-300 bg-noble-black-500 text-noble-black-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
+        className='px-3 py-1 rounded-lg border border-gray-300 bg-noble-black-500 text-noble-black-200 disabled:opacity-50 disabled:cursor-wait cursor-pointer'
         disabled={currentPage === totalPages || isFetching}
         onClick={() => onPageChange(currentPage + 1)}
       >
