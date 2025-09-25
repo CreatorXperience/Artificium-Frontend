@@ -51,8 +51,9 @@ function useFilteredWorkspaces({
   }
 
   if (searchTerm.trim()) {
+    console.log(searchTerm);
     return currentWorkspacesView.filter((workspace) =>
-      workspace.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      workspace.name.toLowerCase().includes(searchTerm.trim().toLowerCase()),
     );
   }
   return currentWorkspacesView;

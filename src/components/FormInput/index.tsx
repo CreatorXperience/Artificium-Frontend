@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
-  placeholderPosition?: "left" | "center" | "right";
+  placeholderPosition?: 'left' | 'center' | 'right';
   error?: string;
 }
 
@@ -10,23 +11,29 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      type = "text",
+      type = 'text',
       placeholder,
       icon,
-      placeholderPosition = "left",
+      placeholderPosition = 'left',
       error,
       ...rest
     },
-    ref
+    ref,
   ) => {
+    const [showPassword, setShowPassword] = useState(false);
+
     const placeholderAlignClass = {
-      left: "text-left placeholder:text-left",
-      center: "text-center placeholder:text-center",
-      right: "text-right placeholder:text-right",
+      left: 'text-left placeholder:text-left',
+      center: 'text-center placeholder:text-center',
+      right: 'text-right placeholder:text-right',
     }[placeholderPosition];
 
+    // Determine input type dynamically
+    const inputType =
+      type === 'password' ? (showPassword ? 'text' : 'password') : type;
+
     return (
-      <div className="w-auto">
+      <div className='w-auto'>
         <div
           className={`
             relative p-[2px] rounded-lg
@@ -36,25 +43,36 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
             focus-within:shadow-[0_0_0_3px_#82dbf7,0_0_10px_#b6f09c]
           `}
         >
-          <div className="flex items-center gap-2 px-4 py-3 rounded-lg bg-[rgba(26,29,33,1)] border border-transparent">
-            {icon && <span className="text-noble-black-300">{icon}</span>}
+          <div className='flex items-center gap-2 px-4 py-3 rounded-lg bg-[rgba(26,29,33,1)] border border-transparent'>
+            {icon && <span className='text-noble-black-300'>{icon}</span>}
             <input
-              type={type}
+              type={inputType}
               placeholder={placeholder}
               ref={ref}
               className={`w-full bg-transparent outline-none text-stem-green-600 placeholder:text-noble-black-400 text-sm ${placeholderAlignClass}`}
               {...rest}
             />
+
+            {/* Show toggle only for password field */}
+            {type === 'password' && (
+              <button
+                type='button'
+                onClick={() => setShowPassword(!showPassword)}
+                className='ml-2 text-noble-black-300 hover:text-white transition-colors'
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            )}
           </div>
         </div>
         {error && (
-          <p className="mt-1 text-xs text-red-400 font-medium">{error}</p>
+          <p className='mt-1 text-xs text-red-400 font-medium'>{error}</p>
         )}
       </div>
     );
-  }
+  },
 );
 
-FormInput.displayName = "FormInput"; // Required when using forwardRef
+FormInput.displayName = 'FormInput'; // Required when using forwardRef
 
 export default FormInput;

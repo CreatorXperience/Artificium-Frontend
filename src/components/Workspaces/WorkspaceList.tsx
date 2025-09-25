@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { CiGrid41 } from 'react-icons/ci';
 import { PiListThin } from 'react-icons/pi';
@@ -27,7 +27,13 @@ const WorkspaceList = ({
 }) => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const take: number = 6;
+  const page = filterToPage[filter];
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [page]);
+
+  const take: number = 9;
   const skip: number = (currentPage - 1) * take;
 
   const {
@@ -38,8 +44,7 @@ const WorkspaceList = ({
   } = useGetAllWorkspaces({
     take,
     skip,
-    page: filterToPage[filter],
-    currentPage,
+    page,
   });
 
   const finalWorkspacesView = useFilteredWorkspaces({
@@ -149,14 +154,15 @@ const WorkspaceList = ({
       {/* Modal for creating workspace */}
       <div className='flex flex-col-reverse lg:flex-row justify-between items-center mb-10'>
         <FooterSummary
-          currentCount={take}
+          currentCount={finalWorkspacesView.length}
           currentPage={currentPage}
-          totalPages={Math.ceil(allWorkspaces.total) ?? 1}
+          totalPages={Math.ceil(allWorkspaces.pages) ?? 1}
+          totalWorkspaces={allWorkspaces.total}
         />
         <Pagination
           currentPage={currentPage}
           onPageChange={setCurrentPage}
-          totalPages={Math.ceil(allWorkspaces.total) ?? 1}
+          totalPages={Math.ceil(allWorkspaces.pages) ?? 1}
           isFetching={isGettingWorkspacesFetching}
         />
       </div>
